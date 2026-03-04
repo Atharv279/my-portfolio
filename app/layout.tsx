@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
-import GradientMesh from "./components/GradientMesh";
-import SecurityProvider from "./components/SecurityProvider";
+import { GradientMesh } from "./components/ui";
+import { SecurityProvider } from "./components/security";
 import "./globals.css";
 
 const inter = Inter({

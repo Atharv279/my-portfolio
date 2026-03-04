@@ -14,6 +14,7 @@
   --animate-mesh-drift-1: mesh-drift-1 22s ease-in-out infinite;
   --animate-mesh-drift-2: mesh-drift-2 26s ease-in-out infinite;
   --animate-mesh-drift-3: mesh-drift-3 30s ease-in-out infinite;
+  --animate-ticker-scroll: ticker-scroll 30s linear infinite;
 }
 
 html {
@@ -109,5 +110,15 @@ body::before {
   50% {
     transform: translate(-50%, -50%) scale(1.15);
     opacity: 1;
+  }
+}
+
+/* Infinite ticker marquee */
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
