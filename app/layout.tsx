@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
-import { GradientMesh } from "./components/ui";
+import { WebGLBackground } from "./components/canvas";
 import { SecurityProvider } from "./components/security";
 import "./globals.css";
 
@@ -32,7 +32,7 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
         <SecurityProvider>
-          <GradientMesh />
+          <WebGLBackground />
           {children}
         </SecurityProvider>
       </body>
