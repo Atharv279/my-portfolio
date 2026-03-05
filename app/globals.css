@@ -2,7 +2,7 @@
 
 :root {
   --background: #050505;
-  --foreground: #e4e4e7;
+  --foreground: #f4f4f5;
 }
 
 @theme inline {
@@ -19,6 +19,24 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(63, 63, 70, 0.5) transparent;
+}
+
+/* Global dark scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(63, 63, 70, 0.5);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(63, 63, 70, 0.8);
 }
 
 body {
@@ -110,6 +128,84 @@ body::before {
   50% {
     transform: translate(-50%, -50%) scale(1.15);
     opacity: 1;
+  }
+}
+
+/* System Map node hover animations */
+.system-map-node {
+  transition: transform 0.2s ease, filter 0.2s ease;
+  transform-origin: center;
+}
+.system-map-node:hover {
+  transform: scale(1.06);
+  filter: url(#glow-marketing); /* fallback — overridden per-node below */
+}
+.system-map-node:hover .system-map-rect {
+  stroke-opacity: 0.7;
+  fill: #ffffff18;
+}
+/* Apply matching glow filter per node accent */
+.system-map-node[style*="--node-accent: #8b5cf6"]:hover { filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.4)); }
+.system-map-node[style*="--node-accent: #06b6d4"]:hover { filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.4)); }
+.system-map-node[style*="--node-accent: #f59e0b"]:hover { filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.4)); }
+.system-map-node[style*="--node-accent: #38bdf8"]:hover { filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.4)); }
+
+/* Mobile node hover */
+.system-map-mobile-node:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.20);
+}
+
+/* Sandbox slider */
+.sandbox-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  outline: none;
+  cursor: pointer;
+}
+.sandbox-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  border: 2px solid #1e1b4b;
+  cursor: pointer;
+}
+.sandbox-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  border: 2px solid #1e1b4b;
+  cursor: pointer;
+}
+
+/* Section container entrance animation */
+@keyframes section-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.section-enter {
+  animation: section-fade-up 0.5s ease-out both;
+}
+
+/* Timeline dot pulse for current role */
+@keyframes subtle-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(139, 92, 246, 0);
   }
 }
 

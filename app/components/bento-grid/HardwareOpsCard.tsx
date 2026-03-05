@@ -3,7 +3,7 @@
 import BentoCard from "./BentoCard";
 import ExpandedSection, { DetailItem } from "./ExpandedSection";
 import { Award } from "lucide-react";
-import { getIcon } from "@/lib/icon-map";
+import { getIcon, DynamicIcon } from "@/lib/icon-map";
 import type { HardwareOpsData } from "@/lib/types";
 import { fallbackHardwareOps } from "@/lib/fallback-data";
 
@@ -20,20 +20,18 @@ export default function HardwareOpsCard({
   isExpanded,
   data = fallbackHardwareOps,
 }: HardwareOpsCardProps) {
-  const HeaderIcon = getIcon(data.headerIcon);
-
   return (
     <BentoCard
       id={id}
       index={5}
       glowColor={data.glowColor}
-      className="flex flex-col justify-between md:col-span-1 md:row-span-1"
+      className="flex flex-col justify-between md:col-span-2 md:row-span-1"
       onExpand={onExpand}
       isExpanded={isExpanded}
     >
       {/* Header */}
       <div className="flex items-center gap-2">
-        <HeaderIcon className="h-4 w-4 text-rose-400" />
+        <DynamicIcon name={data.headerIcon} className="h-4 w-4 text-rose-400" />
         <span className="font-mono text-[11px] uppercase tracking-widest text-rose-400">
           {data.headerLabel}
         </span>
@@ -41,18 +39,15 @@ export default function HardwareOpsCard({
 
       {/* Capability list */}
       <div className="mt-4 flex flex-col gap-2 md:mt-5">
-        {data.capabilities.map((item) => {
-          const ItemIcon = getIcon(item.icon);
-          return (
+        {data.capabilities.map((item) => (
             <div
               key={item.label}
               className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.04] px-2.5 py-1.5 text-[11px] text-zinc-300 md:text-xs"
             >
-              <ItemIcon className="h-3.5 w-3.5 shrink-0 text-zinc-500" />
+              <DynamicIcon name={item.icon} className="h-3.5 w-3.5 shrink-0 text-zinc-500" />
               {item.label}
             </div>
-          );
-        })}
+          ))}
       </div>
 
       {/* Certification badge */}
@@ -65,12 +60,10 @@ export default function HardwareOpsCard({
 
       {/* === EXPANDED CONTENT === */}
       {isExpanded &&
-        data.expandedSections.map((section) => {
-          const SectionIcon = getIcon(section.icon);
-          return (
+        data.expandedSections.map((section) => (
             <ExpandedSection
               key={section.title}
-              icon={SectionIcon}
+              icon={getIcon(section.icon)}
               title={section.title}
               accentColor={section.accentColor}
             >
@@ -94,8 +87,7 @@ export default function HardwareOpsCard({
                 </div>
               )}
             </ExpandedSection>
-          );
-        })}
+          ))}
 
       {/* Decorative accent */}
       <div className="pointer-events-none absolute -bottom-12 -right-12 h-40 w-40 rounded-full bg-rose-500/[0.06] blur-3xl" />

@@ -1,29 +1,34 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 
 const LazyCanvas = dynamic(() => import("./ParticleCanvas"), { ssr: false });
 
-function useDeviceCapability() {
-  const [capability, setCapability] = useState<"desktop" | "mobile" | "low">(
-    "desktop"
+type Capability = "desktop" | "mobile" | "low";
+
+/** Detect device capability once on the client. */
+function detectCapability(): Capability {
+  if (typeof window === "undefined") return "desktop";
+  const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+  const cores = navigator.hardwareConcurrency ?? 4;
+  if (cores < 4) return "low";
+  if (isCoarse) return "mobile";
+  return "desktop";
+}
+
+function useDeviceCapability(): Capability {
+  const capRef = useRef<Capability | null>(null);
+  // useSyncExternalStore with getServerSnapshot returns "desktop" on SSR,
+  // then on the client we detect once and cache via ref.
+  return useSyncExternalStore(
+    () => () => {},
+    () => {
+      if (!capRef.current) capRef.current = detectCapability();
+      return capRef.current;
+    },
+    () => "desktop" as Capability
   );
-
-  useEffect(() => {
-    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
-    const cores = navigator.hardwareConcurrency ?? 4;
-
-    if (cores < 4) {
-      setCapability("low");
-    } else if (isCoarse) {
-      setCapability("mobile");
-    } else {
-      setCapability("desktop");
-    }
-  }, []);
-
-  return capability;
 }
 
 export default function WebGLBackground() {
@@ -42,7 +47,7 @@ export default function WebGLBackground() {
     );
   }
 
-  const particleCount = capability === "mobile" ? 60 : 150;
+  const particleCount = capability === "mobile" ? 40 : 90;
 
   return (
     <div

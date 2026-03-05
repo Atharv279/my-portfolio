@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import BentoCard from "./BentoCard";
 import ExpandedSection from "./ExpandedSection";
 import { TrendingUp, Layers } from "lucide-react";
-import { getIcon } from "@/lib/icon-map";
+import { DynamicIcon } from "@/lib/icon-map";
 import type { TechStackData } from "@/lib/types";
 import { fallbackTechStack } from "@/lib/fallback-data";
 
@@ -47,9 +47,7 @@ export default function TechStackCard({
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2 md:mt-5">
-        {data.trending.map((tech, i) => {
-          const Icon = getIcon(tech.icon);
-          return (
+        {data.trending.map((tech, i) => (
             <motion.div
               key={tech.name}
               custom={i}
@@ -58,11 +56,10 @@ export default function TechStackCard({
               variants={pillVariants}
               className="flex items-center gap-1.5 rounded-lg border border-white/[0.06] bg-white/[0.04] px-2.5 py-1.5 text-[11px] text-zinc-300 md:text-xs"
             >
-              <Icon className="h-3 w-3 shrink-0 text-zinc-500" />
+              <DynamicIcon name={tech.icon} className="h-3 w-3 shrink-0 text-zinc-500" />
               <span>{tech.name}</span>
             </motion.div>
-          );
-        })}
+          ))}
       </div>
 
       {/* === EXPANDED CONTENT === */}
@@ -73,16 +70,14 @@ export default function TechStackCard({
           accentColor="text-amber-400"
         >
           <div className="flex flex-col gap-4">
-            {data.arsenal.map((category) => {
-              const CategoryIcon = getIcon(category.icon);
-              return (
+            {data.arsenal.map((category) => (
                 <div key={category.title}>
                   <div className="mb-2 flex items-center gap-2">
-                    <CategoryIcon className="h-3.5 w-3.5 text-zinc-400" />
+                    <DynamicIcon name={category.icon} className="h-3.5 w-3.5 text-zinc-400" />
                     <span className="text-xs font-medium text-zinc-200">
                       {category.title}
                     </span>
-                    <span className="text-[11px] text-zinc-600">
+                    <span className="text-[11px] text-zinc-500">
                       &mdash; {category.subtitle}
                     </span>
                   </div>
@@ -97,13 +92,12 @@ export default function TechStackCard({
                     ))}
                   </div>
                   {category.footnote && (
-                    <p className="mt-1.5 text-[11px] text-zinc-600">
+                    <p className="mt-1.5 text-[11px] text-zinc-500">
                       {category.footnote}
                     </p>
                   )}
                 </div>
-              );
-            })}
+              ))}
           </div>
         </ExpandedSection>
       )}

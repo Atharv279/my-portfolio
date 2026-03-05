@@ -3,7 +3,7 @@
 import BentoCard from "./BentoCard";
 import ExpandedSection, { DetailItem } from "./ExpandedSection";
 import { ExternalLink } from "lucide-react";
-import { getIcon } from "@/lib/icon-map";
+import { getIcon, DynamicIcon } from "@/lib/icon-map";
 import type { Project } from "@/lib/types";
 import { fallbackTalentProject } from "@/lib/fallback-data";
 
@@ -54,18 +54,15 @@ export default function ProjectTalentCard({
       {/* Tags + CTA row */}
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between md:mt-5">
         <div className="flex flex-wrap gap-1.5 md:gap-2">
-          {data.tags.map((tag) => {
-            const TagIcon = getIcon(tag.icon);
-            return (
+          {data.tags.map((tag) => (
               <div
                 key={tag.label}
                 className="flex items-center gap-1.5 rounded-md border border-white/[0.06] bg-white/[0.04] px-2 py-1 text-[11px] text-zinc-400 md:px-2.5 md:text-xs"
               >
-                <TagIcon className="h-3 w-3 text-zinc-500" />
+                <DynamicIcon name={tag.icon} className="h-3 w-3 text-zinc-500" />
                 {tag.label}
               </div>
-            );
-          })}
+            ))}
         </div>
 
         {data.sourceUrl && (
@@ -84,12 +81,10 @@ export default function ProjectTalentCard({
 
       {/* === EXPANDED CONTENT === */}
       {isExpanded &&
-        data.expandedSections.map((section) => {
-          const SectionIcon = getIcon(section.icon);
-          return (
+        data.expandedSections.map((section) => (
             <ExpandedSection
               key={section.title}
-              icon={SectionIcon}
+              icon={getIcon(section.icon)}
               title={section.title}
               accentColor={section.accentColor}
             >
@@ -118,8 +113,7 @@ export default function ProjectTalentCard({
                 </div>
               )}
             </ExpandedSection>
-          );
-        })}
+          ))}
 
       {/* Decorative accent */}
       <div className="pointer-events-none absolute -bottom-16 -right-16 h-48 w-48 rounded-full bg-sky-500/[0.06] blur-3xl" />

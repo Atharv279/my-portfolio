@@ -9,6 +9,45 @@ import type {
 } from "./types";
 
 // =============================================================================
+// Radar preset data for CyberThreatRadar visualizer
+// =============================================================================
+
+export interface RadarAxis {
+  label: string;
+  value: number; // 0–1
+}
+
+export interface RadarPreset {
+  axes: RadarAxis[];
+  accentColor: string;
+}
+
+export const radarPresets: Record<string, RadarPreset> = {
+  "network-security": {
+    axes: [
+      { label: "Network Telemetry", value: 0.92 },
+      { label: "Threat Intel Feeds", value: 0.85 },
+      { label: "Firewall Audit", value: 0.88 },
+      { label: "Anomaly Detection", value: 0.70 },
+      { label: "SNMP Coverage", value: 0.95 },
+      { label: "Log Analysis", value: 0.65 },
+    ],
+    accentColor: "rgba(6, 182, 212, %OPACITY%)", // cyan
+  },
+  "full-stack": {
+    axes: [
+      { label: "AI/ML Pipelines", value: 0.90 },
+      { label: "RAG Systems", value: 0.88 },
+      { label: "Backend APIs", value: 0.85 },
+      { label: "Networking", value: 0.92 },
+      { label: "Local Inference", value: 0.95 },
+      { label: "Automation", value: 0.82 },
+    ],
+    accentColor: "rgba(139, 92, 246, %OPACITY%)", // violet
+  },
+};
+
+// =============================================================================
 // Static fallback data extracted from hardcoded component content.
 // Used when Sanity is unreachable or during local development without CMS.
 // =============================================================================
@@ -90,6 +129,16 @@ export const fallbackExperiences: Experience[] = [
     description:
       "Developed Proof-of-Concept solutions integrating ML models and data pipelines. Applied data preprocessing, feature engineering, and model evaluation techniques to real-world business datasets for client consulting engagements.",
     sortOrder: 2,
+  },
+  {
+    _id: "fallback-exp-4",
+    _type: "experience",
+    company: "sukamsys",
+    role: "Intern",
+    period: "Aug 2023 \u2013 Mar 2024",
+    description:
+      "Early career internship focused on systems engineering fundamentals. Gained hands-on experience with enterprise software workflows, contributing to internal tooling and infrastructure support during final-year studies.",
+    sortOrder: 3,
   },
 ];
 

@@ -101,6 +101,7 @@ export default function BentoCard({
 
   return (
     <motion.div
+      id={id}
       ref={cardRef}
       layoutId={id}
       custom={index}
@@ -116,7 +117,7 @@ export default function BentoCard({
         transformPerspective: 800,
         "--glow-color": glowColor,
       } as React.CSSProperties}
-      className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 md:p-6 backdrop-blur-sm transition-colors duration-300 hover:border-white/[0.15] ${className}`}
+      className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-white/[0.12] bg-white/[0.05] p-5 md:p-6 backdrop-blur-sm transition-all duration-300 hover:border-white/[0.18] hover:shadow-lg hover:shadow-black/20 ${className}`}
     >
       {/* Cursor-tracking flashlight glow */}
       <motion.div
@@ -133,7 +134,7 @@ export default function BentoCard({
       />
 
       {/* Inner gradient for depth */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-white/[0.04] via-transparent to-transparent" />
+      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-white/[0.06] via-transparent to-transparent" />
 
       <div className="relative z-10">{children}</div>
     </motion.div>

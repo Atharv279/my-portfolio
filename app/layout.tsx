@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { WebGLBackground } from "./components/canvas";
 import { SecurityProvider } from "./components/security";
+import { ChatWidget } from "./components/ai";
+import RecruiterToggle from "./components/recruiter/RecruiterToggle";
+import CommandPalette from "./components/navigation/CommandPalette";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,6 +37,9 @@ export default function RootLayout({
         <SecurityProvider>
           <WebGLBackground />
           {children}
+          <RecruiterToggle />
+          <ChatWidget />
+          <CommandPalette />
         </SecurityProvider>
       </body>
     </html>

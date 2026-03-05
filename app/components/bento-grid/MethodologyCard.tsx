@@ -3,7 +3,7 @@
 import BentoCard from "./BentoCard";
 import ExpandedSection from "./ExpandedSection";
 import { Compass } from "lucide-react";
-import { getIcon } from "@/lib/icon-map";
+import { DynamicIcon } from "@/lib/icon-map";
 import type { MethodologyData } from "@/lib/types";
 import { fallbackMethodology } from "@/lib/fallback-data";
 
@@ -25,7 +25,7 @@ export default function MethodologyCard({
       id={id}
       index={2}
       glowColor={data.glowColor}
-      className="flex flex-col md:col-span-1 md:row-span-1"
+      className="flex flex-col md:col-span-2 md:row-span-1"
       onExpand={onExpand}
       isExpanded={isExpanded}
     >
@@ -35,9 +35,7 @@ export default function MethodologyCard({
 
       {/* Vertical timeline */}
       <div className="mt-4 flex flex-col gap-0 md:mt-5">
-        {data.phases.map((phase, i) => {
-          const PhaseIcon = getIcon(phase.icon);
-          return (
+        {data.phases.map((phase, i) => (
             <div key={phase.label} className="relative flex items-start gap-3 pb-4 last:pb-0">
               {/* Timeline connector line */}
               {i < data.phases.length - 1 && (
@@ -46,7 +44,7 @@ export default function MethodologyCard({
 
               {/* Icon node */}
               <div className="relative z-10 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-md border border-orange-500/25 bg-orange-500/[0.08]">
-                <PhaseIcon className="h-3 w-3 text-orange-400" />
+                <DynamicIcon name={phase.icon} className="h-3 w-3 text-orange-400" />
               </div>
 
               {/* Text */}
@@ -65,8 +63,7 @@ export default function MethodologyCard({
                 )}
               </div>
             </div>
-          );
-        })}
+          ))}
       </div>
 
       {/* === EXPANDED CONTENT === */}

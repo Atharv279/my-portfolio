@@ -11,6 +11,12 @@ import {
   HardwareOpsCard,
 } from "./components/bento-grid";
 import { InfiniteTicker } from "./components/ui";
+import { SystemMapLazy } from "./components/generative-ui/SystemMapLazy";
+import EngineeringTimeline from "./components/timeline/EngineeringTimeline";
+import SkillRadar from "./components/skills/SkillRadar";
+import CertificationCard from "./components/bento-grid/CertificationCard";
+import ImpactDashboard from "./components/metrics/ImpactDashboard";
+import GitHubPanel from "./components/github/GitHubPanel";
 import {
   getProfile,
   getEducation,
@@ -34,6 +40,20 @@ import {
 } from "@/lib/fallback-data";
 
 export const revalidate = 3600;
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="col-span-full flex items-center gap-3 pt-10 pb-2">
+      <div className="flex items-center gap-2">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-violet-500/70" />
+        <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-zinc-400">
+          {children}
+        </h2>
+      </div>
+      <div className="h-px flex-1 bg-white/[0.10]" />
+    </div>
+  );
+}
 
 export default async function Home() {
   const [
@@ -70,25 +90,56 @@ export default async function Home() {
   return (
     <main className="relative z-10 min-h-screen px-4 py-10 md:px-8 lg:px-16 lg:py-16">
       <BentoGrid>
-        {/* Row 1: Split hero + tech stack */}
+        {/* ── Hero ── */}
         <HeroIdentity id="hero-identity" profile={profile} education={education} experiences={experiences} />
         <HeroStatus id="hero-status" profile={profile} />
         <TechStackCard id="tech-stack" data={techStack} />
 
-        {/* Full-width ticker divider */}
         <InfiniteTicker />
 
-        {/* Row 3: Projects + methodology + hardware */}
+        {/* ── AI Systems Architecture ── */}
+        <SectionLabel>AI Systems Architecture</SectionLabel>
+        <div className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+          <SystemMapLazy />
+        </div>
+
+        {/* ── Flagship Projects ── */}
+        <SectionLabel>Flagship Projects</SectionLabel>
+        <div id="projects" className="col-span-full" />
         <ProjectMarketingCard id="project-marketing" data={marketingProject} />
+        <ProjectNetworkCard id="project-network" data={networkProject} />
+        <ProjectRAGifyCard id="project-ragify" data={ragifyProject} />
+        <ProjectTalentCard id="project-talent" data={talentProject} />
+
+        {/* ── Open Source ── */}
+        <SectionLabel>Open Source</SectionLabel>
+        <div className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+          <GitHubPanel />
+        </div>
+
+        {/* ── Career Evolution ── */}
+        <SectionLabel>Career Evolution</SectionLabel>
+        <div id="timeline" className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+          <EngineeringTimeline />
+        </div>
+
+        {/* ── Engineering & Infrastructure ── */}
+        <SectionLabel>Engineering &amp; Infrastructure</SectionLabel>
         <MethodologyCard id="methodology" data={methodology} />
         <HardwareOpsCard id="hardware-ops" data={hardwareOps} />
+        <CertificationCard id="certifications" />
 
-        {/* Row 4: More projects */}
-        <ProjectRAGifyCard id="project-ragify" data={ragifyProject} />
-        <ProjectNetworkCard id="project-network" data={networkProject} />
+        {/* ── Business Impact ── */}
+        <SectionLabel>Business Impact</SectionLabel>
+        <div id="impact" className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+          <ImpactDashboard />
+        </div>
 
-        {/* Row 5: Final project */}
-        <ProjectTalentCard id="project-talent" data={talentProject} />
+        {/* ── Skill Radar ── */}
+        <SectionLabel>Skill Radar</SectionLabel>
+        <div id="skills" className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+          <SkillRadar />
+        </div>
       </BentoGrid>
     </main>
   );

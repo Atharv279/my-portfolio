@@ -47,9 +47,13 @@ export default function BentoGrid({ children }: { children: ReactNode }) {
     };
   }, [expandedId]);
 
-  // Inject onExpand and isExpanded into BentoCard children
+  // Inject onExpand and isExpanded into BentoCard children only (skip native HTML elements)
   const enhancedChildren = Children.map(children, (child) => {
-    if (isValidElement<{ id?: string; onExpand?: (id: string) => void; isExpanded?: boolean }>(child) && child.props.id) {
+    if (
+      isValidElement<{ id?: string; onExpand?: (id: string) => void; isExpanded?: boolean }>(child) &&
+      child.props.id &&
+      typeof child.type !== "string" // skip native <div>, <section>, etc.
+    ) {
       return cloneElement(child, {
         onExpand: handleExpand,
         isExpanded: child.props.id === expandedId,
