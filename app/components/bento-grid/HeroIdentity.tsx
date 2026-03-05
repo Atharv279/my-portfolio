@@ -37,16 +37,16 @@ export default function HeroIdentity({
       id={id}
       index={0}
       glowColor="rgba(52, 211, 153, 0.15)"
-      className="flex flex-col justify-between !p-6 md:!p-8 md:col-span-2 md:row-span-1"
+      className="flex flex-col justify-between !p-5 md:!p-6 lg:!p-8 md:col-span-2 md:row-span-1"
       onExpand={onExpand}
       isExpanded={isExpanded}
     >
       {/* Main content */}
       <div className="flex flex-1 flex-col justify-center">
-        <h1 className="text-3xl font-bold leading-tight tracking-tight text-zinc-50 md:text-4xl lg:text-5xl">
+        <h1 className="text-2xl font-bold leading-tight tracking-tight text-zinc-50 sm:text-3xl md:text-4xl lg:text-5xl">
           {profile.name}
         </h1>
-        <p className="mt-2 font-mono text-base text-zinc-400 md:mt-3 md:text-lg lg:text-xl">
+        <p className="mt-2 font-mono text-sm text-zinc-400 sm:text-base md:mt-3 md:text-lg lg:text-xl">
           {profile.tagline}
         </p>
         <p className="mt-2 flex items-center gap-1.5 text-xs text-zinc-500">

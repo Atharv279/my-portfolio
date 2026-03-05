@@ -94,9 +94,9 @@ export default function GitHubPanel() {
         </span>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {/* Left: Repos */}
-        <div>
+        <div className="min-w-0">
           <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
             Top Repositories
           </span>
@@ -107,7 +107,7 @@ export default function GitHubPanel() {
                 href={repo.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-start gap-2 rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2 transition-all duration-200 hover:border-white/[0.14] hover:bg-white/[0.05] hover:shadow-md hover:shadow-black/15"
+                className="group flex w-full items-start gap-2 rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2 transition-all duration-200 active:bg-white/[0.05] md:hover:border-white/[0.14] md:hover:bg-white/[0.05] md:hover:shadow-md md:hover:shadow-black/15"
               >
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5">
@@ -179,7 +179,9 @@ export default function GitHubPanel() {
           </div>
 
           {/* Contribution heatmap */}
-          <ContributionHeatmap />
+          <div className="overflow-x-auto scrollbar-hide">
+            <ContributionHeatmap />
+          </div>
         </div>
       </div>
 

@@ -184,6 +184,15 @@ body::before {
   cursor: pointer;
 }
 
+/* Hide scrollbar utility (for heatmap overflow container) */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Section container entrance animation */
 @keyframes section-fade-up {
   from {

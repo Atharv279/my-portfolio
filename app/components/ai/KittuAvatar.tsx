@@ -54,7 +54,7 @@ export function KittuAvatar({
   };
 
   return (
-    <div className="fixed bottom-24 right-6 z-[39]">
+    <div className="fixed bottom-20 right-4 z-[39] sm:bottom-24 sm:right-6">
       <AnimatePresence>
         {/* Greeting bubble */}
         {showGreeting && !showActions && (
@@ -63,10 +63,10 @@ export function KittuAvatar({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="absolute bottom-14 right-0 w-[260px] rounded-xl border border-white/[0.1] bg-black/85 p-3 backdrop-blur-xl"
+            className="absolute bottom-14 right-0 w-[220px] rounded-xl border border-white/[0.1] bg-black/85 p-3 backdrop-blur-xl sm:w-[260px]"
           >
             <div className="absolute -bottom-1.5 right-5 h-3 w-3 rotate-45 border-b border-r border-white/[0.1] bg-black/85" />
-            <p className="text-[12px] leading-relaxed text-zinc-300">
+            <p className="text-[11px] leading-relaxed text-zinc-300 sm:text-[12px]">
               Hi, I&apos;m <span className="font-semibold text-violet-400">Kittu</span>.
               I can guide you through Atharv&apos;s AI systems.
             </p>

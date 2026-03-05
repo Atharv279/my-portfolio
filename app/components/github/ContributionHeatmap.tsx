@@ -44,7 +44,7 @@ export default function ContributionHeatmap() {
       </span>
       <svg
         viewBox={`0 0 ${width} ${height}`}
-        className="w-full"
+        className="w-full min-w-[280px]"
         xmlns="http://www.w3.org/2000/svg"
       >
         {grid.map((week, wi) =>

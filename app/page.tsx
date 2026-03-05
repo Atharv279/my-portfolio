@@ -43,7 +43,7 @@ export const revalidate = 3600;
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="col-span-full flex items-center gap-3 pt-10 pb-2">
+    <div className="col-span-full flex items-center gap-3 pt-6 pb-1.5 md:pt-10 md:pb-2">
       <div className="flex items-center gap-2">
         <span className="inline-block h-1.5 w-1.5 rounded-full bg-violet-500/70" />
         <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-zinc-400">
@@ -88,7 +88,7 @@ export default async function Home() {
   const talentProject = projects?.find((p) => p.slug === "talentscout-ai") ?? fallbackTalentProject;
 
   return (
-    <main className="relative z-10 min-h-screen px-4 py-10 md:px-8 lg:px-16 lg:py-16">
+    <main className="relative z-10 min-h-screen px-3 py-6 sm:px-4 md:px-8 md:py-10 lg:px-16 lg:py-16">
       <BentoGrid>
         {/* ── Hero ── */}
         <HeroIdentity id="hero-identity" profile={profile} education={education} experiences={experiences} />
