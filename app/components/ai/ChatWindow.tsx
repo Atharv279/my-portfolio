@@ -487,37 +487,44 @@ export function ChatWidget() {
                 ))}
               </AnimatePresence>
 
-              {state.isStreaming &&
-                state.messages[state.messages.length - 1]?.content === "" &&
-                (state.thinkingStage !== null ? (
-                  <ThinkingPanel stage={state.thinkingStage} />
-                ) : (
-                  <TypingIndicator />
-                ))}
-
               {/* Scroll anchor */}
               <div ref={scrollAnchorRef} />
             </div>
 
-            {/* Compact suggestions — visible after conversation starts */}
-            {state.messages.length > 0 && !state.isTourActive && (
-              <div className="flex gap-1.5 overflow-x-auto border-t border-white/[0.04] px-3 py-2 scrollbar-hide">
-                {SUGGESTIONS.map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => handleSend(s)}
-                    disabled={isDisabled}
-                    className="shrink-0 rounded-full border border-white/[0.06] bg-white/[0.03] px-2.5 py-1 text-[10px] text-zinc-500 transition-colors hover:border-white/[0.12] hover:text-zinc-300 disabled:opacity-30"
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            )}
+            {/* Bottom stacked area — thinking, suggestions, input. Flex-col ensures no overlaps. */}
+            <div className="flex shrink-0 flex-col border-t border-white/[0.06]">
+              {/* Thinking panel — sits above suggestions/input in flow */}
+              {state.isStreaming &&
+                state.messages[state.messages.length - 1]?.content === "" && (
+                  <div className="border-b border-white/[0.04] px-3 py-2">
+                    {state.thinkingStage !== null ? (
+                      <ThinkingPanel stage={state.thinkingStage} />
+                    ) : (
+                      <TypingIndicator />
+                    )}
+                  </div>
+                )}
 
-            {/* Input */}
-            <div className="border-t border-white/[0.06] pb-[env(safe-area-inset-bottom)]">
-              <ChatInput onSend={handleSend} disabled={isDisabled} />
+              {/* Compact suggestions — visible after conversation starts */}
+              {state.messages.length > 0 && !state.isTourActive && (
+                <div className="flex gap-1.5 overflow-x-auto border-b border-white/[0.04] px-3 py-2 scrollbar-hide">
+                  {SUGGESTIONS.map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => handleSend(s)}
+                      disabled={isDisabled}
+                      className="shrink-0 rounded-full border border-white/[0.06] bg-white/[0.03] px-2.5 py-1 text-[10px] text-zinc-500 transition-colors hover:border-white/[0.12] hover:text-zinc-300 disabled:opacity-30"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Input with safe area protection */}
+              <div className="pb-[max(0.25rem,env(safe-area-inset-bottom))]">
+                <ChatInput onSend={handleSend} disabled={isDisabled} />
+              </div>
             </div>
           </motion.div>
         )}
@@ -530,13 +537,13 @@ export function ChatWidget() {
         onQuickAction={handleKittuAction}
       />
 
-      {/* Trigger button */}
+      {/* Trigger button — hidden on mobile when chat is fullscreen */}
       <motion.button
         data-chat-toggle
         onClick={handleToggle}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="flex h-14 w-14 items-center justify-center rounded-full border border-white/[0.08] bg-black/80 text-zinc-400 shadow-2xl backdrop-blur-xl transition-colors hover:text-zinc-200"
+        className={`flex h-14 w-14 items-center justify-center rounded-full border border-white/[0.08] bg-black/80 text-zinc-400 shadow-2xl backdrop-blur-xl transition-colors hover:text-zinc-200 ${state.isOpen ? "max-sm:hidden" : ""}`}
       >
         {state.isOpen ? (
           <X className="h-5 w-5" />
