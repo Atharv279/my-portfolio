@@ -377,7 +377,7 @@ export function ChatWidget() {
   const isDisabled = state.isStreaming || state.isTourActive;
 
   return (
-    <div className="fixed bottom-6 right-6 z-40">
+    <div className="fixed bottom-4 right-3 z-40 sm:bottom-6 sm:right-6">
       <AnimatePresence>
         {state.isOpen && (
           <motion.div
@@ -385,7 +385,7 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-16 right-0 flex h-[520px] w-[380px] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-black/80 backdrop-blur-xl max-sm:fixed max-sm:inset-0 max-sm:bottom-0 max-sm:right-0 max-sm:h-full max-sm:w-full max-sm:rounded-none"
+            className="absolute bottom-16 right-0 flex h-[520px] w-[380px] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-black/80 backdrop-blur-xl max-sm:fixed max-sm:inset-x-0 max-sm:top-0 max-sm:bottom-0 max-sm:h-[100dvh] max-sm:w-full max-sm:rounded-none"
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-3">
@@ -516,7 +516,7 @@ export function ChatWidget() {
             )}
 
             {/* Input */}
-            <div className="border-t border-white/[0.06]">
+            <div className="border-t border-white/[0.06] pb-[env(safe-area-inset-bottom)]">
               <ChatInput onSend={handleSend} disabled={isDisabled} />
             </div>
           </motion.div>
