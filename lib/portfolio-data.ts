@@ -12,53 +12,104 @@
 // Skills — flat index with proficiency, category, and project links
 // ---------------------------------------------------------------------------
 
+export type SkillCategory =
+  | "ai-ml"
+  | "languages"
+  | "cs-fundamentals"
+  | "networking"
+  | "backend-ops"
+  | "automation"
+  | "devtools"
+  | "data";
+
 export interface PortfolioSkill {
   name: string;
   proficiency: number; // 0–1
-  category: "ai-ml" | "networking" | "backend-ops" | "devtools" | "data";
+  category: SkillCategory;
   linkedProjects: string[]; // project slugs
+  tier?: 1 | 2; // 1 = featured/top, 2 = exhaustive detail (default 2)
 }
 
 export const portfolioSkills: PortfolioSkill[] = [
-  // AI / ML
-  { name: "Python", proficiency: 0.95, category: "ai-ml", linkedProjects: ["autonomous-marketing-engine", "network-intelligence-dashboard", "ragify-finance", "talentscout-ai", "ai-video-recommender"] },
-  { name: "PyTorch", proficiency: 0.80, category: "ai-ml", linkedProjects: ["ragify-finance"] },
-  { name: "RAG Pipelines", proficiency: 0.90, category: "ai-ml", linkedProjects: ["ragify-finance", "autonomous-marketing-engine"] },
-  { name: "Multi-Agent Systems", proficiency: 0.88, category: "ai-ml", linkedProjects: ["autonomous-marketing-engine"] },
-  { name: "GGUF Quantization", proficiency: 0.85, category: "ai-ml", linkedProjects: ["autonomous-marketing-engine"] },
-  { name: "Local LLM Optimization", proficiency: 0.92, category: "ai-ml", linkedProjects: ["autonomous-marketing-engine", "ajai-kilo-code"] },
-  { name: "Prompt Engineering", proficiency: 0.90, category: "ai-ml", linkedProjects: ["autonomous-marketing-engine", "talentscout-ai"] },
-  { name: "FAISS / Vector Databases", proficiency: 0.85, category: "ai-ml", linkedProjects: ["ragify-finance"] },
+  // ── AI / ML & Local Inference ──
+  { name: "Python", proficiency: 0.95, category: "ai-ml", tier: 1, linkedProjects: ["autonomous-marketing-engine", "network-intelligence-dashboard", "ragify-finance", "talentscout-ai", "ai-video-recommender"] },
+  { name: "Local LLM Orchestration", proficiency: 0.92, category: "ai-ml", tier: 1, linkedProjects: ["autonomous-marketing-engine", "ajai-kilo-code"] },
+  { name: "LangChain", proficiency: 0.85, category: "ai-ml", tier: 1, linkedProjects: ["ragify-finance", "autonomous-marketing-engine"] },
+  { name: "LangGraph", proficiency: 0.80, category: "ai-ml", tier: 1, linkedProjects: ["autonomous-marketing-engine"] },
+  { name: "PyTorch", proficiency: 0.80, category: "ai-ml", tier: 1, linkedProjects: ["ragify-finance"] },
+  { name: "RAG Pipelines", proficiency: 0.90, category: "ai-ml", tier: 1, linkedProjects: ["ragify-finance", "autonomous-marketing-engine"] },
+  { name: "Multi-Agent Systems", proficiency: 0.88, category: "ai-ml", tier: 1, linkedProjects: ["autonomous-marketing-engine"] },
+  { name: "LlamaIndex", proficiency: 0.78, category: "ai-ml", linkedProjects: ["ragify-finance"] },
+  { name: "Hugging Face Transformers", proficiency: 0.82, category: "ai-ml", linkedProjects: ["ragify-finance"] },
   { name: "Ollama", proficiency: 0.92, category: "ai-ml", linkedProjects: ["autonomous-marketing-engine", "ajai-kilo-code"] },
-  { name: "Gemini Pro", proficiency: 0.82, category: "ai-ml", linkedProjects: ["ragify-finance", "talentscout-ai"] },
-  { name: "Document Automation / Data Extraction", proficiency: 0.85, category: "ai-ml", linkedProjects: [] },
+  { name: "GGUF / Quantization", proficiency: 0.85, category: "ai-ml", linkedProjects: ["autonomous-marketing-engine"] },
+  { name: "FAISS", proficiency: 0.85, category: "ai-ml", linkedProjects: ["ragify-finance"] },
+  { name: "pgvector", proficiency: 0.72, category: "ai-ml", linkedProjects: [] },
+  { name: "LanceDB", proficiency: 0.68, category: "ai-ml", linkedProjects: [] },
+  { name: "Scikit-learn", proficiency: 0.82, category: "ai-ml", linkedProjects: ["ragify-finance", "ai-video-recommender"] },
+  { name: "Pandas", proficiency: 0.88, category: "ai-ml", linkedProjects: ["ragify-finance", "ai-video-recommender"] },
+  { name: "NLTK / spaCy", proficiency: 0.78, category: "ai-ml", linkedProjects: ["talentscout-ai", "ragify-finance"] },
+  { name: "Prompt Engineering", proficiency: 0.90, category: "ai-ml", linkedProjects: ["autonomous-marketing-engine", "talentscout-ai", "po-comparator-gemini"] },
+  { name: "Gemini Pro", proficiency: 0.82, category: "ai-ml", linkedProjects: ["ragify-finance", "talentscout-ai", "po-comparator-gemini"] },
   { name: "Sentiment Analysis (VADER + TextBlob)", proficiency: 0.80, category: "ai-ml", linkedProjects: ["talentscout-ai"] },
+  { name: "Document Automation / Data Extraction", proficiency: 0.85, category: "ai-ml", linkedProjects: ["po-comparator-gemini"] },
 
-  // Networking
+  // ── Languages ──
+  { name: "C", proficiency: 0.72, category: "languages", linkedProjects: [] },
+  { name: "C++", proficiency: 0.75, category: "languages", tier: 1, linkedProjects: [] },
+  { name: "Java", proficiency: 0.70, category: "languages", linkedProjects: [] },
+  { name: "TypeScript", proficiency: 0.78, category: "languages", linkedProjects: ["ajai-kilo-code"] },
+  { name: "JavaScript", proficiency: 0.80, category: "languages", linkedProjects: ["network-intelligence-dashboard"] },
+  { name: "Bash / Shell", proficiency: 0.75, category: "languages", linkedProjects: ["network-intelligence-dashboard"] },
+  { name: "SQL", proficiency: 0.82, category: "languages", linkedProjects: ["ai-video-recommender", "network-intelligence-dashboard"] },
+
+  // ── Core CS & Architecture ──
+  { name: "DSA", proficiency: 0.80, category: "cs-fundamentals", tier: 1, linkedProjects: [] },
+  { name: "OOP", proficiency: 0.85, category: "cs-fundamentals", linkedProjects: [] },
+  { name: "System Design", proficiency: 0.82, category: "cs-fundamentals", tier: 1, linkedProjects: ["autonomous-marketing-engine", "network-intelligence-dashboard"] },
+  { name: "Operating Systems", proficiency: 0.75, category: "cs-fundamentals", linkedProjects: [] },
+  { name: "DBMS", proficiency: 0.78, category: "cs-fundamentals", linkedProjects: ["ai-video-recommender"] },
+  { name: "Computer Networks", proficiency: 0.85, category: "cs-fundamentals", linkedProjects: ["network-intelligence-dashboard"] },
+
+  // ── Networking ──
   { name: "SNMP", proficiency: 0.90, category: "networking", linkedProjects: ["network-intelligence-dashboard"] },
-  { name: "SSH Collectors", proficiency: 0.88, category: "networking", linkedProjects: ["network-intelligence-dashboard"] },
+  { name: "SSH", proficiency: 0.88, category: "networking", linkedProjects: ["network-intelligence-dashboard"] },
   { name: "Cisco Catalyst / Meraki", proficiency: 0.85, category: "networking", linkedProjects: ["network-intelligence-dashboard"] },
   { name: "Fortinet Firewalls", proficiency: 0.82, category: "networking", linkedProjects: ["network-intelligence-dashboard"] },
   { name: "Network Telemetry", proficiency: 0.88, category: "networking", linkedProjects: ["network-intelligence-dashboard"] },
+  { name: "TCP/IP / DNS / HTTP", proficiency: 0.82, category: "networking", linkedProjects: [] },
+  { name: "Wireshark / Packet Analysis", proficiency: 0.72, category: "networking", linkedProjects: [] },
 
-  // Backend / Ops
-  { name: "FastAPI", proficiency: 0.88, category: "backend-ops", linkedProjects: ["ai-video-recommender"] },
+  // ── Backend / Ops ──
+  { name: "FastAPI", proficiency: 0.88, category: "backend-ops", tier: 1, linkedProjects: ["ai-video-recommender"] },
   { name: "Node.js", proficiency: 0.75, category: "backend-ops", linkedProjects: [] },
+  { name: "PostgreSQL", proficiency: 0.78, category: "backend-ops", linkedProjects: [] },
   { name: "SQLite (Time-series)", proficiency: 0.82, category: "backend-ops", linkedProjects: ["network-intelligence-dashboard"] },
   { name: "Docker", proficiency: 0.78, category: "backend-ops", linkedProjects: ["autonomous-marketing-engine"] },
   { name: "n8n Orchestration", proficiency: 0.90, category: "backend-ops", linkedProjects: ["autonomous-marketing-engine"] },
   { name: "Node-RED", proficiency: 0.75, category: "backend-ops", linkedProjects: [] },
-  { name: "Linux / Kali", proficiency: 0.80, category: "backend-ops", linkedProjects: [] },
-  { name: "Git / CI/CD", proficiency: 0.82, category: "backend-ops", linkedProjects: [] },
-  { name: "SQL / Alembic Migrations", proficiency: 0.78, category: "backend-ops", linkedProjects: ["ai-video-recommender"] },
+  { name: "Linux / Ubuntu", proficiency: 0.82, category: "backend-ops", linkedProjects: ["talentscout-ai"] },
+  { name: "Git", proficiency: 0.85, category: "backend-ops", linkedProjects: [] },
+  { name: "Alembic / Migrations", proficiency: 0.78, category: "backend-ops", linkedProjects: ["ai-video-recommender"] },
+  { name: "Nginx", proficiency: 0.72, category: "backend-ops", linkedProjects: ["talentscout-ai"] },
+  { name: "REST API Design", proficiency: 0.85, category: "backend-ops", linkedProjects: ["ai-video-recommender", "network-intelligence-dashboard"] },
 
-  // DevTools
-  { name: "TypeScript", proficiency: 0.75, category: "devtools", linkedProjects: ["ajai-kilo-code"] },
+  // ── Automation ──
+  { name: "PyAutoGUI", proficiency: 0.72, category: "automation", linkedProjects: [] },
+  { name: "Selenium", proficiency: 0.78, category: "automation", linkedProjects: [] },
+  { name: "Playwright", proficiency: 0.70, category: "automation", linkedProjects: [] },
+
+  // ── DevTools & Frontend ──
   { name: "VSCodium Extension API", proficiency: 0.70, category: "devtools", linkedProjects: ["ajai-kilo-code"] },
+  { name: "Next.js / React", proficiency: 0.75, category: "devtools", linkedProjects: [] },
+  { name: "Tailwind CSS", proficiency: 0.78, category: "devtools", linkedProjects: [] },
+  { name: "Streamlit", proficiency: 0.80, category: "devtools", linkedProjects: ["talentscout-ai"] },
 
-  // Data
+  // ── Data ──
   { name: "Feature Engineering", proficiency: 0.78, category: "data", linkedProjects: ["ai-video-recommender"] },
   { name: "Model Evaluation (Precision/Recall/F1)", proficiency: 0.82, category: "data", linkedProjects: ["ragify-finance"] },
+  { name: "NumPy", proficiency: 0.85, category: "data", linkedProjects: ["ragify-finance"] },
+  { name: "Matplotlib / Seaborn", proficiency: 0.75, category: "data", linkedProjects: ["ragify-finance"] },
 ];
 
 // ---------------------------------------------------------------------------
@@ -77,36 +128,43 @@ export const portfolioDomains: PortfolioDomain[] = [
     name: "AI/ML Engineering",
     description:
       "Designing autonomous agents, RAG systems, and local LLM inference pipelines. Focused on production-grade ML that runs on consumer hardware without cloud API costs.",
-    keySkills: ["Python", "PyTorch", "RAG Pipelines", "Multi-Agent Systems", "GGUF Quantization", "Local LLM Optimization", "Ollama", "FAISS / Vector Databases"],
+    keySkills: ["Python", "PyTorch", "RAG Pipelines", "Multi-Agent Systems", "GGUF / Quantization", "Local LLM Orchestration", "Ollama", "FAISS"],
     keyProjects: ["autonomous-marketing-engine", "ragify-finance", "talentscout-ai"],
   },
   {
     name: "Enterprise Networking",
     description:
       "Real-time network telemetry and monitoring using SNMP/SSH collectors across Cisco and Fortinet hardware. Cisco Black Belt certified.",
-    keySkills: ["SNMP", "SSH Collectors", "Cisco Catalyst / Meraki", "Fortinet Firewalls", "Network Telemetry"],
+    keySkills: ["SNMP", "SSH", "Cisco Catalyst / Meraki", "Fortinet Firewalls", "Network Telemetry", "TCP/IP / DNS / HTTP"],
     keyProjects: ["network-intelligence-dashboard"],
   },
   {
     name: "Intelligent Automation",
     description:
       "Building end-to-end automation pipelines using n8n, Node-RED, and agentic workflows. Specializing in zero-human-in-the-loop content and data pipelines.",
-    keySkills: ["n8n Orchestration", "Node-RED", "Prompt Engineering", "Multi-Agent Systems", "Document Automation / Data Extraction"],
+    keySkills: ["n8n Orchestration", "Node-RED", "Prompt Engineering", "Multi-Agent Systems", "Selenium", "PyAutoGUI"],
     keyProjects: ["autonomous-marketing-engine"],
   },
   {
     name: "Backend & MLOps",
     description:
       "Production-grade API development with FastAPI, database management, containerized deployments. Bridging ML models and software engineering.",
-    keySkills: ["FastAPI", "Docker", "SQLite (Time-series)", "SQL / Alembic Migrations", "Git / CI/CD", "Linux / Kali"],
+    keySkills: ["FastAPI", "Docker", "SQLite (Time-series)", "Alembic / Migrations", "Git", "Linux / Ubuntu", "PostgreSQL"],
     keyProjects: ["network-intelligence-dashboard", "ai-video-recommender"],
   },
   {
     name: "Developer Tools & Local AI",
     description:
       "Building IDE extensions and developer tooling powered by local LLMs. Replacing cloud-dependent AI assistants with sovereign, privacy-first alternatives.",
-    keySkills: ["TypeScript", "VSCodium Extension API", "Local LLM Optimization", "Ollama"],
+    keySkills: ["TypeScript", "VSCodium Extension API", "Local LLM Orchestration", "Ollama"],
     keyProjects: ["ajai-kilo-code"],
+  },
+  {
+    name: "CS Fundamentals",
+    description:
+      "Strong foundation in core computer science — data structures, algorithms, system design, and OS internals. B.Tech CS with hands-on application across all projects.",
+    keySkills: ["DSA", "OOP", "System Design", "Operating Systems", "DBMS", "Computer Networks"],
+    keyProjects: ["network-intelligence-dashboard", "ai-video-recommender"],
   },
 ];
 
@@ -247,7 +305,7 @@ export const portfolioExperience: PortfolioExperienceEntry[] = [
     company: "Nio Stars Technologies LLP",
     role: "Junior Software Developer",
     period: "Jan 2026 – Present",
-    keySkills: ["Python", "SNMP", "SSH Collectors", "Ollama", "n8n Orchestration", "Multi-Agent Systems", "Local LLM Optimization"],
+    keySkills: ["Python", "SNMP", "SSH", "Ollama", "n8n Orchestration", "Multi-Agent Systems", "Local LLM Orchestration"],
     keyProjects: ["autonomous-marketing-engine", "network-intelligence-dashboard"],
   },
   {
@@ -271,7 +329,7 @@ export const portfolioExperience: PortfolioExperienceEntry[] = [
     company: "sukamsys",
     role: "Intern",
     period: "Aug 2023 – Mar 2024",
-    keySkills: ["Python", "Git / CI/CD"],
+    keySkills: ["Python", "Git"],
     keyProjects: [],
   },
 ];

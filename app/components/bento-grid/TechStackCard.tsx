@@ -42,7 +42,7 @@ export default function TechStackCard({
       <div className="flex items-center gap-2">
         <TrendingUp className="h-3.5 w-3.5 text-amber-400" />
         <span className="font-mono text-[11px] uppercase tracking-widest text-amber-400">
-          Trending
+          Top Skills
         </span>
       </div>
 
@@ -54,9 +54,9 @@ export default function TechStackCard({
               initial="hidden"
               animate="visible"
               variants={pillVariants}
-              className="flex items-center gap-1.5 rounded-lg border border-white/[0.06] bg-white/[0.04] px-2.5 py-1.5 text-[11px] text-zinc-300 md:text-xs"
+              className="flex items-center gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/[0.06] px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 md:text-xs"
             >
-              <DynamicIcon name={tech.icon} className="h-3 w-3 shrink-0 text-zinc-500" />
+              <DynamicIcon name={tech.icon} className="h-3 w-3 shrink-0 text-amber-400/70" />
               <span>{tech.name}</span>
             </motion.div>
           ))}
@@ -77,15 +77,15 @@ export default function TechStackCard({
                     <span className="text-xs font-medium text-zinc-200">
                       {category.title}
                     </span>
-                    <span className="text-[11px] text-zinc-500">
+                    <span className="hidden text-[11px] text-zinc-500 sm:inline">
                       &mdash; {category.subtitle}
                     </span>
                   </div>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-hide sm:flex-wrap">
                     {category.items.map((item) => (
                       <span
                         key={item}
-                        className={`rounded-md border ${category.accentBorder} bg-white/[0.03] px-2.5 py-1 text-[11px] text-zinc-400 md:text-xs`}
+                        className={`shrink-0 rounded-md border ${category.accentBorder} bg-white/[0.03] px-2.5 py-1 text-[11px] text-zinc-400 md:text-xs`}
                       >
                         {item}
                       </span>
