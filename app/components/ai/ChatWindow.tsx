@@ -2,7 +2,7 @@
 
 import { useReducer, useRef, useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, X } from "lucide-react";
+import { MessageSquare, X, RotateCcw } from "lucide-react";
 import { streamChat, type ChatMessage } from "@/lib/ai/ollamaClient";
 import type { ParsedToolCall } from "@/lib/ai/tools";
 import { MessageBubble } from "./MessageBubble";
@@ -39,6 +39,7 @@ type Action =
   | { type: "START_TOUR" }
   | { type: "END_TOUR" }
   | { type: "SET_THINKING_STAGE"; stage: number | null }
+  | { type: "CLEAR" }
   | { type: "RESET" };
 
 function reducer(state: State, action: Action): State {
@@ -92,6 +93,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, isTourActive: false };
     case "SET_THINKING_STAGE":
       return { ...state, thinkingStage: action.stage };
+    case "CLEAR":
+      return { ...initialState, isOpen: true };
     case "RESET":
       return { ...initialState };
     default:
@@ -208,15 +211,15 @@ export function ChatWidget() {
   const streamStartRef = useRef<number>(0);
   const abortRef = useRef<AbortController | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollAnchorRef = useRef<HTMLDivElement>(null);
   const tourTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const thinkingTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Auto-scroll on new content
+  // Auto-scroll on new content or streaming appends
+  const lastMsgContent = state.messages[state.messages.length - 1]?.content;
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [state.messages]);
+    scrollAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [state.messages.length, lastMsgContent, state.isStreaming]);
 
   // Clean up timers on unmount
   useEffect(() => {
@@ -322,18 +325,30 @@ export function ChatWidget() {
 
   const handleToggle = useCallback(() => {
     if (state.isOpen) {
-      // Closing: abort stream, cancel tour, reset conversation
+      // Closing: abort any active stream/tour but keep messages
       if (abortRef.current) abortRef.current.abort();
       if (state.isTourActive && tourTimerRef.current) clearTimeout(tourTimerRef.current);
       if (thinkingTimerRef.current) {
         clearInterval(thinkingTimerRef.current);
         thinkingTimerRef.current = null;
       }
-      dispatch({ type: "RESET" });
-    } else {
-      dispatch({ type: "TOGGLE" });
+      dispatch({ type: "FINISH_STREAMING" });
+      dispatch({ type: "END_TOUR" });
+      dispatch({ type: "SET_THINKING_STAGE", stage: null });
     }
+    dispatch({ type: "TOGGLE" });
   }, [state.isOpen, state.isTourActive]);
+
+  const handleClear = useCallback(() => {
+    if (abortRef.current) abortRef.current.abort();
+    if (state.isTourActive && tourTimerRef.current) clearTimeout(tourTimerRef.current);
+    if (thinkingTimerRef.current) {
+      clearInterval(thinkingTimerRef.current);
+      thinkingTimerRef.current = null;
+    }
+    setToolEvents([]);
+    dispatch({ type: "CLEAR" });
+  }, [state.isTourActive]);
 
   // Kittu quick actions — open chat and either send a message or start a tour
   const handleKittuAction = useCallback(
@@ -380,12 +395,25 @@ export function ChatWidget() {
                   Atharv&apos;s AI Clone
                 </span>
               </div>
-              <button
-                onClick={handleToggle}
-                className="rounded-lg p-1 text-zinc-500 transition-colors hover:bg-white/[0.06] hover:text-zinc-300"
-              >
-                <X className="h-4 w-4" />
-              </button>
+              <div className="flex items-center gap-1">
+                {state.messages.length > 0 && (
+                  <button
+                    onClick={handleClear}
+                    disabled={isDisabled}
+                    className="rounded-lg p-1.5 text-zinc-500 transition-colors hover:bg-white/[0.06] hover:text-zinc-300 disabled:opacity-30"
+                    aria-label="Clear chat"
+                    title="Clear chat"
+                  >
+                    <RotateCcw className="h-3.5 w-3.5" />
+                  </button>
+                )}
+                <button
+                  onClick={handleToggle}
+                  className="rounded-lg p-1 text-zinc-500 transition-colors hover:bg-white/[0.06] hover:text-zinc-300"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
 
             {/* Messages */}
@@ -411,7 +439,7 @@ export function ChatWidget() {
                     </p>
                   </div>
 
-                  {/* Suggestion chips */}
+                  {/* Suggestion chips — full layout for empty state */}
                   <div className="flex flex-wrap gap-2 px-1">
                     {SUGGESTIONS.map((s) => (
                       <button
@@ -437,19 +465,27 @@ export function ChatWidget() {
                 </div>
               )}
 
-              {state.messages.map((msg, i) => (
-                <MessageBubble
-                  key={msg.id}
-                  role={msg.role}
-                  content={msg.content}
-                  toolCalls={msg.toolCalls}
-                  isStreaming={
-                    state.isStreaming &&
-                    msg.role === "assistant" &&
-                    i === state.messages.length - 1
-                  }
-                />
-              ))}
+              <AnimatePresence initial={false}>
+                {state.messages.map((msg, i) => (
+                  <motion.div
+                    key={msg.id}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <MessageBubble
+                      role={msg.role}
+                      content={msg.content}
+                      toolCalls={msg.toolCalls}
+                      isStreaming={
+                        state.isStreaming &&
+                        msg.role === "assistant" &&
+                        i === state.messages.length - 1
+                      }
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
 
               {state.isStreaming &&
                 state.messages[state.messages.length - 1]?.content === "" &&
@@ -458,7 +494,26 @@ export function ChatWidget() {
                 ) : (
                   <TypingIndicator />
                 ))}
+
+              {/* Scroll anchor */}
+              <div ref={scrollAnchorRef} />
             </div>
+
+            {/* Compact suggestions — visible after conversation starts */}
+            {state.messages.length > 0 && !state.isTourActive && (
+              <div className="flex gap-1.5 overflow-x-auto border-t border-white/[0.04] px-3 py-2 scrollbar-hide">
+                {SUGGESTIONS.map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => handleSend(s)}
+                    disabled={isDisabled}
+                    className="shrink-0 rounded-full border border-white/[0.06] bg-white/[0.03] px-2.5 py-1 text-[10px] text-zinc-500 transition-colors hover:border-white/[0.12] hover:text-zinc-300 disabled:opacity-30"
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* Input */}
             <div className="border-t border-white/[0.06]">
