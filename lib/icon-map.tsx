@@ -89,4 +89,19 @@ export function getIcon(name: string): LucideIcon {
   return iconMap[name] ?? Box;
 }
 
+/**
+ * Stable icon component that avoids the "component created during render" lint
+ * error. Use this in JSX instead of calling `getIcon()` inline.
+ */
+export function DynamicIcon({
+  name,
+  className,
+}: {
+  name: string;
+  className?: string;
+}) {
+  const Icon = iconMap[name] ?? Box;
+  return <Icon className={className} />;
+}
+
 export default iconMap;

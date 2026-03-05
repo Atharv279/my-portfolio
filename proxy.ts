@@ -10,8 +10,9 @@ const CSP_DIRECTIVES = [
   "script-src 'self' https://vercel.live https://*.vercel-scripts.com 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
-  "img-src 'self' data: blob:",
-  "connect-src 'self' https://vercel.live https://*.vercel-analytics.com https://*.vercel-scripts.com",
+  "img-src 'self' data: blob: https://avatars.githubusercontent.com",
+  "connect-src 'self' https://vercel.live wss://vercel.live https://*.vercel-analytics.com https://*.vercel-scripts.com",
+  "worker-src 'self' blob:",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -76,9 +77,9 @@ function isRateLimited(ip: string): boolean {
 }
 
 // ---------------------------------------------------------------------------
-// Middleware handler
+// Proxy handler (renamed from middleware for Next.js 16)
 // ---------------------------------------------------------------------------
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Rate-limit API routes only (e.g. /api/contact, future routes)
@@ -124,7 +125,7 @@ export function middleware(request: NextRequest) {
   // Permissions policy — disable unused browser features
   headers.set(
     "Permissions-Policy",
-    "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+    "camera=(), microphone=(), geolocation=(), browsing-topics=()",
   );
 
   return response;

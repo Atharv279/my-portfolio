@@ -1,17 +1,21 @@
 "use client";
 
+/* eslint-disable react-hooks/purity, react-hooks/immutability */
+// R3F (React Three Fiber) requires buffer data to be created/accessed during
+// render and mutated imperatively in useFrame. These patterns are standard R3F
+// practice and intentionally violate React purity rules for the Three.js bridge.
+
 import { useRef, useMemo, useCallback } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useReducedMotion } from "framer-motion";
 import * as THREE from "three";
 
-const DESKTOP_COUNT = 150;
-const MOBILE_COUNT = 60;
+const DESKTOP_COUNT = 90;
 const SPREAD_X = 8;
 const SPREAD_Y = 4;
 const SPREAD_Z = 8;
 const CONNECTION_THRESHOLD = 2.5;
-const MAX_CONNECTIONS = 40;
+const MAX_CONNECTIONS = 24;
 const MOUSE_RADIUS = 3;
 const MOUSE_PUSH = 0.3;
 const RETURN_SPEED = 0.02;
@@ -88,7 +92,7 @@ export default function ParticleField({ count }: ParticleFieldProps) {
             linePositions[offset + 4] = currentPositions[jx + 1];
             linePositions[offset + 5] = currentPositions[jx + 2];
 
-            const opacity = 0.04 * (1 - dist / CONNECTION_THRESHOLD);
+            const opacity = 0.025 * (1 - dist / CONNECTION_THRESHOLD);
             lineOpacities[lineCount * 2] = opacity;
             lineOpacities[lineCount * 2 + 1] = opacity;
             lineCount++;
@@ -182,7 +186,7 @@ export default function ParticleField({ count }: ParticleFieldProps) {
           size={2}
           sizeAttenuation
           transparent
-          opacity={0.15}
+          opacity={0.08}
           depthWrite={false}
         />
       </points>
@@ -201,7 +205,7 @@ export default function ParticleField({ count }: ParticleFieldProps) {
         <lineBasicMaterial
           color={LINE_COLOR}
           transparent
-          opacity={0.06}
+          opacity={0.03}
           depthWrite={false}
         />
       </lineSegments>

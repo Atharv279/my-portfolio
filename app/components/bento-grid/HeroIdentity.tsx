@@ -49,6 +49,10 @@ export default function HeroIdentity({
         <p className="mt-2 font-mono text-base text-zinc-400 md:mt-3 md:text-lg lg:text-xl">
           {profile.tagline}
         </p>
+        <p className="mt-2 flex items-center gap-1.5 text-xs text-zinc-500">
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          Currently building autonomous AI systems.
+        </p>
 
         <p className="mt-4 max-w-md text-sm leading-relaxed text-zinc-400 md:mt-5">
           {profile.bio}
@@ -102,7 +106,7 @@ export default function HeroIdentity({
                     <span className="text-xs font-medium text-zinc-300">
                       {edu.degree}
                     </span>
-                    <span className="shrink-0 font-mono text-[10px] text-zinc-600">
+                    <span className="shrink-0 font-mono text-[10px] text-zinc-500">
                       {edu.period}
                     </span>
                   </div>
