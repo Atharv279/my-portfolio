@@ -49,7 +49,7 @@ export default function RecruiterToggle() {
       <button
         data-recruiter-toggle
         onClick={toggle}
-        className={`fixed top-4 right-4 z-50 flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-medium backdrop-blur-xl transition-all ${
+        className={`fixed top-2 right-2 z-[40] flex origin-top-right scale-[0.85] items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-medium backdrop-blur-xl transition-all sm:top-6 sm:right-6 sm:scale-100 ${
           isActive
             ? "border-violet-500/40 bg-violet-500/20 text-violet-300"
             : "border-white/[0.08] bg-black/60 text-zinc-500 hover:border-white/[0.15] hover:text-zinc-300"

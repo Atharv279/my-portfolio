@@ -377,7 +377,7 @@ export function ChatWidget() {
   const isDisabled = state.isStreaming || state.isTourActive;
 
   return (
-    <div className="fixed bottom-4 right-3 z-40 sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-4 right-3 z-[60] sm:bottom-6 sm:right-6">
       <AnimatePresence>
         {state.isOpen && (
           <motion.div
