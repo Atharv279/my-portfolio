@@ -74,13 +74,13 @@ export default function RecruiterToggle() {
         <button
           data-recruiter-toggle
           onClick={toggle}
-          className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold backdrop-blur-xl transition-all ${
+          className={`flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs font-medium backdrop-blur-xl transition-all max-sm:px-2 max-sm:py-1 max-sm:text-[10px] ${
             isActive
-              ? "border-violet-500/40 bg-violet-500/20 text-violet-300 shadow-[0_0_15px_rgba(139,92,246,0.25)]"
-              : "border-emerald-500/30 bg-black/70 text-zinc-300 shadow-[0_0_15px_rgba(16,185,129,0.2)] ring-1 ring-emerald-500/40 md:hover:border-emerald-500/50 md:hover:text-white"
+              ? "border-violet-500/40 bg-violet-500/20 text-violet-300 shadow-[0_0_10px_rgba(139,92,246,0.2)]"
+              : "border-emerald-500/30 bg-black/70 text-zinc-300 shadow-[0_0_10px_rgba(16,185,129,0.15)] ring-1 ring-emerald-500/30 md:hover:border-emerald-500/50 md:hover:text-white"
           }`}
         >
-          <Briefcase className="h-5 w-5" />
+          <Briefcase className="h-3 w-3" />
           <span>Recruiter</span>
         </button>
 

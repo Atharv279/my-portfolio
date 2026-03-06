@@ -89,11 +89,9 @@ export function CyberThreatRadar({
           fill={fillColor}
           stroke={strokeColor}
           strokeWidth="1.5"
-          initial={{ opacity: 0, scale: 0 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          style={{ transformOrigin: `${CX}px ${CY}px` }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         />
 
         {/* Data dots */}
@@ -105,9 +103,8 @@ export function CyberThreatRadar({
             r={3}
             fill={dotColor}
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ delay: 0.5 + i * 0.08 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.5 + i * 0.08 }}
           />
         ))}
 

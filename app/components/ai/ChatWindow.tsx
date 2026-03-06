@@ -13,6 +13,10 @@ import { KittuAvatar } from "./KittuAvatar";
 import ToolInspector, { type ToolEvent } from "../dev/ToolInspector";
 import PromptSandbox, { getSandboxParams } from "./PromptSandbox";
 
+let _idCounter = 0;
+const generateId = () =>
+  Math.random().toString(36).substring(2, 10) + (++_idCounter).toString(36);
+
 interface UIMessage {
   id: string;
   role: "user" | "assistant";
@@ -51,7 +55,7 @@ function reducer(state: State, action: Action): State {
         ...state,
         messages: [
           ...state.messages,
-          { id: crypto.randomUUID(), role: "user", content: action.content },
+          { id: generateId(), role: "user", content: action.content },
         ],
       };
     case "START_STREAMING":
@@ -61,7 +65,7 @@ function reducer(state: State, action: Action): State {
         thinkingStage: 0,
         messages: [
           ...state.messages,
-          { id: crypto.randomUUID(), role: "assistant", content: "" },
+          { id: generateId(), role: "assistant", content: "" },
         ],
       };
     case "APPEND_CONTENT": {
@@ -206,6 +210,7 @@ const SUGGESTIONS = [
 // ---------------------------------------------------------------------------
 
 export function ChatWidget() {
+  const [mounted, setMounted] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
   const [toolEvents, setToolEvents] = useState<ToolEvent[]>([]);
   const streamStartRef = useRef<number>(0);
@@ -214,6 +219,9 @@ export function ChatWidget() {
   const scrollAnchorRef = useRef<HTMLDivElement>(null);
   const tourTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const thinkingTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // SSR guard — prevent hydration mismatches from browser-only APIs
+  useEffect(() => setMounted(true), []);
 
   // Auto-scroll on new content or streaming appends
   const lastMsgContent = state.messages[state.messages.length - 1]?.content;
@@ -263,7 +271,7 @@ export function ChatWidget() {
             const now = performance.now();
             const latencyMs = Math.round(now - streamStartRef.current);
             const newEvents = chunk.toolCalls.map((tc) => ({
-              id: crypto.randomUUID(),
+              id: generateId(),
               name: tc.name,
               arguments: tc.arguments,
               timestamp: Date.now(),
@@ -308,7 +316,7 @@ export function ChatWidget() {
       dispatch({
         type: "ADD_TOUR_MESSAGE",
         message: {
-          id: crypto.randomUUID(),
+          id: generateId(),
           role: "assistant",
           content: step.content,
           toolCalls: step.toolCalls,
@@ -375,6 +383,8 @@ export function ChatWidget() {
   }, [state.isOpen]);
 
   const isDisabled = state.isStreaming || state.isTourActive;
+
+  if (!mounted) return null;
 
   return (
     <div className="fixed bottom-4 right-3 z-[60] sm:bottom-6 sm:right-6">

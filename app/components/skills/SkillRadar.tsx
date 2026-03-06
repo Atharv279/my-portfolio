@@ -109,11 +109,9 @@ export default function SkillRadar() {
             fill="rgba(139, 92, 246, 0.15)"
             stroke="rgba(139, 92, 246, 0.5)"
             strokeWidth="2"
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            style={{ transformOrigin: `${CX}px ${CY}px` }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           />
 
           {/* Data points */}
@@ -129,9 +127,8 @@ export default function SkillRadar() {
                 stroke="#1e1b4b"
                 strokeWidth="2"
                 initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ delay: 0.5 + i * 0.1 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.5 + i * 0.1 }}
               />
             );
           })}
