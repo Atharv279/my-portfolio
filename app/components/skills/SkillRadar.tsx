@@ -111,7 +111,7 @@ export default function SkillRadar() {
             strokeWidth="2"
             initial={{ opacity: 0, scale: 0 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{ transformOrigin: `${CX}px ${CY}px` }}
           />
@@ -130,7 +130,7 @@ export default function SkillRadar() {
                 strokeWidth="2"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: 0.4 + i * 0.1 }}
               />
             );

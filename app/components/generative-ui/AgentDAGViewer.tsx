@@ -60,9 +60,9 @@ const VARIANTS: Record<string, DagVariant> = {
   },
 };
 
-const COL_W = 58;
-const NODE_W = 48;
-const NODE_H = 28;
+const COL_W = 64;
+const NODE_W = 52;
+const NODE_H = 42;
 const PAD_X = 20;
 const PAD_Y = 36;
 
@@ -188,11 +188,9 @@ export function AgentDAGViewer({
         })}
 
         {/* Nodes */}
-        {dag.nodes.map((node) => {
+        {dag.nodes.map((node, i) => {
           const x = nodeX(node.col);
           const y = PAD_Y;
-          const cx = x + NODE_W / 2;
-          const cy = y + NODE_H / 2;
 
           return (
             <g key={node.id}>
@@ -206,16 +204,22 @@ export function AgentDAGViewer({
                 stroke={dag.accent + "40"}
                 strokeWidth="1"
               />
-              <text
-                x={cx}
-                y={cy + 3}
-                textAnchor="middle"
-                fill={SVG_COLORS.textPrimary}
-                fontSize="8"
-                fontFamily="system-ui, sans-serif"
-              >
-                {node.label}
-              </text>
+              <foreignObject x={x} y={y} width={NODE_W} height={NODE_H}>
+                <div
+                  className="flex h-full flex-col items-center justify-center gap-0.5"
+                  style={{ width: NODE_W, height: NODE_H }}
+                >
+                  <span
+                    className="text-[6px] font-semibold leading-none"
+                    style={{ color: dag.accent }}
+                  >
+                    Agent {i}
+                  </span>
+                  <span className="text-[7px] leading-none text-zinc-200">
+                    {node.label}
+                  </span>
+                </div>
+              </foreignObject>
             </g>
           );
         })}

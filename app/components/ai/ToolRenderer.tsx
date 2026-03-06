@@ -192,11 +192,19 @@ class ToolErrorBoundary extends Component<
   }
 }
 
+function ToolFallback({ tool, arg }: { tool: string; arg: string }) {
+  return (
+    <div className="my-1 rounded-lg border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-[11px] text-amber-400/70">
+      {tool}: unknown reference &quot;{arg}&quot;
+    </div>
+  );
+}
+
 function ToolRendererInner({ toolCall }: { toolCall: ParsedToolCall }) {
   switch (toolCall.name) {
     case "renderProjectCard": {
       const project = projectsBySlug[toolCall.arguments.slug];
-      if (!project) return null;
+      if (!project) return <ToolFallback tool="ProjectCard" arg={toolCall.arguments.slug} />;
       return <MiniProjectCard project={project} />;
     }
     case "renderSkillChart": {
@@ -210,12 +218,12 @@ function ToolRendererInner({ toolCall }: { toolCall: ParsedToolCall }) {
     }
     case "renderArchitectureDiagram": {
       const project = projectsBySlug[toolCall.arguments.slug];
-      if (!project) return null;
+      if (!project) return <ToolFallback tool="Architecture" arg={toolCall.arguments.slug} />;
       return <ArchitectureDiagram project={project} />;
     }
     case "renderPipelineVisualizer": {
       const project = projectsBySlug[toolCall.arguments.slug];
-      if (!project) return null;
+      if (!project) return <ToolFallback tool="Pipeline" arg={toolCall.arguments.slug} />;
       return <PipelineVisualizer project={project} />;
     }
     case "renderCyberRadar": {

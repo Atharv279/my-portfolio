@@ -45,7 +45,7 @@ function getLabel(value: number, labels: string[]): string {
   return labels[idx];
 }
 
-export default function PromptSandbox() {
+export default function PromptSandbox({ isChatOpen = false }: { isChatOpen?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const [params, setParams] = useState<SandboxParams>(DEFAULT_SANDBOX_PARAMS);
 
@@ -56,7 +56,7 @@ export default function PromptSandbox() {
   }
 
   return (
-    <div className="fixed bottom-6 left-6 z-[38]">
+    <div className={`fixed bottom-6 left-6 z-[38] ${isChatOpen ? "max-sm:hidden" : ""}`}>
       <AnimatePresence>
         {isOpen && (
           <motion.div

@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { radarPresets } from "@/lib/fallback-data";
 import { polarToCartesian, SVG_COLORS } from "@/lib/svg-utils";
 
@@ -83,11 +84,31 @@ export function CyberThreatRadar({
         })}
 
         {/* Data polygon */}
-        <path d={dataPath} fill={fillColor} stroke={strokeColor} strokeWidth="1.5" />
+        <motion.path
+          d={dataPath}
+          fill={fillColor}
+          stroke={strokeColor}
+          strokeWidth="1.5"
+          initial={{ opacity: 0, scale: 0 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          style={{ transformOrigin: `${CX}px ${CY}px` }}
+        />
 
         {/* Data dots */}
         {dataPoints.map((p, i) => (
-          <circle key={i} cx={p.x} cy={p.y} r={3} fill={dotColor} />
+          <motion.circle
+            key={i}
+            cx={p.x}
+            cy={p.y}
+            r={3}
+            fill={dotColor}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: 0.3 + i * 0.08 }}
+          />
         ))}
 
         {/* Labels */}

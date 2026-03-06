@@ -553,7 +553,7 @@ export function ChatWidget() {
       </motion.button>
 
       {/* Prompt sandbox controls */}
-      <PromptSandbox />
+      <PromptSandbox isChatOpen={state.isOpen} />
 
       {/* Tool Inspector dev panel */}
       <ToolInspector events={toolEvents} />
