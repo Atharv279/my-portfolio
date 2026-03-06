@@ -91,8 +91,8 @@ export function CyberThreatRadar({
           strokeWidth="1.5"
           initial={{ opacity: 0, scale: 0 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           style={{ transformOrigin: `${CX}px ${CY}px` }}
         />
 
@@ -106,8 +106,8 @@ export function CyberThreatRadar({
             fill={dotColor}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ delay: 0.3 + i * 0.08 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ delay: 0.5 + i * 0.08 }}
           />
         ))}
 
