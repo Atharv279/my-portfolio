@@ -31,8 +31,8 @@ The portfolio belongs to **Atharv Patil** — a Junior Software Developer & Team
 4. **Sukamsys** — Intern (Aug 2023–Mar 2024, Nagpur).
 
 ### Education
-- B.Tech Computer Science, Nagpur University (2021–2024)
-- Diploma Computer Science, Cusrow Wadia Institute (2018–2021)
+- B.E. Computer Science, Nagpur Institute of Technology (2021–2024, CGPA 7.98)
+- Diploma Computer Science, Cusrow Wadia Institute of Technology (2018–2021, CGPA 8.7)
 
 ### Content distributed across the Bento Grid:
 1. **Hero/Profile Card:** "Python Developer & AI Engineer". Current role + bio.
@@ -48,6 +48,7 @@ The portfolio belongs to **Atharv Patil** — a Junior Software Developer & Team
 11. **AI Chat (Kittu):** Conversational digital twin with 6 generative UI tools, guided tour, suggestion chips.
 12. **Certification Card:** 5 certifications with amber gradient accent.
 13. **Impact Dashboard:** 4 animated count-up metric cards.
+14. **Education Card:** B.E. & Diploma details with sky-blue gradient accent, GraduationCap/BookOpen icons.
 
 ### 6 Projects (for context files, see `_context/` directory):
 1. **Autonomous Marketing Engine** — Multi-agent n8n pipeline, local LLMs, zero cloud cost.
@@ -68,6 +69,11 @@ The portfolio belongs to **Atharv Patil** — a Junior Software Developer & Team
 - All hover effects MUST use `md:hover:` prefix to prevent sticky hover on touch devices.
 - Glow overlays use `md:group-hover:` — never bare `group-hover:`.
 - Mobile-first: `max-sm:` classes for mobile fullscreen, safe area insets for iOS.
+- iOS Safari SVG: NEVER use `<foreignObject>` with flexbox — use plain SVG `<text>` with `textAnchor="middle"` + `dominantBaseline="central"`.
+- iOS Safari crypto: `crypto.randomUUID()` fails on non-HTTPS. Use `Math.random().toString(36)` fallback.
+- iOS Safari Framer Motion: `whileInView` + `scale` transforms fail silently on SVG. Use `animate` (mount-trigger) with opacity-only transitions.
+- Hydration safety: Client components using browser APIs must use mounted guard (`useState(false)` + `useEffect(() => setMounted(true), [])` + early `return null`).
+- ChatInput: use `text-base sm:text-sm` (16px on mobile prevents iOS Safari auto-zoom on focus).
 - After ANY code changes, always run: `npx tsc --noEmit`, `npx eslint . --max-warnings=0`, `npm run build`.
 
 ## External Links & Deep Context
