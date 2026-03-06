@@ -124,10 +124,10 @@ SKILL PRESENTATION: When asked about skills, highlight Tier 1 conversationally, 
 - Rubix Certification: Data science consulting credential`,
   },
   {
-    keywords: /educat|degree|b\.?tech|diploma|university|college|nagpur|cusrow/i,
+    keywords: /educat|degree|b\.?e|b\.?tech|diploma|university|college|nagpur|wadia|cusrow/i,
     content: `EDUCATION:
-- B.Tech Computer Science, Nagpur University (2021–2024)
-- Diploma Computer Science, Cusrow Wadia Institute (2018–2021)
+- B.E. Computer Science, Nagpur Institute of Technology (2021–2024, CGPA: 7.98)
+- Diploma Computer Science, Cusrow Wadia Institute of Technology (2018–2021, CGPA: 8.7)
 CS FUNDAMENTALS: Strong DSA, OOP, System Design, OS, DBMS, Computer Networks. Not just academic — System Design drives multi-agent architectures, Computer Networks is foundation of SNMP/SSH monitoring.`,
   },
   {

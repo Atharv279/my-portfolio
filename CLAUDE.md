@@ -16,7 +16,7 @@
 - Framework: Next.js 16 (App Router), TypeScript, Tailwind CSS v4.
 - Animations: Framer Motion.
 - Background: React Three Fiber (WebGL particle field).
-- AI Chat: Groq API (`llama-3.3-70b-versatile`) via `groq-sdk`, streaming SSE.
+- AI Chat: Groq API (`llama-3.3-70b-versatile`) via `groq-sdk`, streaming SSE. Smart Dynamic RAG system prompt (~300-800 tokens/request). Sliding window: 10 messages.
 - UI Components: Shadcn/UI & Lucide-React icons.
 - CMS: Sanity (optional, falls back to `lib/fallback-data.ts`).
 - Design System: Minimalist, dark-mode, glassmorphic bento-box grid. High contrast borders (`white/[0.12]`), subtle backgrounds (`white/[0.05]`).

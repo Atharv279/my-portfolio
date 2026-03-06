@@ -15,6 +15,7 @@ import { SystemMapLazy } from "./components/generative-ui/SystemMapLazy";
 import EngineeringTimeline from "./components/timeline/EngineeringTimeline";
 import SkillRadar from "./components/skills/SkillRadar";
 import CertificationCard from "./components/bento-grid/CertificationCard";
+import EducationCard from "./components/bento-grid/EducationCard";
 import ImpactDashboard from "./components/metrics/ImpactDashboard";
 import GitHubPanel from "./components/github/GitHubPanel";
 import {
@@ -116,6 +117,10 @@ export default async function Home() {
         <div className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
           <GitHubPanel />
         </div>
+
+        {/* ── Education ── */}
+        <SectionLabel>Education</SectionLabel>
+        <EducationCard id="education" />
 
         {/* ── Career Evolution ── */}
         <SectionLabel>Career Evolution</SectionLabel>
