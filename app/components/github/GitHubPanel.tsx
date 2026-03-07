@@ -27,6 +27,7 @@ interface GitHubData {
   };
   repos: Repo[];
   languages: Language[];
+  contributions?: number[][];
 }
 
 const LANG_COLORS: Record<string, string> = {
@@ -36,7 +37,9 @@ const LANG_COLORS: Record<string, string> = {
   HTML: "#E34C26",
   CSS: "#563D7C",
   Jupyter: "#DA5B0B",
+  "Jupyter Notebook": "#DA5B0B",
   Shell: "#89E051",
+  Rust: "#DEA584",
 };
 
 // Fallback data if API fails
@@ -44,21 +47,24 @@ const fallbackData: GitHubData = {
   profile: {
     login: "Atharv279",
     avatarUrl: "",
-    publicRepos: 12,
-    followers: 0,
+    publicRepos: 23,
+    followers: 1,
     bio: "Python Developer & AI Engineer",
   },
   repos: [
-    { name: "Autonomous-Marketing-Engine", description: "Multi-agent n8n pipeline with local LLMs", language: "Python", stars: 0, url: "https://github.com/Atharv279" },
-    { name: "Network-Intelligence-Dashboard", description: "SNMP/SSH monitoring for Cisco & Fortinet", language: "Python", stars: 0, url: "https://github.com/Atharv279" },
-    { name: "RAGify-Finance", description: "RAG benchmarking with Cohere vs HuggingFace", language: "Python", stars: 0, url: "https://github.com/Atharv279" },
-    { name: "TalentScout-AI", description: "Multilingual recruitment assistant", language: "Python", stars: 0, url: "https://github.com/Atharv279" },
+    { name: "ai-research-agent", description: "Automated AI research agent — searches GitHub daily for new AI repos", language: "Python", stars: 0, url: "https://github.com/Atharv279/ai-research-agent" },
+    { name: "RAGify-Finance", description: "Benchmarks Cohere vs HuggingFace for financial document Q&A", language: "Python", stars: 1, url: "https://github.com/Atharv279/RAGify-Finance" },
+    { name: "daily-experiments", description: "Automated NIST NVD security scanner with threat dashboards", language: "Python", stars: 0, url: "https://github.com/Atharv279/daily-experiments" },
+    { name: "automated-bots", description: "Algorithmic market signal generator with technical analysis", language: "Python", stars: 0, url: "https://github.com/Atharv279/automated-bots" },
+    { name: "AI_Invoice_Master", description: "Multi-language invoice extractor with OCR + Gemini AI", language: "Python", stars: 1, url: "https://github.com/Atharv279/AI_Invoice_Master" },
+    { name: "CNN-Emotion-Detection", description: "Facial emotion detection from FER-2013 using CNN", language: "Python", stars: 0, url: "https://github.com/Atharv279/CNN-Emotion-Detection" },
   ],
   languages: [
-    { name: "Python", percentage: 65 },
-    { name: "TypeScript", percentage: 20 },
+    { name: "Python", percentage: 60 },
+    { name: "TypeScript", percentage: 15 },
     { name: "JavaScript", percentage: 10 },
-    { name: "HTML", percentage: 5 },
+    { name: "Jupyter Notebook", percentage: 10 },
+    { name: "Rust", percentage: 5 },
   ],
 };
 
@@ -180,7 +186,7 @@ export default function GitHubPanel() {
 
           {/* Contribution heatmap */}
           <div className="overflow-x-auto scrollbar-hide">
-            <ContributionHeatmap />
+            <ContributionHeatmap contributions={data.contributions} />
           </div>
         </div>
       </div>

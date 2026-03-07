@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 const CELL_SIZE = 10;
 const GAP = 2;
-const WEEKS = 26; // Show ~6 months
+const WEEKS = 26;
 const DAYS = 7;
 
 const COLORS = [
@@ -14,13 +14,12 @@ const COLORS = [
   "#34d399", // 3 — emerald-400
 ];
 
-/** Generate a pseudorandom activity grid seeded from project count. */
-function generateGrid(): number[][] {
+/** Generate a pseudorandom fallback grid. */
+function generateFallbackGrid(): number[][] {
   const grid: number[][] = [];
   for (let w = 0; w < WEEKS; w++) {
     const week: number[] = [];
     for (let d = 0; d < DAYS; d++) {
-      // More activity in recent weeks
       const recency = w / WEEKS;
       const rand = Math.sin(w * 7 + d * 13 + 42) * 0.5 + 0.5;
       const level = rand * recency > 0.4 ? (rand > 0.8 ? 3 : rand > 0.5 ? 2 : 1) : 0;
@@ -31,17 +30,40 @@ function generateGrid(): number[][] {
   return grid;
 }
 
-export default function ContributionHeatmap() {
-  const grid = useMemo(() => generateGrid(), []);
+interface Props {
+  contributions?: number[][];
+}
+
+export default function ContributionHeatmap({ contributions }: Props) {
+  const grid = useMemo(() => {
+    if (contributions && contributions.length > 0) {
+      // Pad to WEEKS if needed
+      const padded = [...contributions];
+      while (padded.length < WEEKS) {
+        padded.unshift(Array(DAYS).fill(0));
+      }
+      return padded.slice(-WEEKS);
+    }
+    return generateFallbackGrid();
+  }, [contributions]);
 
   const width = WEEKS * (CELL_SIZE + GAP);
   const height = DAYS * (CELL_SIZE + GAP);
 
+  const totalContributions = grid.flat().filter((l) => l > 0).length;
+
   return (
     <div>
-      <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
-        Activity
-      </span>
+      <div className="mb-2 flex items-center justify-between">
+        <span className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+          Activity
+        </span>
+        {contributions && contributions.length > 0 && (
+          <span className="text-[9px] text-zinc-600">
+            {totalContributions} active days (6mo)
+          </span>
+        )}
+      </div>
       <svg
         viewBox={`0 0 ${width} ${height}`}
         className="w-full min-w-[280px]"
