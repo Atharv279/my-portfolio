@@ -107,7 +107,10 @@ export default function BentoCard({
       custom={index}
       variants={cardVariants}
       initial="hidden"
-      animate="visible"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.15 }}
+      whileHover={disablePhysics ? undefined : { scale: 1.015 }}
+      transition={disablePhysics ? undefined : { type: "spring", stiffness: 400, damping: 25 }}
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

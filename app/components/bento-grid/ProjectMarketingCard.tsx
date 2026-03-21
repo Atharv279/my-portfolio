@@ -23,7 +23,7 @@ export default function ProjectMarketingCard({
   return (
     <BentoCard
       id={id}
-      index={3}
+      index={0}
       glowColor={data.glowColor}
       className="flex flex-col justify-between md:col-span-2 md:row-span-1"
       onExpand={onExpand}

@@ -13,7 +13,7 @@ import {
   ProjectMeetTranscriberCard,
   HardwareOpsCard,
 } from "./components/bento-grid";
-import { InfiniteTicker } from "./components/ui";
+import { InfiniteTicker, SectionLabel, SectionReveal } from "./components/ui";
 import { SystemMapLazy } from "./components/generative-ui/SystemMapLazy";
 import EngineeringTimeline from "./components/timeline/EngineeringTimeline";
 import SkillRadar from "./components/skills/SkillRadar";
@@ -46,20 +46,6 @@ import {
 } from "@/lib/fallback-data";
 
 export const revalidate = 3600;
-
-function SectionLabel({ children, accentColor = "bg-violet-500/70" }: { children: React.ReactNode; accentColor?: string }) {
-  return (
-    <div className="col-span-full flex items-center gap-3 pt-6 pb-1.5 md:pt-10 md:pb-2">
-      <div className="flex items-center gap-2">
-        <span className={`inline-block h-1.5 w-1.5 rounded-full ${accentColor}`} />
-        <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-zinc-400">
-          {children}
-        </h2>
-      </div>
-      <div className="h-px flex-1 bg-white/[0.10]" />
-    </div>
-  );
-}
 
 export default async function Home() {
   const [
@@ -108,9 +94,9 @@ export default async function Home() {
 
         {/* ── AI Systems Architecture ── */}
         <SectionLabel>AI Systems Architecture</SectionLabel>
-        <div className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+        <SectionReveal className="col-span-full rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
           <SystemMapLazy />
-        </div>
+        </SectionReveal>
 
         {/* ── Autonomous Intelligence ── */}
         <SectionLabel accentColor="bg-violet-500/70">Autonomous Intelligence</SectionLabel>
@@ -131,15 +117,15 @@ export default async function Home() {
 
         {/* ── Open Source ── */}
         <SectionLabel>Open Source</SectionLabel>
-        <div className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+        <SectionReveal className="col-span-full rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
           <GitHubPanel />
-        </div>
+        </SectionReveal>
 
         {/* ── Career Evolution ── */}
         <SectionLabel>Career Evolution</SectionLabel>
-        <div id="timeline" className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+        <SectionReveal id="timeline" className="col-span-full rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
           <EngineeringTimeline />
-        </div>
+        </SectionReveal>
 
         {/* ── Engineering & Infrastructure ── */}
         <SectionLabel>Engineering &amp; Infrastructure</SectionLabel>
@@ -149,15 +135,15 @@ export default async function Home() {
 
         {/* ── Business Impact ── */}
         <SectionLabel>Business Impact</SectionLabel>
-        <div id="impact" className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+        <SectionReveal id="impact" className="col-span-full rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
           <ImpactDashboard />
-        </div>
+        </SectionReveal>
 
         {/* ── Skill Radar ── */}
         <SectionLabel>Skill Radar</SectionLabel>
-        <div id="skills" className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+        <SectionReveal id="skills" className="col-span-full rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
           <SkillRadar />
-        </div>
+        </SectionReveal>
       </BentoGrid>
     </main>
   );

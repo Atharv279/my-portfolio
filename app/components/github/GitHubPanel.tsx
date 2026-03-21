@@ -17,6 +17,11 @@ interface Language {
   percentage: number;
 }
 
+interface ContributionDay {
+  count: number;
+  date: string;
+}
+
 interface GitHubData {
   profile: {
     login: string;
@@ -27,6 +32,10 @@ interface GitHubData {
   };
   repos: Repo[];
   languages: Language[];
+  contributions?: {
+    totalContributions: number;
+    weeks: ContributionDay[][];
+  } | null;
 }
 
 const LANG_COLORS: Record<string, string> = {
@@ -36,7 +45,9 @@ const LANG_COLORS: Record<string, string> = {
   HTML: "#E34C26",
   CSS: "#563D7C",
   Jupyter: "#DA5B0B",
+  "Jupyter Notebook": "#DA5B0B",
   Shell: "#89E051",
+  Rust: "#DEA584",
 };
 
 // Fallback data if API fails
@@ -44,21 +55,24 @@ const fallbackData: GitHubData = {
   profile: {
     login: "Atharv279",
     avatarUrl: "",
-    publicRepos: 12,
+    publicRepos: 24,
     followers: 0,
     bio: "Python Developer & AI Engineer",
   },
   repos: [
-    { name: "Autonomous-Marketing-Engine", description: "Multi-agent n8n pipeline with local LLMs", language: "Python", stars: 0, url: "https://github.com/Atharv279" },
-    { name: "Network-Intelligence-Dashboard", description: "SNMP/SSH monitoring for Cisco & Fortinet", language: "Python", stars: 0, url: "https://github.com/Atharv279" },
-    { name: "RAGify-Finance", description: "RAG benchmarking with Cohere vs HuggingFace", language: "Python", stars: 0, url: "https://github.com/Atharv279" },
-    { name: "TalentScout-AI", description: "Multilingual recruitment assistant", language: "Python", stars: 0, url: "https://github.com/Atharv279" },
+    { name: "ai-research-agent", description: "Automated AI research agent — searches GitHub daily for new AI repos", language: "Python", stars: 0, url: "https://github.com/Atharv279/ai-research-agent" },
+    { name: "AI_Invoice_Master", description: "Multi-language invoice extractor with OCR + Gemini AI", language: "Python", stars: 1, url: "https://github.com/Atharv279/AI_Invoice_Master" },
+    { name: "pneumonia-xray-classification", description: "Detects pneumonia from chest X-ray images using CNNs", language: "Python", stars: 0, url: "https://github.com/Atharv279/pneumonia-xray-classification" },
+    { name: "google-meet-transcriber", description: "Captures real-time transcript data from Google Meet", language: "Rust", stars: 0, url: "https://github.com/Atharv279/google-meet-transcriber" },
+    { name: "RAGify-Finance", description: "Benchmarks Cohere vs HuggingFace embeddings for financial Q&A", language: "Python", stars: 1, url: "https://github.com/Atharv279/RAGify-Finance" },
+    { name: "CNN-Emotion-Detection", description: "Facial emotion detection from FER-2013 dataset using CNN", language: "Python", stars: 0, url: "https://github.com/Atharv279/CNN-Emotion-Detection" },
   ],
   languages: [
-    { name: "Python", percentage: 65 },
-    { name: "TypeScript", percentage: 20 },
-    { name: "JavaScript", percentage: 10 },
-    { name: "HTML", percentage: 5 },
+    { name: "Python", percentage: 68 },
+    { name: "TypeScript", percentage: 13 },
+    { name: "Jupyter Notebook", percentage: 13 },
+    { name: "Rust", percentage: 4 },
+    { name: "HTML", percentage: 2 },
   ],
 };
 
@@ -179,7 +193,10 @@ export default function GitHubPanel() {
           </div>
 
           {/* Contribution heatmap */}
-          <ContributionHeatmap />
+          <ContributionHeatmap
+            weeks={data.contributions?.weeks}
+            totalContributions={data.contributions?.totalContributions}
+          />
         </div>
       </div>
 
@@ -193,7 +210,7 @@ export default function GitHubPanel() {
           href={`https://github.com/${data.profile.login}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[11px] text-zinc-400 transition-colors hover:text-zinc-200"
+          className="text-[11px] text-zinc-400 transition-colors md:hover:text-zinc-200"
         >
           View on GitHub →
         </a>

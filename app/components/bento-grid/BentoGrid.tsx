@@ -4,15 +4,6 @@ import { useState, useCallback, useEffect, type ReactNode, Children, cloneElemen
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.15,
-    },
-  },
-};
 
 export default function BentoGrid({ children }: { children: ReactNode }) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -72,9 +63,6 @@ export default function BentoGrid({ children }: { children: ReactNode }) {
   return (
     <>
       <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
         className="mx-auto grid max-w-7xl grid-cols-1 gap-3 md:gap-4 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto md:auto-rows-[minmax(180px,auto)]"
       >
         {enhancedChildren}

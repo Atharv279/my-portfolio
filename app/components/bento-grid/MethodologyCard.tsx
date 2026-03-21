@@ -23,7 +23,7 @@ export default function MethodologyCard({
   return (
     <BentoCard
       id={id}
-      index={2}
+      index={0}
       glowColor={data.glowColor}
       className="flex flex-col md:col-span-2 md:row-span-1"
       onExpand={onExpand}
