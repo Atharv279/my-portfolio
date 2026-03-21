@@ -12,6 +12,7 @@ import { ThinkingPanel } from "./ThinkingPanel";
 import { KittuAvatar } from "./KittuAvatar";
 import ToolInspector, { type ToolEvent } from "../dev/ToolInspector";
 import PromptSandbox, { getSandboxParams } from "./PromptSandbox";
+import { generateId } from "@/lib/generateId";
 
 interface UIMessage {
   id: string;
@@ -50,7 +51,7 @@ function reducer(state: State, action: Action): State {
         ...state,
         messages: [
           ...state.messages,
-          { id: crypto.randomUUID(), role: "user", content: action.content },
+          { id: generateId(), role: "user", content: action.content },
         ],
       };
     case "START_STREAMING":
@@ -60,7 +61,7 @@ function reducer(state: State, action: Action): State {
         thinkingStage: 0,
         messages: [
           ...state.messages,
-          { id: crypto.randomUUID(), role: "assistant", content: "" },
+          { id: generateId(), role: "assistant", content: "" },
         ],
       };
     case "APPEND_CONTENT": {
@@ -260,7 +261,7 @@ export function ChatWidget() {
             const now = performance.now();
             const latencyMs = Math.round(now - streamStartRef.current);
             const newEvents = chunk.toolCalls.map((tc) => ({
-              id: crypto.randomUUID(),
+              id: generateId(),
               name: tc.name,
               arguments: tc.arguments,
               timestamp: Date.now(),
@@ -305,7 +306,7 @@ export function ChatWidget() {
       dispatch({
         type: "ADD_TOUR_MESSAGE",
         message: {
-          id: crypto.randomUUID(),
+          id: generateId(),
           role: "assistant",
           content: step.content,
           toolCalls: step.toolCalls,
@@ -382,7 +383,7 @@ export function ChatWidget() {
               </div>
               <button
                 onClick={handleToggle}
-                className="rounded-lg p-1 text-zinc-500 transition-colors hover:bg-white/[0.06] hover:text-zinc-300"
+                className="rounded-lg p-1 text-zinc-500 transition-colors md:hover:bg-white/[0.06] md:hover:text-zinc-300"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -418,7 +419,7 @@ export function ChatWidget() {
                         key={s}
                         onClick={() => handleSend(s)}
                         disabled={isDisabled}
-                        className="rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[11px] text-zinc-400 transition-colors hover:border-white/[0.15] hover:bg-white/[0.08] hover:text-zinc-200 disabled:opacity-40"
+                        className="rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[11px] text-zinc-400 transition-colors md:hover:border-white/[0.15] md:hover:bg-white/[0.08] md:hover:text-zinc-200 disabled:opacity-40"
                       >
                         {s}
                       </button>
@@ -429,7 +430,7 @@ export function ChatWidget() {
                       data-tour-trigger
                       onClick={startTour}
                       disabled={isDisabled}
-                      className="rounded-full border border-violet-500/20 bg-violet-500/10 px-3 py-1.5 text-[11px] font-medium text-violet-300 transition-colors hover:border-violet-500/40 hover:bg-violet-500/20 hover:text-violet-200 disabled:opacity-40"
+                      className="rounded-full border border-violet-500/20 bg-violet-500/10 px-3 py-1.5 text-[11px] font-medium text-violet-300 transition-colors md:hover:border-violet-500/40 md:hover:bg-violet-500/20 md:hover:text-violet-200 disabled:opacity-40"
                     >
                       Take a 60-second AI systems tour
                     </button>
@@ -481,7 +482,7 @@ export function ChatWidget() {
         onClick={handleToggle}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="flex h-14 w-14 items-center justify-center rounded-full border border-white/[0.08] bg-black/80 text-zinc-400 shadow-2xl backdrop-blur-xl transition-colors hover:text-zinc-200"
+        className={`flex h-14 w-14 items-center justify-center rounded-full border border-white/[0.08] bg-black/80 text-zinc-400 shadow-2xl backdrop-blur-xl transition-colors md:hover:text-zinc-200 ${state.isOpen ? "max-sm:hidden" : ""}`}
       >
         {state.isOpen ? (
           <X className="h-5 w-5" />
@@ -491,7 +492,7 @@ export function ChatWidget() {
       </motion.button>
 
       {/* Prompt sandbox controls */}
-      <PromptSandbox />
+      <PromptSandbox isChatOpen={state.isOpen} />
 
       {/* Tool Inspector dev panel */}
       <ToolInspector events={toolEvents} />

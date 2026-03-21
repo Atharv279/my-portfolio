@@ -117,17 +117,17 @@ export default function BentoCard({
         transformPerspective: 800,
         "--glow-color": glowColor,
       } as React.CSSProperties}
-      className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-white/[0.12] bg-white/[0.05] p-5 md:p-6 backdrop-blur-sm transition-all duration-300 hover:border-white/[0.18] hover:shadow-lg hover:shadow-black/20 ${className}`}
+      className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-white/[0.12] bg-white/[0.05] p-5 md:p-6 backdrop-blur-sm transition-all duration-300 md:hover:border-white/[0.18] md:hover:shadow-lg md:hover:shadow-black/20 ${className}`}
     >
       {/* Cursor-tracking flashlight glow */}
       <motion.div
-        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 md:group-hover:opacity-100"
         style={{ background: flashlightBg }}
       />
 
       {/* Static fallback glow for touch / reduced-motion */}
       <div
-        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 md:group-hover:opacity-100"
         style={{
           boxShadow: `inset 0 0 30px -12px var(--glow-color), 0 0 40px -20px var(--glow-color)`,
         }}

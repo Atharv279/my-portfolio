@@ -74,7 +74,7 @@ export default function ProjectNetworkCard({
             className="group inline-flex w-fit items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-4 py-2 font-mono text-xs text-zinc-300 transition-all active:bg-cyan-500/10 md:hover:border-cyan-500/40 md:hover:bg-cyan-500/10 md:hover:text-cyan-300 md:hover:shadow-[0_0_20px_-6px_rgba(6,182,212,0.3)]"
           >
             View Source
-            <ExternalLink className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+            <ExternalLink className="h-3 w-3 transition-transform md:group-hover:translate-x-0.5" />
           </a>
         )}
       </div>

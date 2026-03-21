@@ -107,14 +107,14 @@ export default function GitHubPanel() {
                 href={repo.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-start gap-2 rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2 transition-all duration-200 hover:border-white/[0.14] hover:bg-white/[0.05] hover:shadow-md hover:shadow-black/15"
+                className="group flex items-start gap-2 rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2 transition-all duration-200 md:hover:border-white/[0.14] md:hover:bg-white/[0.05] md:hover:shadow-md md:hover:shadow-black/15"
               >
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5">
-                    <span className="truncate text-xs font-medium text-zinc-200 group-hover:text-violet-300">
+                    <span className="truncate text-xs font-medium text-zinc-200 md:group-hover:text-violet-300">
                       {repo.name}
                     </span>
-                    <ExternalLink className="h-2.5 w-2.5 shrink-0 text-zinc-600 opacity-0 transition-opacity group-hover:opacity-100" />
+                    <ExternalLink className="h-2.5 w-2.5 shrink-0 text-zinc-600 opacity-0 transition-opacity md:group-hover:opacity-100" />
                   </div>
                   {repo.description && (
                     <p className="mt-0.5 truncate text-[11px] text-zinc-500">

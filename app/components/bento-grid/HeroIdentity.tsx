@@ -160,7 +160,7 @@ export default function HeroIdentity({
                     <Icon className="h-4.5 w-4.5" />
                     {link.label}
                     <ExternalLink
-                      className={`ml-auto h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:text-current ${
+                      className={`ml-auto h-3 w-3 transition-transform md:group-hover:translate-x-0.5 md:group-hover:text-current ${
                         isLinkedIn ? "text-emerald-500/60" : "text-zinc-600"
                       }`}
                     />

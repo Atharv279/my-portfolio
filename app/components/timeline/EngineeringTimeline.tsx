@@ -74,7 +74,7 @@ export default function EngineeringTimeline() {
               {linkedProjects.length > 0 && (
                 <button
                   onClick={() => setExpandedIdx(isExpanded ? null : i)}
-                  className="mt-2 flex items-center gap-1 text-[11px] text-violet-400 transition-colors hover:text-violet-300"
+                  className="mt-2 flex items-center gap-1 text-[11px] text-violet-400 transition-colors md:hover:text-violet-300"
                 >
                   {isExpanded ? (
                     <ChevronUp className="h-3 w-3" />
