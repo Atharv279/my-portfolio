@@ -15,14 +15,20 @@ import {
   fallbackMarketingProject,
   fallbackNetworkProject,
   fallbackRAGifyProject,
-  fallbackTalentProject,
+  fallbackResearchAgentProject,
+  fallbackInvoiceMasterProject,
+  fallbackPneumoniaProject,
+  fallbackMeetTranscriberProject,
 } from "@/lib/fallback-data";
 
 const projectsBySlug: Record<string, Project> = {
   "autonomous-marketing-engine": fallbackMarketingProject,
-  "network-intelligence-dashboard": fallbackNetworkProject,
+  "ai-research-agent": fallbackResearchAgentProject,
   "ragify-finance": fallbackRAGifyProject,
-  "talentscout-ai": fallbackTalentProject,
+  "ai-invoice-master": fallbackInvoiceMasterProject,
+  "pneumonia-xray": fallbackPneumoniaProject,
+  "network-intelligence-dashboard": fallbackNetworkProject,
+  "google-meet-transcriber": fallbackMeetTranscriberProject,
 };
 
 const TOOL_NAMES = new Set([

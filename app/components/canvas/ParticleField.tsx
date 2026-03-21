@@ -8,7 +8,8 @@
 import { useRef, useMemo, useCallback } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useReducedMotion } from "framer-motion";
-import * as THREE from "three";
+import { Color } from "three";
+import type { Points, LineSegments, BufferAttribute } from "three";
 
 const DESKTOP_COUNT = 90;
 const SPREAD_X = 8;
@@ -19,8 +20,8 @@ const MAX_CONNECTIONS = 24;
 const MOUSE_RADIUS = 3;
 const MOUSE_PUSH = 0.3;
 const RETURN_SPEED = 0.02;
-const PARTICLE_COLOR = new THREE.Color("#e4e4e7");
-const LINE_COLOR = new THREE.Color(0.894, 0.894, 0.906);
+const PARTICLE_COLOR = new Color("#e4e4e7");
+const LINE_COLOR = new Color(0.894, 0.894, 0.906);
 
 interface ParticleFieldProps {
   count?: number;
@@ -30,8 +31,8 @@ export default function ParticleField({ count }: ParticleFieldProps) {
   const reducedMotion = useReducedMotion();
   const particleCount = count ?? DESKTOP_COUNT;
 
-  const pointsRef = useRef<THREE.Points>(null);
-  const lineRef = useRef<THREE.LineSegments>(null);
+  const pointsRef = useRef<Points>(null);
+  const lineRef = useRef<LineSegments>(null);
   const frameCount = useRef(0);
 
   // Generate initial positions once
@@ -119,7 +120,7 @@ export default function ParticleField({ count }: ParticleFieldProps) {
 
     frameCount.current++;
     const posAttr = pointsRef.current.geometry.attributes
-      .position as THREE.BufferAttribute;
+      .position as BufferAttribute;
     const currentPositions = posAttr.array as Float32Array;
 
     // Project mouse into world space (on z=0 plane)
@@ -158,9 +159,9 @@ export default function ParticleField({ count }: ParticleFieldProps) {
     if (frameCount.current % 2 === 0 && lineRef.current) {
       updateConnections(currentPositions);
       const linePosAttr = lineRef.current.geometry.attributes
-        .position as THREE.BufferAttribute;
+        .position as BufferAttribute;
       const lineOpacityAttr = lineRef.current.geometry.attributes
-        .opacity as THREE.BufferAttribute;
+        .opacity as BufferAttribute;
       (linePosAttr.array as Float32Array).set(linePositions);
       (lineOpacityAttr.array as Float32Array).set(lineOpacities);
       linePosAttr.needsUpdate = true;

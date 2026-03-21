@@ -37,7 +37,7 @@ export default function HeroIdentity({
       id={id}
       index={0}
       glowColor="rgba(52, 211, 153, 0.15)"
-      className="flex flex-col justify-between !p-6 md:!p-8 md:col-span-2 md:row-span-1"
+      className="hero-glow flex flex-col justify-between !p-6 md:!p-8 md:col-span-2 md:row-span-1"
       onExpand={onExpand}
       isExpanded={isExpanded}
     >

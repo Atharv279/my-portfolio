@@ -10,7 +10,10 @@ import {
   fallbackMarketingProject,
   fallbackNetworkProject,
   fallbackRAGifyProject,
-  fallbackTalentProject,
+  fallbackResearchAgentProject,
+  fallbackInvoiceMasterProject,
+  fallbackPneumoniaProject,
+  fallbackMeetTranscriberProject,
   fallbackMethodology,
   fallbackHardwareOps,
 } from "../fallback-data";
@@ -39,9 +42,12 @@ export function buildSystemPrompt(): string {
     .join("\n");
   const projects = [
     fallbackMarketingProject,
+    fallbackResearchAgentProject,
     fallbackNetworkProject,
     fallbackRAGifyProject,
-    fallbackTalentProject,
+    fallbackInvoiceMasterProject,
+    fallbackPneumoniaProject,
+    fallbackMeetTranscriberProject,
   ]
     .map(
       (p) =>
@@ -118,7 +124,7 @@ ${domainsBlock}
 CERTIFICATIONS:
 ${certsBlock}
 
-ALL PROJECTS (6 total):
+ALL PROJECTS (7 total):
 ${allProjectsBlock}
 
 FEATURED PROJECTS (have rich visual cards):
@@ -143,9 +149,12 @@ You have 6 visual tools. When the user's message matches trigger keywords, you M
 TRIGGER: "pipeline", "workflow", "data flow", "how data moves", "process steps", "stages", "show the flow", "visualize the flow"
 → CALL: renderPipelineVisualizer with { slug } matching the project discussed.
   - Marketing Engine / agents pipeline → slug: "autonomous-marketing-engine"
+  - Research Agent / daily pipeline → slug: "ai-research-agent"
   - Network Dashboard / data pipeline → slug: "network-intelligence-dashboard"
   - RAGify / retrieval pipeline → slug: "ragify-finance"
-  - TalentScout / NLP pipeline → slug: "talentscout-ai"
+  - Invoice Master / extraction pipeline → slug: "ai-invoice-master"
+  - Pneumonia X-Ray / training pipeline → slug: "pneumonia-xray"
+  - Meet Transcriber / capture pipeline → slug: "google-meet-transcriber"
   - If no specific project mentioned, default to "autonomous-marketing-engine".
 
 TRIGGER: "multi-agent", "agent architecture", "agent workflow", "agent collaboration", "how agents work", "DAG", "agent system"
@@ -180,9 +189,12 @@ TRIGGER: "projects", "work", "portfolio", "what have you built", broad experienc
 → CALL: MULTIPLE renderProjectCard calls, one per project:
 [
   { "name": "renderProjectCard", "parameters": { "slug": "autonomous-marketing-engine" } },
-  { "name": "renderProjectCard", "parameters": { "slug": "network-intelligence-dashboard" } },
+  { "name": "renderProjectCard", "parameters": { "slug": "ai-research-agent" } },
   { "name": "renderProjectCard", "parameters": { "slug": "ragify-finance" } },
-  { "name": "renderProjectCard", "parameters": { "slug": "talentscout-ai" } }
+  { "name": "renderProjectCard", "parameters": { "slug": "ai-invoice-master" } },
+  { "name": "renderProjectCard", "parameters": { "slug": "pneumonia-xray" } },
+  { "name": "renderProjectCard", "parameters": { "slug": "network-intelligence-dashboard" } },
+  { "name": "renderProjectCard", "parameters": { "slug": "google-meet-transcriber" } }
 ]
 
 DISAMBIGUATION PRIORITY (when multiple tools could match):
@@ -197,6 +209,5 @@ FALLBACK: If a tool call fails or the requested project/variant doesn't exist, e
 7. When asked about certifications, mention ALL 5 by name: Cisco Black Belt, AI Expert, Certified Data Scientist, Building Gen AI App (12+ Gemini Pro projects), AI Workplace Proficiency. Explain each one's relevance.
 8. When asked about a specific skill (e.g. "how good are you at Python?"), cite the proficiency % from the skill index AND name the projects where you used it.
 9. When asked about domains or expertise areas, explain the domain and name specific projects and skills. Use the domain expertise map.
-10. For AJAI/Kilo CODE and AI Video Recommender: describe from project summaries (no visual cards for these yet). Mention they exist when listing all projects.
-11. You can combine text + multiple tool calls. Example: "Here are my key projects:" followed by multiple renderProjectCard calls.`;
+10. You can combine text + multiple tool calls. Example: "Here are my key projects:" followed by multiple renderProjectCard calls.`;
 }

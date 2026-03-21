@@ -163,7 +163,7 @@ const TOUR_STEPS: TourStep[] = [
   },
   {
     content:
-      "These capabilities come together across four flagship projects. Feel free to click any card to explore further, or ask me anything!",
+      "These capabilities come together across seven projects spanning autonomous systems, applied AI, and systems engineering. Here are a few highlights \u2014 feel free to ask about any of them!",
     toolCalls: [
       {
         name: "renderProjectCard",
@@ -171,7 +171,7 @@ const TOUR_STEPS: TourStep[] = [
       },
       {
         name: "renderProjectCard",
-        arguments: { slug: "network-intelligence-dashboard" },
+        arguments: { slug: "ai-research-agent" },
       },
       {
         name: "renderProjectCard",
@@ -179,7 +179,7 @@ const TOUR_STEPS: TourStep[] = [
       },
       {
         name: "renderProjectCard",
-        arguments: { slug: "talentscout-ai" },
+        arguments: { slug: "pneumonia-xray" },
       },
     ],
   },

@@ -7,7 +7,10 @@ import {
   ProjectMarketingCard,
   ProjectNetworkCard,
   ProjectRAGifyCard,
-  ProjectTalentCard,
+  ProjectResearchAgentCard,
+  ProjectInvoiceMasterCard,
+  ProjectPneumoniaCard,
+  ProjectMeetTranscriberCard,
   HardwareOpsCard,
 } from "./components/bento-grid";
 import { InfiniteTicker } from "./components/ui";
@@ -34,18 +37,21 @@ import {
   fallbackMarketingProject,
   fallbackNetworkProject,
   fallbackRAGifyProject,
-  fallbackTalentProject,
+  fallbackResearchAgentProject,
+  fallbackInvoiceMasterProject,
+  fallbackPneumoniaProject,
+  fallbackMeetTranscriberProject,
   fallbackMethodology,
   fallbackHardwareOps,
 } from "@/lib/fallback-data";
 
 export const revalidate = 3600;
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function SectionLabel({ children, accentColor = "bg-violet-500/70" }: { children: React.ReactNode; accentColor?: string }) {
   return (
-    <div className="col-span-full flex items-center gap-3 pt-10 pb-2">
+    <div className="col-span-full flex items-center gap-3 pt-6 pb-1.5 md:pt-10 md:pb-2">
       <div className="flex items-center gap-2">
-        <span className="inline-block h-1.5 w-1.5 rounded-full bg-violet-500/70" />
+        <span className={`inline-block h-1.5 w-1.5 rounded-full ${accentColor}`} />
         <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-zinc-400">
           {children}
         </h2>
@@ -85,7 +91,10 @@ export default async function Home() {
   const marketingProject = projects?.find((p) => p.slug === "autonomous-marketing-engine") ?? fallbackMarketingProject;
   const networkProject = projects?.find((p) => p.slug === "network-intelligence-dashboard") ?? fallbackNetworkProject;
   const ragifyProject = projects?.find((p) => p.slug === "ragify-finance") ?? fallbackRAGifyProject;
-  const talentProject = projects?.find((p) => p.slug === "talentscout-ai") ?? fallbackTalentProject;
+  const researchAgentProject = projects?.find((p) => p.slug === "ai-research-agent") ?? fallbackResearchAgentProject;
+  const invoiceMasterProject = projects?.find((p) => p.slug === "ai-invoice-master") ?? fallbackInvoiceMasterProject;
+  const pneumoniaProject = projects?.find((p) => p.slug === "pneumonia-xray") ?? fallbackPneumoniaProject;
+  const meetTranscriberProject = projects?.find((p) => p.slug === "google-meet-transcriber") ?? fallbackMeetTranscriberProject;
 
   return (
     <main className="relative z-10 min-h-screen px-4 py-10 md:px-8 lg:px-16 lg:py-16">
@@ -103,13 +112,22 @@ export default async function Home() {
           <SystemMapLazy />
         </div>
 
-        {/* ── Flagship Projects ── */}
-        <SectionLabel>Flagship Projects</SectionLabel>
+        {/* ── Autonomous Intelligence ── */}
+        <SectionLabel accentColor="bg-violet-500/70">Autonomous Intelligence</SectionLabel>
         <div id="projects" className="col-span-full" />
         <ProjectMarketingCard id="project-marketing" data={marketingProject} />
-        <ProjectNetworkCard id="project-network" data={networkProject} />
+        <ProjectResearchAgentCard id="project-research-agent" data={researchAgentProject} />
+
+        {/* ── Applied AI ── */}
+        <SectionLabel accentColor="bg-amber-500/70">Applied AI</SectionLabel>
         <ProjectRAGifyCard id="project-ragify" data={ragifyProject} />
-        <ProjectTalentCard id="project-talent" data={talentProject} />
+        <ProjectInvoiceMasterCard id="project-invoice-master" data={invoiceMasterProject} />
+        <ProjectPneumoniaCard id="project-pneumonia" data={pneumoniaProject} />
+
+        {/* ── Systems Engineering ── */}
+        <SectionLabel accentColor="bg-cyan-500/70">Systems Engineering</SectionLabel>
+        <ProjectNetworkCard id="project-network" data={networkProject} />
+        <ProjectMeetTranscriberCard id="project-meet-transcriber" data={meetTranscriberProject} />
 
         {/* ── Open Source ── */}
         <SectionLabel>Open Source</SectionLabel>

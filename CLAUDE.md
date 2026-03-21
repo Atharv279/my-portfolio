@@ -26,8 +26,8 @@ The portfolio belongs to Atharv Patil — a Software Developer specialized in Py
 
 Content distributed across the Bento Grid:
 1. **Hero/Profile Card:** "Python Developer & AI Engineer". Current role: Junior Dev @ Nio Stars Technologies. B.Tech CS.
-2. **Tech Stack Card:** Python, FastAPI, PyTorch, Ollama, n8n, Node-RED, Docker.
-3. **Project Cards (4):** Marketing Engine, Network Dashboard, RAGify Finance, TalentScout AI.
+2. **Tech Stack Card:** Python, FastAPI, PyTorch, TensorFlow, Ollama, n8n, Rust, Docker.
+3. **Project Cards (7):** Marketing Engine, AI Research Agent, RAGify Finance, AI Invoice Master, Pneumonia X-Ray, Network Dashboard, Google Meet Transcriber. Three themed sections: Autonomous Intelligence (violet), Applied AI (amber), Systems Engineering (cyan).
 4. **Hardware/Ops Card:** Local AI on RTX 4060, Cisco Black Belt certs.
 5. **Methodology Card:** "Perceive, Reason, Act, Refine."
 6. **System Map:** Interactive SVG radial diagram — click nodes to scroll to project cards.
