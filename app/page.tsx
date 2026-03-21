@@ -7,15 +7,17 @@ import {
   ProjectMarketingCard,
   ProjectNetworkCard,
   ProjectRAGifyCard,
-  ProjectTalentCard,
+  ProjectResearchAgentCard,
+  ProjectInvoiceMasterCard,
+  ProjectPneumoniaCard,
+  ProjectMeetTranscriberCard,
   HardwareOpsCard,
 } from "./components/bento-grid";
-import { InfiniteTicker } from "./components/ui";
+import { InfiniteTicker, SectionLabel, SectionReveal } from "./components/ui";
 import { SystemMapLazy } from "./components/generative-ui/SystemMapLazy";
 import EngineeringTimeline from "./components/timeline/EngineeringTimeline";
 import SkillRadar from "./components/skills/SkillRadar";
 import CertificationCard from "./components/bento-grid/CertificationCard";
-import EducationCard from "./components/bento-grid/EducationCard";
 import ImpactDashboard from "./components/metrics/ImpactDashboard";
 import GitHubPanel from "./components/github/GitHubPanel";
 import {
@@ -35,7 +37,10 @@ import {
   fallbackMarketingProject,
   fallbackNetworkProject,
   fallbackRAGifyProject,
-  fallbackTalentProject,
+  fallbackResearchAgentProject,
+  fallbackInvoiceMasterProject,
+  fallbackPneumoniaProject,
+  fallbackMeetTranscriberProject,
   fallbackMethodology,
   fallbackHardwareOps,
 } from "@/lib/fallback-data";
@@ -86,7 +91,10 @@ export default async function Home() {
   const marketingProject = projects?.find((p) => p.slug === "autonomous-marketing-engine") ?? fallbackMarketingProject;
   const networkProject = projects?.find((p) => p.slug === "network-intelligence-dashboard") ?? fallbackNetworkProject;
   const ragifyProject = projects?.find((p) => p.slug === "ragify-finance") ?? fallbackRAGifyProject;
-  const talentProject = projects?.find((p) => p.slug === "talentscout-ai") ?? fallbackTalentProject;
+  const researchAgentProject = projects?.find((p) => p.slug === "ai-research-agent") ?? fallbackResearchAgentProject;
+  const invoiceMasterProject = projects?.find((p) => p.slug === "ai-invoice-master") ?? fallbackInvoiceMasterProject;
+  const pneumoniaProject = projects?.find((p) => p.slug === "pneumonia-xray") ?? fallbackPneumoniaProject;
+  const meetTranscriberProject = projects?.find((p) => p.slug === "google-meet-transcriber") ?? fallbackMeetTranscriberProject;
 
   return (
     <main className="relative z-10 min-h-screen px-3 py-6 sm:px-4 md:px-8 md:py-10 lg:px-16 lg:py-16">
@@ -100,33 +108,38 @@ export default async function Home() {
 
         {/* ── AI Systems Architecture ── */}
         <SectionLabel>AI Systems Architecture</SectionLabel>
-        <div className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+        <SectionReveal className="col-span-full rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
           <SystemMapLazy />
-        </div>
+        </SectionReveal>
 
-        {/* ── Flagship Projects ── */}
-        <SectionLabel>Flagship Projects</SectionLabel>
+        {/* ── Autonomous Intelligence ── */}
+        <SectionLabel accentColor="bg-violet-500/70">Autonomous Intelligence</SectionLabel>
         <div id="projects" className="col-span-full" />
         <ProjectMarketingCard id="project-marketing" data={marketingProject} />
-        <ProjectNetworkCard id="project-network" data={networkProject} />
+        <ProjectResearchAgentCard id="project-research-agent" data={researchAgentProject} />
+
+        {/* ── Applied AI ── */}
+        <SectionLabel accentColor="bg-amber-500/70">Applied AI</SectionLabel>
         <ProjectRAGifyCard id="project-ragify" data={ragifyProject} />
-        <ProjectTalentCard id="project-talent" data={talentProject} />
+        <ProjectInvoiceMasterCard id="project-invoice-master" data={invoiceMasterProject} />
+        <ProjectPneumoniaCard id="project-pneumonia" data={pneumoniaProject} />
+
+        {/* ── Systems Engineering ── */}
+        <SectionLabel accentColor="bg-cyan-500/70">Systems Engineering</SectionLabel>
+        <ProjectNetworkCard id="project-network" data={networkProject} />
+        <ProjectMeetTranscriberCard id="project-meet-transcriber" data={meetTranscriberProject} />
 
         {/* ── Open Source ── */}
         <SectionLabel>Open Source</SectionLabel>
-        <div className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+        <SectionReveal className="col-span-full rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
           <GitHubPanel />
-        </div>
-
-        {/* ── Education ── */}
-        <SectionLabel>Education</SectionLabel>
-        <EducationCard id="education" />
+        </SectionReveal>
 
         {/* ── Career Evolution ── */}
         <SectionLabel>Career Evolution</SectionLabel>
-        <div id="timeline" className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+        <SectionReveal id="timeline" className="col-span-full rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
           <EngineeringTimeline />
-        </div>
+        </SectionReveal>
 
         {/* ── Engineering & Infrastructure ── */}
         <SectionLabel>Engineering &amp; Infrastructure</SectionLabel>
@@ -136,15 +149,15 @@ export default async function Home() {
 
         {/* ── Business Impact ── */}
         <SectionLabel>Business Impact</SectionLabel>
-        <div id="impact" className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+        <SectionReveal id="impact" className="col-span-full rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
           <ImpactDashboard />
-        </div>
+        </SectionReveal>
 
         {/* ── Skill Radar ── */}
         <SectionLabel>Skill Radar</SectionLabel>
-        <div id="skills" className="col-span-full section-enter rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
+        <SectionReveal id="skills" className="col-span-full rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
           <SkillRadar />
-        </div>
+        </SectionReveal>
       </BentoGrid>
     </main>
   );

@@ -76,7 +76,7 @@ export default function PromptSandbox({ isChatOpen = false }: { isChatOpen?: boo
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="rounded p-0.5 text-zinc-600 transition-colors hover:bg-white/[0.06] hover:text-zinc-400"
+                className="rounded p-0.5 text-zinc-600 transition-colors md:hover:bg-white/[0.06] md:hover:text-zinc-400"
               >
                 <X className="h-3 w-3" />
               </button>
@@ -151,7 +151,7 @@ export default function PromptSandbox({ isChatOpen = false }: { isChatOpen?: boo
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="flex h-9 items-center gap-2 rounded-full border border-white/[0.08] bg-black/80 px-3 backdrop-blur-xl transition-colors hover:border-violet-500/20"
+        className="flex h-9 items-center gap-2 rounded-full border border-white/[0.08] bg-black/80 px-3 backdrop-blur-xl transition-colors md:hover:border-violet-500/20"
       >
         <SlidersHorizontal className="h-3.5 w-3.5 text-violet-400" />
         <span className="font-mono text-[10px] text-zinc-400">Prompt</span>

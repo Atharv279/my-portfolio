@@ -107,7 +107,10 @@ export default function BentoCard({
       custom={index}
       variants={cardVariants}
       initial="hidden"
-      animate="visible"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.15 }}
+      whileHover={disablePhysics ? undefined : { scale: 1.015 }}
+      transition={disablePhysics ? undefined : { type: "spring", stiffness: 400, damping: 25 }}
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -117,7 +120,7 @@ export default function BentoCard({
         transformPerspective: 800,
         "--glow-color": glowColor,
       } as React.CSSProperties}
-      className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6 backdrop-blur-sm transition-all duration-300 md:hover:border-white/[0.18] md:hover:shadow-lg md:hover:shadow-black/20 ${className}`}
+      className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-white/[0.12] bg-white/[0.05] p-5 md:p-6 backdrop-blur-sm transition-all duration-300 md:hover:border-white/[0.18] md:hover:shadow-lg md:hover:shadow-black/20 ${className}`}
     >
       {/* Cursor-tracking flashlight glow */}
       <motion.div

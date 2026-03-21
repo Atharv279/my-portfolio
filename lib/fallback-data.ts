@@ -153,8 +153,12 @@ export const fallbackTechStack: TechStackData = {
     { name: "PyTorch", icon: "Flame" },
     { name: "C++", icon: "Code" },
     { name: "FastAPI", icon: "Zap" },
-    { name: "System Design", icon: "Layers" },
-    { name: "RAG Pipelines", icon: "Search" },
+    { name: "PyTorch", icon: "BrainCircuit" },
+    { name: "TensorFlow", icon: "BrainCircuit" },
+    { name: "Ollama", icon: "Box" },
+    { name: "n8n", icon: "Workflow" },
+    { name: "Rust", icon: "Code" },
+    { name: "Docker", icon: "Container" },
   ],
   arsenal: [
     {
@@ -162,21 +166,7 @@ export const fallbackTechStack: TechStackData = {
       subtitle: "LLM orchestration, RAG, agents",
       icon: "BrainCircuit",
       accentBorder: "border-amber-500/25",
-      items: ["LangChain", "LangGraph", "LlamaIndex", "Hugging Face", "Ollama", "GGUF / Quantization", "FAISS", "pgvector", "LanceDB", "Scikit-learn", "Pandas", "NLTK / spaCy", "Prompt Engineering"],
-    },
-    {
-      title: "Languages",
-      subtitle: "Systems to scripting",
-      icon: "Code",
-      accentBorder: "border-emerald-500/25",
-      items: ["Python", "C", "C++", "Java", "TypeScript", "JavaScript", "Bash / Shell", "SQL"],
-    },
-    {
-      title: "Core CS",
-      subtitle: "Fundamentals & architecture",
-      icon: "GraduationCap",
-      accentBorder: "border-blue-500/25",
-      items: ["DSA", "OOP", "System Design", "OS", "DBMS", "Computer Networks"],
+      items: ["RAG Pipelines", "Multi-Agent Systems", "GGUF Quantization", "Local LLM Optimization", "TensorFlow", "Keras", "Tesseract OCR"],
     },
     {
       title: "Networking",
@@ -191,21 +181,7 @@ export const fallbackTechStack: TechStackData = {
       subtitle: "APIs, infra & data stores",
       icon: "Terminal",
       accentBorder: "border-violet-500/25",
-      items: ["FastAPI", "Node.js", "PostgreSQL", "SQLite", "Docker", "n8n", "Node-RED", "Nginx", "REST API Design", "Alembic"],
-    },
-    {
-      title: "Automation",
-      subtitle: "Web scraping & workflow",
-      icon: "Workflow",
-      accentBorder: "border-orange-500/25",
-      items: ["PyAutoGUI", "Selenium", "Playwright", "n8n Orchestration"],
-    },
-    {
-      title: "DevOps & Tools",
-      subtitle: "Deployment & developer tooling",
-      icon: "Settings",
-      accentBorder: "border-rose-500/25",
-      items: ["Linux / Ubuntu", "Git", "Docker", "GCP", "Streamlit", "Next.js / React", "Tailwind CSS", "VSCodium Extensions"],
+      items: ["Python", "Node.js", "Rust", "SQLite (Time-series)", "Linux / Kali", "Git", "CI/CD", "GitHub Actions"],
     },
   ],
 };
@@ -531,59 +507,224 @@ export const fallbackRAGifyProject: Project = {
   ],
 };
 
-export const fallbackTalentProject: Project = {
-  _id: "fallback-project-talent",
+export const fallbackResearchAgentProject: Project = {
+  _id: "fallback-project-research-agent",
   _type: "project",
-  title: "TalentScout AI",
-  slug: "talentscout-ai",
-  category: "AI Applications",
-  badge: "Multilingual NLP",
+  title: "AI Research Agent",
+  slug: "ai-research-agent",
+  category: "Autonomous Systems",
+  badge: "Daily CI/CD",
   description:
-    "Intelligent multilingual recruitment assistant that automates technical interviews by generating context-aware questions tailored to each candidate\u2019s tech stack while performing real-time dual-engine sentiment analysis across 6 languages.",
+    "An autonomous agent that wakes up every day, scans GitHub for new AI repositories, analyzes their READMEs and tech stacks, and generates LLM-powered comparative research reports\u2014all via GitHub Actions with zero manual intervention.",
   tags: [
     { label: "Python", icon: "Cpu" },
-    { label: "Gemini", icon: "BrainCircuit" },
-    { label: "NLP", icon: "MessageSquare" },
-    { label: "GCP", icon: "Globe" },
+    { label: "Ollama", icon: "Box" },
+    { label: "GitHub API", icon: "Github" },
+    { label: "CI/CD", icon: "Workflow" },
   ],
-  glowColor: "rgba(56, 189, 248, 0.15)",
-  sourceUrl: "https://github.com/Atharv279",
+  glowColor: "rgba(168, 85, 247, 0.15)",
+  sourceUrl: "https://github.com/Atharv279/ai-research-agent",
   expandedSections: [
     {
       icon: "Route",
-      title: "NLP Pipeline",
-      accentColor: "text-sky-400",
+      title: "Daily Pipeline",
+      accentColor: "text-purple-400",
+      pipelineSteps: [
+        {
+          step: "01",
+          title: "Discover",
+          description:
+            "GitHub Actions triggers daily. Python collectors search the GitHub API for trending and newly created AI/ML repositories using curated keyword filters.",
+          accentColor: "border-purple-500/40",
+        },
+        {
+          step: "02",
+          title: "Analyze",
+          description:
+            "Each discovered repo's README, tech stack, and structure are parsed. GitPython clones and inspects the repository for deeper context extraction.",
+          accentColor: "border-purple-500/30",
+        },
+        {
+          step: "03",
+          title: "Summarize",
+          description:
+            "Ollama-powered local LLM generates structured summaries: what the project does, key innovations, tech stack breakdown, and comparative positioning against similar tools.",
+          accentColor: "border-purple-500/20",
+        },
+        {
+          step: "04",
+          title: "Commit & Report",
+          description:
+            "Generated reports are auto-committed to the repository via GitPython. Each run produces a dated markdown report with day-over-day delta tracking.",
+          accentColor: "border-purple-500/10",
+        },
+      ],
+    },
+    {
+      icon: "Workflow",
+      title: "Infrastructure",
+      accentColor: "text-purple-400",
+      infoCards: [
+        {
+          title: "GitHub Actions Automation",
+          text: "Fully automated via GitHub Actions cron schedule. Zero manual triggers\u2014the agent runs, discovers, analyzes, and commits every 24 hours autonomously.",
+        },
+        {
+          title: "Local LLM Inference",
+          text: "All summarization and analysis runs through Ollama on local hardware. No cloud API costs, no token limits, no rate throttling.",
+        },
+        {
+          title: "Automated Git Workflow",
+          text: "GitPython handles cloning target repos for analysis and auto-committing generated reports. The repository itself serves as a living research database.",
+        },
+      ],
+    },
+  ],
+};
+
+export const fallbackInvoiceMasterProject: Project = {
+  _id: "fallback-project-invoice-master",
+  _type: "project",
+  title: "AI Invoice Master",
+  slug: "ai-invoice-master",
+  category: "Document AI",
+  badge: "Multi-Language OCR",
+  description:
+    "An intelligent invoice extraction system that reads invoices in any language, uses OCR and Gemini AI to identify and extract every data field, and outputs clean structured data\u2014replacing hours of manual data entry.",
+  tags: [
+    { label: "Python", icon: "Cpu" },
+    { label: "Tesseract", icon: "ScanLine" },
+    { label: "Gemini", icon: "BrainCircuit" },
+    { label: "Streamlit", icon: "Layout" },
+  ],
+  glowColor: "rgba(245, 158, 11, 0.15)",
+  sourceUrl: "https://github.com/Atharv279/AI_Invoice_Master",
+  expandedSections: [
+    {
+      icon: "Layers",
+      title: "Extraction Pipeline",
+      accentColor: "text-amber-400",
       detailItems: [
         {
-          label: "Context-Aware Question Generation",
-          text: "Google Gemini Pro dynamically generates structured technical questions mapped directly to a candidate\u2019s specific technology stack. Eliminates generic, static interview formats with prompt pipelines that adapt in real-time.",
+          label: "OCR Engine",
+          text: "Tesseract OCR preprocesses invoice images with adaptive thresholding and deskewing. Handles scanned PDFs, photos, and multi-format documents across languages.",
         },
         {
-          label: "Dual-Engine Sentiment Analysis",
-          text: "Combines VADER (NLTK) and TextBlob for parallel sentiment tracking. VADER handles social-media-style language while TextBlob provides polarity/subjectivity scores, giving recruiters actionable biometric feedback on candidate confidence.",
+          label: "AI Field Extraction",
+          text: "Google Gemini AI analyzes the OCR output to intelligently identify invoice fields: vendor name, date, line items, totals, tax breakdowns, and payment terms\u2014even from non-standard layouts.",
         },
         {
-          label: "Multilingual Support",
-          text: "Real-time translation across 6 languages via googletrans with intelligent caching. Stateful handling preserves conversation context across language switches, ensuring consistent technical assessment regardless of the candidate\u2019s native language.",
+          label: "Structured Output",
+          text: "Extracted data is normalized into consistent JSON/CSV format. Handles currency conversions, date format standardization, and multi-language field mapping automatically.",
         },
       ],
     },
     {
       icon: "Globe",
-      title: "Deployment & Infrastructure",
-      accentColor: "text-sky-400",
+      title: "Multi-Language Support",
+      accentColor: "text-amber-400",
+      infoCards: [
+        {
+          title: "Language Detection",
+          text: "Automatic language detection from invoice content. Tesseract's multilingual models handle Latin, Devanagari, CJK, and Arabic scripts out of the box.",
+        },
+        {
+          title: "Streamlit Interface",
+          text: "Clean drag-and-drop UI built with Streamlit. Upload an invoice, see extracted fields in real-time, export to structured formats. No technical training required.",
+        },
+      ],
+    },
+  ],
+};
+
+export const fallbackPneumoniaProject: Project = {
+  _id: "fallback-project-pneumonia",
+  _type: "project",
+  title: "Pneumonia X-Ray Classification",
+  slug: "pneumonia-xray",
+  category: "Healthcare AI",
+  badge: "Deep Learning",
+  description:
+    "A convolutional neural network trained to detect pneumonia from chest X-ray images with high accuracy\u2014demonstrating that AI can assist radiologists in screening thousands of scans faster and more consistently.",
+  tags: [
+    { label: "Python", icon: "Cpu" },
+    { label: "TensorFlow", icon: "BrainCircuit" },
+    { label: "Keras", icon: "Layers" },
+    { label: "CNN", icon: "Eye" },
+  ],
+  glowColor: "rgba(16, 185, 129, 0.15)",
+  sourceUrl: "https://github.com/Atharv279/pneumonia-xray-classification",
+  expandedSections: [
+    {
+      icon: "Layers",
+      title: "Model Architecture",
+      accentColor: "text-emerald-400",
       detailItems: [
         {
-          label: "GCP Compute Engine",
-          text: "Production deployment on Google Cloud Platform using Ubuntu, Nginx reverse proxy, and systemd service management for high availability. Auto-restart on failure ensures 99.9% uptime for continuous recruitment operations.",
+          label: "CNN Design",
+          text: "Multi-layer convolutional neural network with batch normalization and dropout regularization. Trained on 5,800+ labeled chest X-ray images from the Kaggle Chest X-Ray dataset.",
         },
         {
-          label: "Streamlit UI",
-          text: "Clean, recruiter-friendly interface built with Streamlit. Real-time sentiment gauges, question history panels, and exportable candidate profiles make the tool immediately usable without technical training.",
+          label: "Training Pipeline",
+          text: "TensorFlow/Keras training pipeline with data augmentation (rotation, zoom, horizontal flip) to prevent overfitting on medical imagery. Early stopping and learning rate scheduling for optimal convergence.",
         },
         {
-          label: "Enterprise Integration",
-          text: "Designed for drop-in integration with existing ATS (Applicant Tracking Systems). Structured JSON output from each session feeds directly into HR analytics pipelines for long-term hiring pattern analysis.",
+          label: "Performance",
+          text: "Achieves strong classification accuracy on the held-out test set. Precision/recall metrics tuned to minimize false negatives\u2014critical in medical screening where missing a positive case has serious consequences.",
+        },
+      ],
+    },
+    {
+      icon: "BarChart3",
+      title: "Clinical Relevance",
+      accentColor: "text-emerald-400",
+      infoCards: [
+        {
+          title: "Screening Assistance",
+          text: "Designed as a screening tool to assist radiologists, not replace them. Flags potential pneumonia cases for priority review, reducing time-to-diagnosis in high-volume settings.",
+        },
+        {
+          title: "Dataset",
+          text: "Trained on real pediatric chest X-rays: 5,800+ images split into Normal and Pneumonia classes. Images are 48x48 grayscale, preprocessed for consistent model input.",
+        },
+      ],
+    },
+  ],
+};
+
+export const fallbackMeetTranscriberProject: Project = {
+  _id: "fallback-project-meet-transcriber",
+  _type: "project",
+  title: "Google Meet Transcriber",
+  slug: "google-meet-transcriber",
+  category: "Systems Programming",
+  badge: "Built in Rust",
+  description:
+    "A lightweight Rust tool that captures and saves real-time transcript data from Google Meet sessions\u2014demonstrating systems-level programming skills with zero runtime dependencies and memory-safe concurrency.",
+  tags: [
+    { label: "Rust", icon: "Code" },
+    { label: "Real-Time", icon: "Zap" },
+    { label: "Transcription", icon: "FileText" },
+  ],
+  glowColor: "rgba(251, 146, 60, 0.15)",
+  sourceUrl: "https://github.com/Atharv279/google-meet-transcriber",
+  expandedSections: [
+    {
+      icon: "Layers",
+      title: "Architecture",
+      accentColor: "text-orange-400",
+      detailItems: [
+        {
+          label: "Rust Core",
+          text: "Built entirely in Rust for memory safety and zero-cost abstractions. No garbage collector overhead, no runtime dependencies\u2014compiles to a single binary.",
+        },
+        {
+          label: "Real-Time Capture",
+          text: "Hooks into Google Meet's transcript data stream and captures captions as they appear. Handles speaker identification and timestamp alignment in real-time.",
+        },
+        {
+          label: "Output Format",
+          text: "Saves transcripts in clean, timestamped format. Each entry includes speaker name, timestamp, and text content for easy post-processing and search.",
         },
       ],
     },

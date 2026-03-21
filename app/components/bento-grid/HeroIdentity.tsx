@@ -37,7 +37,7 @@ export default function HeroIdentity({
       id={id}
       index={0}
       glowColor="rgba(52, 211, 153, 0.15)"
-      className="flex flex-col justify-between !p-5 md:!p-6 lg:!p-8 md:col-span-2 md:row-span-1"
+      className="hero-glow flex flex-col justify-between !p-6 md:!p-8 md:col-span-2 md:row-span-1"
       onExpand={onExpand}
       isExpanded={isExpanded}
     >
@@ -160,7 +160,7 @@ export default function HeroIdentity({
                     <Icon className="h-4.5 w-4.5" />
                     {link.label}
                     <ExternalLink
-                      className={`ml-auto h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:text-current ${
+                      className={`ml-auto h-3 w-3 transition-transform md:group-hover:translate-x-0.5 md:group-hover:text-current ${
                         isLinkedIn ? "text-emerald-500/60" : "text-zinc-600"
                       }`}
                     />

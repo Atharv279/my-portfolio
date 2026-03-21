@@ -17,6 +17,11 @@ interface Language {
   percentage: number;
 }
 
+interface ContributionDay {
+  count: number;
+  date: string;
+}
+
 interface GitHubData {
   profile: {
     login: string;
@@ -27,7 +32,10 @@ interface GitHubData {
   };
   repos: Repo[];
   languages: Language[];
-  contributions?: number[][];
+  contributions?: {
+    totalContributions: number;
+    weeks: ContributionDay[][];
+  } | null;
 }
 
 const LANG_COLORS: Record<string, string> = {
@@ -47,24 +55,24 @@ const fallbackData: GitHubData = {
   profile: {
     login: "Atharv279",
     avatarUrl: "",
-    publicRepos: 23,
-    followers: 1,
+    publicRepos: 24,
+    followers: 0,
     bio: "Python Developer & AI Engineer",
   },
   repos: [
     { name: "ai-research-agent", description: "Automated AI research agent — searches GitHub daily for new AI repos", language: "Python", stars: 0, url: "https://github.com/Atharv279/ai-research-agent" },
-    { name: "RAGify-Finance", description: "Benchmarks Cohere vs HuggingFace for financial document Q&A", language: "Python", stars: 1, url: "https://github.com/Atharv279/RAGify-Finance" },
-    { name: "daily-experiments", description: "Automated NIST NVD security scanner with threat dashboards", language: "Python", stars: 0, url: "https://github.com/Atharv279/daily-experiments" },
-    { name: "automated-bots", description: "Algorithmic market signal generator with technical analysis", language: "Python", stars: 0, url: "https://github.com/Atharv279/automated-bots" },
     { name: "AI_Invoice_Master", description: "Multi-language invoice extractor with OCR + Gemini AI", language: "Python", stars: 1, url: "https://github.com/Atharv279/AI_Invoice_Master" },
-    { name: "CNN-Emotion-Detection", description: "Facial emotion detection from FER-2013 using CNN", language: "Python", stars: 0, url: "https://github.com/Atharv279/CNN-Emotion-Detection" },
+    { name: "pneumonia-xray-classification", description: "Detects pneumonia from chest X-ray images using CNNs", language: "Python", stars: 0, url: "https://github.com/Atharv279/pneumonia-xray-classification" },
+    { name: "google-meet-transcriber", description: "Captures real-time transcript data from Google Meet", language: "Rust", stars: 0, url: "https://github.com/Atharv279/google-meet-transcriber" },
+    { name: "RAGify-Finance", description: "Benchmarks Cohere vs HuggingFace embeddings for financial Q&A", language: "Python", stars: 1, url: "https://github.com/Atharv279/RAGify-Finance" },
+    { name: "CNN-Emotion-Detection", description: "Facial emotion detection from FER-2013 dataset using CNN", language: "Python", stars: 0, url: "https://github.com/Atharv279/CNN-Emotion-Detection" },
   ],
   languages: [
-    { name: "Python", percentage: 60 },
-    { name: "TypeScript", percentage: 15 },
-    { name: "JavaScript", percentage: 10 },
-    { name: "Jupyter Notebook", percentage: 10 },
-    { name: "Rust", percentage: 5 },
+    { name: "Python", percentage: 68 },
+    { name: "TypeScript", percentage: 13 },
+    { name: "Jupyter Notebook", percentage: 13 },
+    { name: "Rust", percentage: 4 },
+    { name: "HTML", percentage: 2 },
   ],
 };
 
@@ -100,9 +108,9 @@ export default function GitHubPanel() {
         </span>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2">
         {/* Left: Repos */}
-        <div className="min-w-0">
+        <div>
           <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
             Top Repositories
           </span>
@@ -113,14 +121,14 @@ export default function GitHubPanel() {
                 href={repo.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex w-full items-start gap-2 rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2 transition-all duration-200 active:bg-white/[0.05] md:hover:border-white/[0.14] md:hover:bg-white/[0.05] md:hover:shadow-md md:hover:shadow-black/15"
+                className="group flex items-start gap-2 rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2 transition-all duration-200 md:hover:border-white/[0.14] md:hover:bg-white/[0.05] md:hover:shadow-md md:hover:shadow-black/15"
               >
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5">
-                    <span className="truncate text-xs font-medium text-zinc-200 group-hover:text-violet-300">
+                    <span className="truncate text-xs font-medium text-zinc-200 md:group-hover:text-violet-300">
                       {repo.name}
                     </span>
-                    <ExternalLink className="h-2.5 w-2.5 shrink-0 text-zinc-600 opacity-0 transition-opacity group-hover:opacity-100" />
+                    <ExternalLink className="h-2.5 w-2.5 shrink-0 text-zinc-600 opacity-0 transition-opacity md:group-hover:opacity-100" />
                   </div>
                   {repo.description && (
                     <p className="mt-0.5 truncate text-[11px] text-zinc-500">
@@ -185,9 +193,10 @@ export default function GitHubPanel() {
           </div>
 
           {/* Contribution heatmap */}
-          <div className="overflow-x-auto scrollbar-hide">
-            <ContributionHeatmap contributions={data.contributions} />
-          </div>
+          <ContributionHeatmap
+            weeks={data.contributions?.weeks}
+            totalContributions={data.contributions?.totalContributions}
+          />
         </div>
       </div>
 
@@ -201,7 +210,7 @@ export default function GitHubPanel() {
           href={`https://github.com/${data.profile.login}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[11px] text-zinc-400 transition-colors hover:text-zinc-200"
+          className="text-[11px] text-zinc-400 transition-colors md:hover:text-zinc-200"
         >
           View on GitHub →
         </a>

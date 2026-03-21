@@ -10,7 +10,7 @@ import { TOOL_DEFINITIONS } from "@/lib/ai/tools";
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GROQ_MODEL = process.env.GROQ_MODEL ?? "llama-3.3-70b-versatile";
 const TIMEOUT_MS = 60_000;
-const MAX_MESSAGES = 10;
+const MAX_MESSAGES = 30;
 const MAX_MESSAGE_LENGTH = 2000;
 const VALID_ROLES = new Set(["user", "assistant"]);
 
@@ -33,6 +33,7 @@ function validateMessages(
   messages: unknown
 ): IncomingMessage[] | null {
   if (!Array.isArray(messages) || messages.length === 0) return null;
+  if (messages.length > MAX_MESSAGES) return null;
 
   const validated: IncomingMessage[] = [];
   for (const msg of messages) {
@@ -42,11 +43,6 @@ function validateMessages(
     if (typeof content !== "string") return null;
     if (content.length > MAX_MESSAGE_LENGTH) return null;
     validated.push({ role: role as "user" | "assistant", content });
-  }
-
-  // Sliding window: keep only the most recent MAX_MESSAGES
-  if (validated.length > MAX_MESSAGES) {
-    return validated.slice(-MAX_MESSAGES);
   }
   return validated;
 }
@@ -153,7 +149,7 @@ export async function POST(req: NextRequest) {
 
   const sandbox = validateSandbox(body.sandbox);
 
-  let systemContent = buildSystemPrompt(messages);
+  let systemContent = buildSystemPrompt();
   if (sandbox) {
     if (typeof sandbox.depth === "number") {
       systemContent += buildDepthInstruction(sandbox.depth);
@@ -270,18 +266,10 @@ export async function POST(req: NextRequest) {
         );
         ctrl.enqueue(encoder.encode("data: [DONE]\n\n"));
       } catch (err) {
-        // 1. Print the exact error in the VS Code terminal
-        console.error("\n=======================================");
-        console.error("🚨 GROQ API ERROR DETAILS:");
-        console.error(err);
-        console.error("=======================================\n");
-        
         if ((err as Error).name !== "AbortError") {
-          // 2. Send it back as "content" so the chat window actually displays it!
-          const errorMessage = err instanceof Error ? err.message : "Unknown API Error";
           ctrl.enqueue(
             encoder.encode(
-              `data: ${JSON.stringify({ content: `\n\n**⚠️ API Error:** ${errorMessage}\nCheck your VS Code terminal for the exact details.`, done: true })}\n\n`
+              `data: ${JSON.stringify({ error: "Stream interrupted", done: true })}\n\n`
             )
           );
         }

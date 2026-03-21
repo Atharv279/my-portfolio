@@ -23,7 +23,7 @@ export default function ProjectRAGifyCard({
   return (
     <BentoCard
       id={id}
-      index={6}
+      index={0}
       glowColor={data.glowColor}
       className="flex flex-col justify-between md:col-span-2 md:row-span-1"
       onExpand={onExpand}
@@ -74,7 +74,7 @@ export default function ProjectRAGifyCard({
             className="group inline-flex w-fit items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-4 py-2 font-mono text-xs text-zinc-300 transition-all active:bg-amber-500/10 md:hover:border-amber-500/40 md:hover:bg-amber-500/10 md:hover:text-amber-300 md:hover:shadow-[0_0_20px_-6px_rgba(245,158,11,0.3)]"
           >
             View Source
-            <ExternalLink className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+            <ExternalLink className="h-3 w-3 transition-transform md:group-hover:translate-x-0.5" />
           </a>
         )}
       </div>

@@ -1,29 +1,29 @@
 "use client";
 
 import BentoCard from "./BentoCard";
-import ExpandedSection, { DetailItem } from "./ExpandedSection";
+import ExpandedSection, { DetailItem, PipelineStep } from "./ExpandedSection";
 import { ExternalLink } from "lucide-react";
 import { getIcon, DynamicIcon } from "@/lib/icon-map";
 import type { Project } from "@/lib/types";
-import { fallbackTalentProject } from "@/lib/fallback-data";
+import { fallbackResearchAgentProject } from "@/lib/fallback-data";
 
-interface ProjectTalentCardProps {
+interface ProjectResearchAgentCardProps {
   id?: string;
   onExpand?: (id: string) => void;
   isExpanded?: boolean;
   data?: Project;
 }
 
-export default function ProjectTalentCard({
-  id = "project-talent",
+export default function ProjectResearchAgentCard({
+  id = "project-research-agent",
   onExpand,
   isExpanded,
-  data = fallbackTalentProject,
-}: ProjectTalentCardProps) {
+  data = fallbackResearchAgentProject,
+}: ProjectResearchAgentCardProps) {
   return (
     <BentoCard
       id={id}
-      index={7}
+      index={1}
       glowColor={data.glowColor}
       className="flex flex-col justify-between md:col-span-2 md:row-span-1"
       onExpand={onExpand}
@@ -32,7 +32,7 @@ export default function ProjectTalentCard({
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <span className="font-mono text-[11px] uppercase tracking-widest text-sky-400">
+          <span className="font-mono text-[11px] uppercase tracking-widest text-purple-400">
             {data.category}
           </span>
           <h2 className="mt-1.5 text-lg font-semibold tracking-tight text-zinc-50 md:mt-2 md:text-xl">
@@ -40,7 +40,7 @@ export default function ProjectTalentCard({
           </h2>
         </div>
         {data.badge && (
-          <span className="hidden shrink-0 rounded-md border border-sky-500/20 bg-sky-500/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-sky-300 sm:inline-flex">
+          <span className="hidden shrink-0 rounded-md border border-purple-500/20 bg-purple-500/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-purple-300 sm:inline-flex">
             {data.badge}
           </span>
         )}
@@ -71,10 +71,10 @@ export default function ProjectTalentCard({
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="group inline-flex w-fit items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-4 py-2 font-mono text-xs text-zinc-300 transition-all active:bg-sky-500/10 md:hover:border-sky-500/40 md:hover:bg-sky-500/10 md:hover:text-sky-300 md:hover:shadow-[0_0_20px_-6px_rgba(56,189,248,0.3)]"
+            className="group inline-flex w-fit items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-4 py-2 font-mono text-xs text-zinc-300 transition-all active:bg-purple-500/10 md:hover:border-purple-500/40 md:hover:bg-purple-500/10 md:hover:text-purple-300 md:hover:shadow-[0_0_20px_-6px_rgba(168,85,247,0.3)]"
           >
             View Source
-            <ExternalLink className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+            <ExternalLink className="h-3 w-3 transition-transform md:group-hover:translate-x-0.5" />
           </a>
         )}
       </div>
@@ -92,6 +92,19 @@ export default function ProjectTalentCard({
                 <p className="mb-4 text-[13px] leading-relaxed text-zinc-500">
                   {section.introText}
                 </p>
+              )}
+              {section.pipelineSteps && (
+                <div className="flex flex-col gap-0">
+                  {section.pipelineSteps.map((ps) => (
+                    <PipelineStep
+                      key={ps.step}
+                      step={ps.step}
+                      title={ps.title}
+                      description={ps.description}
+                      accentColor={ps.accentColor}
+                    />
+                  ))}
+                </div>
               )}
               {section.detailItems && (
                 <dl className="space-y-0">
@@ -116,7 +129,7 @@ export default function ProjectTalentCard({
           ))}
 
       {/* Decorative accent */}
-      <div className="pointer-events-none absolute -bottom-16 -right-16 h-48 w-48 rounded-full bg-sky-500/[0.06] blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-16 -right-16 h-48 w-48 rounded-full bg-purple-500/[0.06] blur-3xl" />
     </BentoCard>
   );
 }

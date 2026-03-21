@@ -23,6 +23,34 @@ const PROJECTS: SystemNode[] = [
     scrollTo: "project-marketing",
   },
   {
+    id: "research-agent",
+    label: "AI Research Agent",
+    subtitle: "Daily CI/CD",
+    accent: "#a855f7",
+    scrollTo: "project-research-agent",
+  },
+  {
+    id: "ragify",
+    label: "RAGify Finance",
+    subtitle: "RAG Benchmarking",
+    accent: "#f59e0b",
+    scrollTo: "project-ragify",
+  },
+  {
+    id: "invoice",
+    label: "Invoice Master",
+    subtitle: "Document AI",
+    accent: "#f59e0b",
+    scrollTo: "project-invoice-master",
+  },
+  {
+    id: "pneumonia",
+    label: "Pneumonia X-Ray",
+    subtitle: "Healthcare CNN",
+    accent: "#10b981",
+    scrollTo: "project-pneumonia",
+  },
+  {
     id: "network",
     label: "Network Dashboard",
     subtitle: "Enterprise Telemetry",
@@ -30,18 +58,11 @@ const PROJECTS: SystemNode[] = [
     scrollTo: "project-network",
   },
   {
-    id: "ragify",
-    label: "RAGify Finance",
-    subtitle: "RAG System",
-    accent: "#f59e0b",
-    scrollTo: "project-ragify",
-  },
-  {
-    id: "talent",
-    label: "TalentScout AI",
-    subtitle: "Multilingual NLP",
-    accent: "#38bdf8",
-    scrollTo: "project-talent",
+    id: "transcriber",
+    label: "Meet Transcriber",
+    subtitle: "Built in Rust",
+    accent: "#fb923c",
+    scrollTo: "project-meet-transcriber",
   },
 ];
 
@@ -55,12 +76,12 @@ const CX = W / 2;
 const CY = H / 2;
 const HUB_W = 150;
 const HUB_H = 48;
-const NODE_W = 160;
-const NODE_H = 56;
-const RADIUS = 240;
+const NODE_W = 145;
+const NODE_H = 52;
+const RADIUS = 260;
 
-// Position satellite nodes at 4 angles (top-left, top-right, bottom-right, bottom-left)
-const ANGLES = [-135, -45, 45, 135];
+// 7 nodes evenly distributed around the hub, starting from top
+const ANGLES = [-90, -38.6, 12.9, 64.3, 115.7, 167.1, 218.6];
 
 function nodePos(angleDeg: number) {
   const rad = (angleDeg * Math.PI) / 180;

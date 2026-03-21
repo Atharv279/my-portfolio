@@ -106,7 +106,7 @@ function MetricCard({ metric, index }: { metric: Metric; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1, duration: 0.4 }}
-      className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-5 transition-all duration-200 hover:border-white/[0.14] hover:bg-white/[0.05]"
+      className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-5 transition-all duration-200 md:hover:border-white/[0.14] md:hover:bg-white/[0.05]"
     >
       <div className={`mb-3 ${metric.color}`}>{metric.icon}</div>
       <div className="mb-1 flex items-baseline gap-1">

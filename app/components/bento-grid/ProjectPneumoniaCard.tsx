@@ -1,29 +1,29 @@
 "use client";
 
 import BentoCard from "./BentoCard";
-import ExpandedSection, { DetailItem, PipelineStep } from "./ExpandedSection";
+import ExpandedSection, { DetailItem } from "./ExpandedSection";
 import { ExternalLink } from "lucide-react";
 import { getIcon, DynamicIcon } from "@/lib/icon-map";
 import type { Project } from "@/lib/types";
-import { fallbackMarketingProject } from "@/lib/fallback-data";
+import { fallbackPneumoniaProject } from "@/lib/fallback-data";
 
-interface ProjectMarketingCardProps {
+interface ProjectPneumoniaCardProps {
   id?: string;
   onExpand?: (id: string) => void;
   isExpanded?: boolean;
   data?: Project;
 }
 
-export default function ProjectMarketingCard({
-  id = "project-marketing",
+export default function ProjectPneumoniaCard({
+  id = "project-pneumonia",
   onExpand,
   isExpanded,
-  data = fallbackMarketingProject,
-}: ProjectMarketingCardProps) {
+  data = fallbackPneumoniaProject,
+}: ProjectPneumoniaCardProps) {
   return (
     <BentoCard
       id={id}
-      index={0}
+      index={2}
       glowColor={data.glowColor}
       className="flex flex-col justify-between md:col-span-2 md:row-span-1"
       onExpand={onExpand}
@@ -32,7 +32,7 @@ export default function ProjectMarketingCard({
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <span className="font-mono text-[11px] uppercase tracking-widest text-violet-400">
+          <span className="font-mono text-[11px] uppercase tracking-widest text-emerald-400">
             {data.category}
           </span>
           <h2 className="mt-1.5 text-lg font-semibold tracking-tight text-zinc-50 md:mt-2 md:text-xl">
@@ -40,7 +40,7 @@ export default function ProjectMarketingCard({
           </h2>
         </div>
         {data.badge && (
-          <span className="hidden shrink-0 rounded-md border border-violet-500/20 bg-violet-500/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-violet-300 sm:inline-flex">
+          <span className="hidden shrink-0 rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-emerald-300 sm:inline-flex">
             {data.badge}
           </span>
         )}
@@ -71,7 +71,7 @@ export default function ProjectMarketingCard({
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="group inline-flex w-fit items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-4 py-2 font-mono text-xs text-zinc-300 transition-all active:bg-violet-500/10 md:hover:border-violet-500/40 md:hover:bg-violet-500/10 md:hover:text-violet-300 md:hover:shadow-[0_0_20px_-6px_rgba(139,92,246,0.3)]"
+            className="group inline-flex w-fit items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-4 py-2 font-mono text-xs text-zinc-300 transition-all active:bg-emerald-500/10 md:hover:border-emerald-500/40 md:hover:bg-emerald-500/10 md:hover:text-emerald-300 md:hover:shadow-[0_0_20px_-6px_rgba(16,185,129,0.3)]"
           >
             View Source
             <ExternalLink className="h-3 w-3 transition-transform md:group-hover:translate-x-0.5" />
@@ -92,19 +92,6 @@ export default function ProjectMarketingCard({
                 <p className="mb-4 text-[13px] leading-relaxed text-zinc-500">
                   {section.introText}
                 </p>
-              )}
-              {section.pipelineSteps && (
-                <div className="flex flex-col gap-0">
-                  {section.pipelineSteps.map((ps) => (
-                    <PipelineStep
-                      key={ps.step}
-                      step={ps.step}
-                      title={ps.title}
-                      description={ps.description}
-                      accentColor={ps.accentColor}
-                    />
-                  ))}
-                </div>
               )}
               {section.detailItems && (
                 <dl className="space-y-0">
@@ -129,7 +116,7 @@ export default function ProjectMarketingCard({
           ))}
 
       {/* Decorative accent */}
-      <div className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-violet-500/[0.06] blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-emerald-500/[0.06] blur-3xl" />
     </BentoCard>
   );
 }

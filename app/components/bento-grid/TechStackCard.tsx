@@ -56,7 +56,7 @@ export default function TechStackCard({
               variants={pillVariants}
               className="flex items-center gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/[0.06] px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 md:text-xs"
             >
-              <DynamicIcon name={tech.icon} className="h-3 w-3 shrink-0 text-amber-400/70" />
+              <DynamicIcon name={tech.icon} className="h-3 w-3 shrink-0 text-zinc-500" />
               <span>{tech.name}</span>
             </motion.div>
           ))}
@@ -77,7 +77,7 @@ export default function TechStackCard({
                     <span className="text-xs font-medium text-zinc-200">
                       {category.title}
                     </span>
-                    <span className="hidden text-[11px] text-zinc-500 sm:inline">
+                    <span className="text-[11px] text-zinc-500">
                       &mdash; {category.subtitle}
                     </span>
                   </div>

@@ -60,9 +60,9 @@ const VARIANTS: Record<string, DagVariant> = {
   },
 };
 
-const COL_W = 72;
-const NODE_W = 58;
-const NODE_H = 30;
+const COL_W = 58;
+const NODE_W = 48;
+const NODE_H = 28;
 const PAD_X = 20;
 const PAD_Y = 36;
 
@@ -191,6 +191,8 @@ export function AgentDAGViewer({
         {dag.nodes.map((node) => {
           const x = nodeX(node.col);
           const y = PAD_Y;
+          const cx = x + NODE_W / 2;
+          const cy = y + NODE_H / 2;
 
           return (
             <g key={node.id}>
@@ -205,10 +207,9 @@ export function AgentDAGViewer({
                 strokeWidth="1"
               />
               <text
-                x={x + NODE_W / 2}
-                y={y + NODE_H / 2}
+                x={cx}
+                y={cy + 3}
                 textAnchor="middle"
-                dominantBaseline="central"
                 fill={SVG_COLORS.textPrimary}
                 fontSize="8"
                 fontFamily="system-ui, sans-serif"
