@@ -47,20 +47,6 @@ import {
 
 export const revalidate = 3600;
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="col-span-full flex items-center gap-3 pt-6 pb-1.5 md:pt-10 md:pb-2">
-      <div className="flex items-center gap-2">
-        <span className="inline-block h-1.5 w-1.5 rounded-full bg-violet-500/70" />
-        <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-zinc-400">
-          {children}
-        </h2>
-      </div>
-      <div className="h-px flex-1 bg-white/[0.10]" />
-    </div>
-  );
-}
-
 export default async function Home() {
   const [
     profileResult,
