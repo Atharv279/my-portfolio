@@ -153,7 +153,6 @@ export const fallbackTechStack: TechStackData = {
     { name: "PyTorch", icon: "Flame" },
     { name: "C++", icon: "Code" },
     { name: "FastAPI", icon: "Zap" },
-    { name: "PyTorch", icon: "BrainCircuit" },
     { name: "TensorFlow", icon: "BrainCircuit" },
     { name: "Ollama", icon: "Box" },
     { name: "n8n", icon: "Workflow" },
