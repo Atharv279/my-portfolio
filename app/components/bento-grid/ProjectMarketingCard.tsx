@@ -35,7 +35,7 @@ export default function ProjectMarketingCard({
           <span className="font-mono text-[11px] uppercase tracking-widest text-violet-400">
             {data.category}
           </span>
-          <h2 className="mt-1.5 text-lg font-semibold tracking-tight text-zinc-50 md:mt-2 md:text-xl">
+          <h2 className="mt-1.5 text-lg font-semibold tracking-tight text-ink md:mt-2 md:text-xl">
             {data.title}
           </h2>
         </div>
@@ -47,7 +47,7 @@ export default function ProjectMarketingCard({
       </div>
 
       {/* Description */}
-      <p className="mt-3 text-[13px] leading-relaxed text-zinc-400 md:mt-4 md:max-w-lg md:text-sm">
+      <p className="mt-3 text-[13px] leading-relaxed text-ink-muted md:mt-4 md:max-w-lg md:text-sm">
         {data.description}
       </p>
 
@@ -57,9 +57,9 @@ export default function ProjectMarketingCard({
           {data.tags.map((tag) => (
               <div
                 key={tag.label}
-                className="flex items-center gap-1.5 rounded-md border border-white/[0.06] bg-white/[0.04] px-2 py-1 text-[11px] text-zinc-400 md:px-2.5 md:text-xs"
+                className="flex items-center gap-1.5 rounded-md border border-white/[0.06] bg-white/[0.04] px-2 py-1 text-[11px] text-ink-muted md:px-2.5 md:text-xs"
               >
-                <DynamicIcon name={tag.icon} className="h-3 w-3 text-zinc-500" />
+                <DynamicIcon name={tag.icon} className="h-3 w-3 text-ink-subtle" />
                 {tag.label}
               </div>
             ))}
@@ -71,7 +71,7 @@ export default function ProjectMarketingCard({
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="group inline-flex w-fit items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-4 py-2 font-mono text-xs text-zinc-300 transition-all active:bg-violet-500/10 md:hover:border-violet-500/40 md:hover:bg-violet-500/10 md:hover:text-violet-300 md:hover:shadow-[0_0_20px_-6px_rgba(139,92,246,0.3)]"
+            className="group inline-flex w-fit items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-4 py-2 font-mono text-xs text-ink-secondary transition-all active:bg-violet-500/10 md:hover:border-violet-500/40 md:hover:bg-violet-500/10 md:hover:text-violet-300 md:hover:shadow-[0_0_20px_-6px_rgba(139,92,246,0.3)]"
           >
             View Source
             <ExternalLink className="h-3 w-3 transition-transform md:group-hover:translate-x-0.5" />
@@ -89,7 +89,7 @@ export default function ProjectMarketingCard({
               accentColor={section.accentColor}
             >
               {section.introText && (
-                <p className="mb-4 text-[13px] leading-relaxed text-zinc-500">
+                <p className="mb-4 text-[13px] leading-relaxed text-ink-subtle">
                   {section.introText}
                 </p>
               )}
@@ -117,8 +117,8 @@ export default function ProjectMarketingCard({
                 <div className="flex flex-col gap-2.5">
                   {section.infoCards.map((card) => (
                     <div key={card.title} className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2.5">
-                      <span className="text-xs font-medium text-zinc-300">{card.title}</span>
-                      <p className="mt-1 text-[13px] leading-relaxed text-zinc-500">
+                      <span className="text-xs font-medium text-ink-secondary">{card.title}</span>
+                      <p className="mt-1 text-[13px] leading-relaxed text-ink-subtle">
                         {card.text}
                       </p>
                     </div>

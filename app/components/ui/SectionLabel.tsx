@@ -26,7 +26,7 @@ export default function SectionLabel({
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.3, type: "spring" }}
         />
-        <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-zinc-400">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-ink-muted">
           {children}
         </h2>
       </div>

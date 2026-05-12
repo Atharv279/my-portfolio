@@ -52,7 +52,7 @@ export default function RecruiterToggle() {
         className={`fixed top-4 right-4 z-50 flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-medium backdrop-blur-xl transition-all ${
           isActive
             ? "border-violet-500/40 bg-violet-500/20 text-violet-300"
-            : "border-white/[0.08] bg-black/60 text-zinc-500 hover:border-white/[0.15] hover:text-zinc-300"
+            : "border-white/[0.08] bg-black/60 text-ink-subtle hover:border-white/[0.15] hover:text-ink-secondary"
         }`}
       >
         <Briefcase className="h-3 w-3" />

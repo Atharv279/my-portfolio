@@ -209,15 +209,15 @@ export default function CommandPalette() {
           >
             {/* Search input */}
             <div className="flex items-center gap-3 border-b border-white/[0.06] px-4 py-3">
-              <Search className="h-4 w-4 shrink-0 text-zinc-500" />
+              <Search className="h-4 w-4 shrink-0 text-ink-subtle" />
               <input
                 ref={inputRef}
                 value={query}
                 onChange={(e) => handleQueryChange(e.target.value)}
                 placeholder="Type a command..."
-                className="flex-1 bg-transparent font-mono text-sm text-zinc-200 outline-none placeholder:text-zinc-600"
+                className="flex-1 bg-transparent font-mono text-sm text-ink-secondary outline-none placeholder:text-ink-disabled"
               />
-              <kbd className="hidden rounded border border-white/[0.08] bg-white/[0.04] px-1.5 py-0.5 font-mono text-[10px] text-zinc-500 sm:inline-block">
+              <kbd className="hidden rounded border border-white/[0.08] bg-white/[0.04] px-1.5 py-0.5 font-mono text-[10px] text-ink-subtle sm:inline-block">
                 ESC
               </kbd>
             </div>
@@ -225,7 +225,7 @@ export default function CommandPalette() {
             {/* Command list */}
             <div className="max-h-[320px] overflow-y-auto py-1">
               {filtered.length === 0 && (
-                <div className="px-4 py-6 text-center text-[13px] text-zinc-600">
+                <div className="px-4 py-6 text-center text-[13px] text-ink-disabled">
                   No commands found
                 </div>
               )}
@@ -237,19 +237,19 @@ export default function CommandPalette() {
                   className={`flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors ${
                     i === selectedIndex
                       ? "bg-violet-500/10 text-violet-300"
-                      : "text-zinc-400 hover:bg-white/[0.04]"
+                      : "text-ink-muted hover:bg-white/[0.04]"
                   }`}
                 >
                   <span
                     className={
-                      i === selectedIndex ? "text-violet-400" : "text-zinc-600"
+                      i === selectedIndex ? "text-violet-400" : "text-ink-disabled"
                     }
                   >
                     {cmd.icon}
                   </span>
                   <div className="flex-1">
                     <span className="text-[13px] font-medium">{cmd.label}</span>
-                    <span className="ml-2 text-[11px] text-zinc-600">
+                    <span className="ml-2 text-[11px] text-ink-disabled">
                       {cmd.description}
                     </span>
                   </div>
@@ -259,13 +259,13 @@ export default function CommandPalette() {
 
             {/* Footer hint */}
             <div className="flex items-center gap-3 border-t border-white/[0.06] px-4 py-2">
-              <span className="text-[10px] text-zinc-600">
+              <span className="text-[10px] text-ink-disabled">
                 <kbd className="rounded border border-white/[0.08] bg-white/[0.04] px-1 py-0.5 font-mono">
                   ↑↓
                 </kbd>{" "}
                 navigate
               </span>
-              <span className="text-[10px] text-zinc-600">
+              <span className="text-[10px] text-ink-disabled">
                 <kbd className="rounded border border-white/[0.08] bg-white/[0.04] px-1 py-0.5 font-mono">
                   ↵
                 </kbd>{" "}

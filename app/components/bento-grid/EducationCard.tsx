@@ -51,17 +51,17 @@ export default function EducationCard({ id }: { id: string }) {
                   <Icon className="h-4 w-4 text-sky-400" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[13px] font-medium text-zinc-200">
+                  <p className="text-[13px] font-medium text-ink-secondary">
                     {deg.title}
                   </p>
-                  <p className="mt-0.5 text-[11px] text-zinc-400">
+                  <p className="mt-0.5 text-[11px] text-ink-muted">
                     {deg.institution}
                   </p>
                   <div className="mt-2 flex items-center gap-3">
                     <span className="text-[10px] font-medium uppercase tracking-wider text-sky-400/70">
                       {deg.period}
                     </span>
-                    <span className="text-[10px] font-semibold text-zinc-300">
+                    <span className="text-[10px] font-semibold text-ink-secondary">
                       CGPA: {deg.cgpa}
                     </span>
                   </div>

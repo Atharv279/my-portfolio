@@ -33,7 +33,7 @@ export function MessageBubble({
     <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
       <div
         className={`max-w-[85%] rounded-xl px-3 py-2 text-[13px] leading-relaxed ${
-          isUser ? "bg-white/[0.06] text-zinc-200" : "text-zinc-400"
+          isUser ? "bg-white/[0.06] text-ink-secondary" : "text-ink-muted"
         }`}
       >
         {/* If inline tool calls were detected, render interleaved text + components */}

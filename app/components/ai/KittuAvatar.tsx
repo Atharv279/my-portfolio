@@ -66,7 +66,7 @@ export function KittuAvatar({
             className="absolute bottom-16 right-0 w-[min(240px,70vw)] sm:w-[260px] rounded-xl border border-white/[0.1] bg-black/85 p-3 backdrop-blur-xl"
           >
             <div className="absolute -bottom-1.5 right-5 h-3 w-3 rotate-45 border-b border-r border-white/[0.1] bg-black/85" />
-            <p className="text-[12px] leading-relaxed text-zinc-300">
+            <p className="text-[12px] leading-relaxed text-ink-secondary">
               Hi! I&apos;m <span className="font-semibold text-violet-400">Kittu</span> 👋
               I can guide you through Atharv&apos;s AI systems.
             </p>
@@ -98,7 +98,7 @@ export function KittuAvatar({
               <button
                 key={label}
                 onClick={() => handleAction(action)}
-                className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-[12px] text-zinc-300 transition-colors md:hover:bg-white/[0.06] md:hover:text-zinc-100 active:bg-white/[0.06]"
+                className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-[12px] text-ink-secondary transition-colors md:hover:bg-white/[0.06] md:hover:text-ink active:bg-white/[0.06]"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-violet-500/60" />
                 {label}
@@ -107,7 +107,7 @@ export function KittuAvatar({
             <div className="mt-1 border-t border-white/[0.06] pt-1">
               <button
                 onClick={handleDismiss}
-                className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-[11px] text-zinc-500 transition-colors md:hover:bg-white/[0.06] md:hover:text-zinc-400 active:bg-white/[0.06]"
+                className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-[11px] text-ink-subtle transition-colors md:hover:bg-white/[0.06] md:hover:text-ink-muted active:bg-white/[0.06]"
               >
                 Just open chat
               </button>

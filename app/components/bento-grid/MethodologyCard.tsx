@@ -49,15 +49,15 @@ export default function MethodologyCard({
 
               {/* Text */}
               <div className="min-w-0 pt-px">
-                <span className="text-[13px] font-medium text-zinc-200 md:text-sm">
+                <span className="text-[13px] font-medium text-ink-secondary md:text-sm">
                   {phase.label}
                 </span>
-                <p className="mt-0.5 text-[11px] text-zinc-500 md:text-xs">
+                <p className="mt-0.5 text-[11px] text-ink-subtle md:text-xs">
                   {phase.brief}
                 </p>
                 {/* Expanded detail visible only in modal */}
                 {isExpanded && (
-                  <p className="mt-2 text-[13px] leading-relaxed text-zinc-400">
+                  <p className="mt-2 text-[13px] leading-relaxed text-ink-muted">
                     {phase.detail}
                   </p>
                 )}
@@ -76,8 +76,8 @@ export default function MethodologyCard({
           <div className="flex flex-col gap-2.5">
             {data.whyItWorks.map((card) => (
               <div key={card.title} className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2.5">
-                <span className="text-xs font-medium text-zinc-300">{card.title}</span>
-                <p className="mt-1 text-[13px] leading-relaxed text-zinc-500">
+                <span className="text-xs font-medium text-ink-secondary">{card.title}</span>
+                <p className="mt-1 text-[13px] leading-relaxed text-ink-subtle">
                   {card.text}
                 </p>
               </div>

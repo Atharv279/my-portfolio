@@ -22,7 +22,7 @@ export function ArchitectureDiagram({ project }: ArchitectureDiagramProps) {
 
   return (
     <div className="my-2 rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
-      <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+      <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-subtle">
         {project.title} — Architecture
       </p>
 
@@ -32,7 +32,7 @@ export function ArchitectureDiagram({ project }: ArchitectureDiagramProps) {
             <div key={step.step} className="relative flex gap-3">
               {/* Vertical connector line */}
               <div className="flex flex-col items-center">
-                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.06] text-[9px] font-mono text-zinc-500">
+                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.06] text-[9px] font-mono text-ink-subtle">
                   {step.step.replace(/\D/g, "") || String(i + 1)}
                 </div>
                 {i < steps.length - 1 && (
@@ -41,10 +41,10 @@ export function ArchitectureDiagram({ project }: ArchitectureDiagramProps) {
               </div>
 
               <div className="pb-3">
-                <p className="text-xs font-medium text-zinc-300">
+                <p className="text-xs font-medium text-ink-secondary">
                   {step.title}
                 </p>
-                <p className="mt-0.5 text-[11px] leading-relaxed text-zinc-600">
+                <p className="mt-0.5 text-[11px] leading-relaxed text-ink-disabled">
                   {step.description}
                 </p>
               </div>
@@ -56,10 +56,10 @@ export function ArchitectureDiagram({ project }: ArchitectureDiagramProps) {
           <div className="space-y-2">
             {details.map((item) => (
               <div key={item.label}>
-                <p className="text-xs font-medium text-zinc-300">
+                <p className="text-xs font-medium text-ink-secondary">
                   {item.label}
                 </p>
-                <p className="mt-0.5 text-[11px] leading-relaxed text-zinc-600">
+                <p className="mt-0.5 text-[11px] leading-relaxed text-ink-disabled">
                   {item.text}
                 </p>
               </div>

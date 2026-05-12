@@ -258,8 +258,8 @@ export function SystemMap() {
       <div className="flex flex-col items-center gap-3 md:hidden">
         {/* Hub */}
         <div className="rounded-xl border border-white/[0.14] bg-white/[0.06] px-5 py-3 text-center">
-          <p className="text-sm font-semibold text-zinc-200">Atharv AI Systems</p>
-          <p className="mt-0.5 text-[10px] text-zinc-500">Tap a node to explore</p>
+          <p className="text-sm font-semibold text-ink-secondary">Atharv AI Systems</p>
+          <p className="mt-0.5 text-[10px] text-ink-subtle">Tap a node to explore</p>
         </div>
 
         {/* Connector line */}
@@ -279,8 +279,8 @@ export function SystemMap() {
                 style={{ backgroundColor: p.accent, opacity: 0.85 }}
               />
               <div>
-                <p className="text-[13px] font-medium text-zinc-300">{p.label}</p>
-                <p className="text-[10px] text-zinc-500">{p.subtitle}</p>
+                <p className="text-[13px] font-medium text-ink-secondary">{p.label}</p>
+                <p className="text-[10px] text-ink-subtle">{p.subtitle}</p>
               </div>
             </button>
           ))}

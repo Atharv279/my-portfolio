@@ -68,11 +68,11 @@ export default function ContributionHeatmap({
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
-        <span className="block text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+        <span className="block text-[10px] font-semibold uppercase tracking-widest text-ink-subtle">
           Activity
         </span>
         {totalContributions != null && (
-          <span className="text-[10px] text-zinc-500">
+          <span className="text-[10px] text-ink-subtle">
             {totalContributions.toLocaleString()} contributions
           </span>
         )}
@@ -100,7 +100,7 @@ export default function ContributionHeatmap({
           )}
         </svg>
       </div>
-      <div className="mt-2 flex items-center justify-end gap-1 text-[9px] text-zinc-600">
+      <div className="mt-2 flex items-center justify-end gap-1 text-[9px] text-ink-disabled">
         <span>Less</span>
         {COLORS.map((c, i) => (
           <div

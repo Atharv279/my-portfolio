@@ -185,10 +185,10 @@ export default function SkillRadar() {
             animate={{ opacity: 1, y: 0 }}
             className="absolute bottom-0 left-1/2 w-64 -translate-x-1/2 rounded-xl border border-white/[0.08] bg-zinc-900/95 p-3 shadow-xl backdrop-blur-sm"
           >
-            <span className="text-xs font-medium text-zinc-200">
+            <span className="text-xs font-medium text-ink-secondary">
               {portfolioDomains[hoveredDomain].name}
             </span>
-            <p className="mt-1 text-[11px] leading-relaxed text-zinc-400">
+            <p className="mt-1 text-[11px] leading-relaxed text-ink-muted">
               {portfolioDomains[hoveredDomain].description}
             </p>
             <div className="mt-2 flex flex-col gap-1">
@@ -197,7 +197,7 @@ export default function SkillRadar() {
                 const pct = skill ? Math.round(skill.proficiency * 100) : 0;
                 return (
                   <div key={skillName} className="flex items-center gap-2">
-                    <span className="w-28 truncate text-[10px] text-zinc-400">
+                    <span className="w-28 truncate text-[10px] text-ink-muted">
                       {skillName}
                     </span>
                     <div className="h-1 flex-1 rounded-full bg-white/[0.06]">
@@ -206,7 +206,7 @@ export default function SkillRadar() {
                         style={{ width: `${pct}%` }}
                       />
                     </div>
-                    <span className="w-7 text-right text-[9px] text-zinc-500">
+                    <span className="w-7 text-right text-[9px] text-ink-subtle">
                       {pct}%
                     </span>
                   </div>

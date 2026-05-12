@@ -92,7 +92,7 @@ export function AgentDAGViewer({
 
   return (
     <div className="my-2 rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
-      <p className="mb-2 text-[11px] font-medium tracking-wide text-zinc-400 uppercase">
+      <p className="mb-2 text-[11px] font-medium tracking-wide text-ink-muted uppercase">
         {dag.title}
       </p>
       <svg

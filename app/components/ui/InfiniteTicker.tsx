@@ -35,7 +35,7 @@ export default function InfiniteTicker({ items = defaultItems }: InfiniteTickerP
   const content = items.map((item) => (
     <span
       key={item}
-      className="mx-4 inline-flex shrink-0 items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-600 md:mx-6 md:text-xs"
+      className="mx-4 inline-flex shrink-0 items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-disabled md:mx-6 md:text-xs"
     >
       <span className="h-1 w-1 rounded-full bg-zinc-700" />
       {item}

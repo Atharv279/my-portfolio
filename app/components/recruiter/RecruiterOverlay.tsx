@@ -58,7 +58,7 @@ export default function RecruiterOverlay({ onClose }: RecruiterOverlayProps) {
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1 text-zinc-500 transition-colors hover:bg-white/[0.06] hover:text-zinc-300"
+            className="rounded-lg p-1 text-ink-subtle transition-colors hover:bg-white/[0.06] hover:text-ink-secondary"
           >
             <X className="h-4 w-4" />
           </button>
@@ -71,8 +71,8 @@ export default function RecruiterOverlay({ onClose }: RecruiterOverlayProps) {
               key={m.label}
               className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2 text-center"
             >
-              <div className="text-base font-semibold text-zinc-200">{m.value}</div>
-              <div className="text-[10px] uppercase tracking-wider text-zinc-500">
+              <div className="text-base font-semibold text-ink-secondary">{m.value}</div>
+              <div className="text-[10px] uppercase tracking-wider text-ink-subtle">
                 {m.label}
               </div>
             </div>
@@ -85,7 +85,7 @@ export default function RecruiterOverlay({ onClose }: RecruiterOverlayProps) {
             <button
               key={s.targetId}
               onClick={() => scrollTo(s.targetId)}
-              className="rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1 text-[11px] text-zinc-400 transition-colors hover:border-white/[0.15] hover:bg-white/[0.08] hover:text-zinc-200"
+              className="rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1 text-[11px] text-ink-muted transition-colors hover:border-white/[0.15] hover:bg-white/[0.08] hover:text-ink-secondary"
             >
               {s.label}
             </button>
@@ -96,7 +96,7 @@ export default function RecruiterOverlay({ onClose }: RecruiterOverlayProps) {
         <div className="grid gap-4 sm:grid-cols-2">
           {/* Top skills */}
           <div>
-            <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+            <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-ink-subtle">
               Top Skills
             </span>
             <div className="flex flex-wrap gap-1.5">
@@ -116,14 +116,14 @@ export default function RecruiterOverlay({ onClose }: RecruiterOverlayProps) {
 
           {/* Domains + links */}
           <div>
-            <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+            <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-ink-subtle">
               Domains
             </span>
             <div className="mb-3 flex flex-wrap gap-1.5">
               {portfolioDomains.map((d) => (
                 <span
                   key={d.name}
-                  className="rounded-md border border-white/[0.06] bg-white/[0.04] px-2 py-0.5 text-[11px] text-zinc-400"
+                  className="rounded-md border border-white/[0.06] bg-white/[0.04] px-2 py-0.5 text-[11px] text-ink-muted"
                 >
                   {d.name}
                 </span>
@@ -132,7 +132,7 @@ export default function RecruiterOverlay({ onClose }: RecruiterOverlayProps) {
 
             {/* Availability + links */}
             <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-1.5 text-[11px] text-zinc-400">
+              <div className="flex items-center gap-1.5 text-[11px] text-ink-muted">
                 <MapPin className="h-3 w-3" />
                 <span>Nio Stars Technologies</span>
               </div>
@@ -140,7 +140,7 @@ export default function RecruiterOverlay({ onClose }: RecruiterOverlayProps) {
                 href="https://github.com/Atharv279"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-[11px] text-zinc-400 transition-colors hover:text-zinc-200"
+                className="flex items-center gap-1 text-[11px] text-ink-muted transition-colors hover:text-ink-secondary"
               >
                 <Github className="h-3 w-3" />
                 GitHub
@@ -149,7 +149,7 @@ export default function RecruiterOverlay({ onClose }: RecruiterOverlayProps) {
                 href="https://www.linkedin.com/in/atharv-patil-bab53a284"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-[11px] text-zinc-400 transition-colors hover:text-zinc-200"
+                className="flex items-center gap-1 text-[11px] text-ink-muted transition-colors hover:text-ink-secondary"
               >
                 <Linkedin className="h-3 w-3" />
                 LinkedIn

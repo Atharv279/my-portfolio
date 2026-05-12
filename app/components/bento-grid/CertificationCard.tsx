@@ -28,7 +28,7 @@ export default function CertificationCard({ id }: { id: string }) {
             transition={{ delay: i * 0.08, duration: 0.3 }}
             className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 transition-all duration-200 md:hover:border-white/[0.14] md:hover:bg-white/[0.05]"
           >
-            <p className="text-[13px] font-medium text-zinc-200">
+            <p className="text-[13px] font-medium text-ink-secondary">
               {cert.title}
             </p>
             {cert.issuer && (
@@ -36,7 +36,7 @@ export default function CertificationCard({ id }: { id: string }) {
                 {cert.issuer}
               </p>
             )}
-            <p className="mt-1.5 text-[11px] leading-relaxed text-zinc-400">
+            <p className="mt-1.5 text-[11px] leading-relaxed text-ink-muted">
               {cert.relevance}
             </p>
           </motion.div>

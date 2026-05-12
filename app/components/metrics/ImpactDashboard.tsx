@@ -118,8 +118,8 @@ function MetricCard({ metric, index }: { metric: Metric; index: number }) {
           {metric.suffix}
         </span>
       </div>
-      <p className="text-[13px] font-medium text-zinc-300">{metric.label}</p>
-      <p className="mt-1 text-[11px] leading-relaxed text-zinc-500">
+      <p className="text-[13px] font-medium text-ink-secondary">{metric.label}</p>
+      <p className="mt-1 text-[11px] leading-relaxed text-ink-subtle">
         {metric.description}
       </p>
     </motion.div>

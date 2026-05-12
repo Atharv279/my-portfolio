@@ -42,9 +42,9 @@ export default function HardwareOpsCard({
         {data.capabilities.map((item) => (
             <div
               key={item.label}
-              className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.04] px-2.5 py-1.5 text-[11px] text-zinc-300 md:text-xs"
+              className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.04] px-2.5 py-1.5 text-[11px] text-ink-secondary md:text-xs"
             >
-              <DynamicIcon name={item.icon} className="h-3.5 w-3.5 shrink-0 text-zinc-500" />
+              <DynamicIcon name={item.icon} className="h-3.5 w-3.5 shrink-0 text-ink-subtle" />
               {item.label}
             </div>
           ))}
@@ -78,8 +78,8 @@ export default function HardwareOpsCard({
                 <div className="flex flex-col gap-2.5">
                   {section.infoCards.map((card) => (
                     <div key={card.title} className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2.5">
-                      <span className="text-xs font-medium text-zinc-300">{card.title}</span>
-                      <p className="mt-1 text-[13px] leading-relaxed text-zinc-500">
+                      <span className="text-xs font-medium text-ink-secondary">{card.title}</span>
+                      <p className="mt-1 text-[13px] leading-relaxed text-ink-subtle">
                         {card.text}
                       </p>
                     </div>

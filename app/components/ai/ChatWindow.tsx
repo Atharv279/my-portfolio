@@ -377,13 +377,13 @@ export function ChatWidget() {
             <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-3">
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-emerald-500" />
-                <span className="text-sm font-medium text-zinc-200">
+                <span className="text-sm font-medium text-ink-secondary">
                   Atharv&apos;s AI Clone
                 </span>
               </div>
               <button
                 onClick={handleToggle}
-                className="rounded-lg p-1 text-zinc-500 transition-colors md:hover:bg-white/[0.06] md:hover:text-zinc-300"
+                className="rounded-lg p-1 text-ink-subtle transition-colors md:hover:bg-white/[0.06] md:hover:text-ink-secondary"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -397,7 +397,7 @@ export function ChatWidget() {
               {state.messages.length === 0 && (
                 <div className="flex flex-col gap-3">
                   {/* Greeting bubble */}
-                  <div className="max-w-[85%] rounded-xl px-3 py-2 text-[13px] leading-relaxed text-zinc-400">
+                  <div className="max-w-[85%] rounded-xl px-3 py-2 text-[13px] leading-relaxed text-ink-muted">
                     <p>
                       Hi — Atharv is currently busy building new AI systems.
                     </p>
@@ -407,7 +407,7 @@ export function ChatWidget() {
                     <p className="mt-2">
                       You can explore his AI pipelines, cybersecurity monitoring systems, and multi-agent architectures.
                     </p>
-                    <p className="mt-2 font-medium text-zinc-300">
+                    <p className="mt-2 font-medium text-ink-secondary">
                       Ask me anything about Atharv.
                     </p>
                   </div>
@@ -419,7 +419,7 @@ export function ChatWidget() {
                         key={s}
                         onClick={() => handleSend(s)}
                         disabled={isDisabled}
-                        className="rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[11px] text-zinc-400 transition-colors md:hover:border-white/[0.15] md:hover:bg-white/[0.08] md:hover:text-zinc-200 disabled:opacity-40"
+                        className="rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[11px] text-ink-muted transition-colors md:hover:border-white/[0.15] md:hover:bg-white/[0.08] md:hover:text-ink-secondary disabled:opacity-40"
                       >
                         {s}
                       </button>
@@ -482,7 +482,7 @@ export function ChatWidget() {
         onClick={handleToggle}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className={`flex h-14 w-14 items-center justify-center rounded-full border border-white/[0.08] bg-black/80 text-zinc-400 shadow-2xl backdrop-blur-xl transition-colors md:hover:text-zinc-200 ${state.isOpen ? "max-sm:hidden" : ""}`}
+        className={`flex h-14 w-14 items-center justify-center rounded-full border border-white/[0.08] bg-black/80 text-ink-muted shadow-2xl backdrop-blur-xl transition-colors md:hover:text-ink-secondary ${state.isOpen ? "max-sm:hidden" : ""}`}
       >
         {state.isOpen ? (
           <X className="h-5 w-5" />

@@ -12,6 +12,9 @@ import {
   ProjectPneumoniaCard,
   ProjectMeetTranscriberCard,
   HardwareOpsCard,
+  AjaiCard,
+  SovereignPipelineCard,
+  NioStarsDashboardCard,
 } from "./components/bento-grid";
 import { InfiniteTicker, SectionLabel, SectionReveal } from "./components/ui";
 import { SystemMapLazy } from "./components/generative-ui/SystemMapLazy";
@@ -97,6 +100,15 @@ export default async function Home() {
         <SectionReveal className="col-span-full rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 md:p-6">
           <SystemMapLazy />
         </SectionReveal>
+
+        {/* ── Sovereign Stack (live local-inference projects) ── */}
+        <SectionLabel accentColor="bg-emerald-500/70">Sovereign Stack</SectionLabel>
+        <AjaiCard id="project-ajai" />
+        <SovereignPipelineCard id="project-sovereign-pipeline" />
+
+        {/* ── Enterprise Infrastructure ── */}
+        <SectionLabel accentColor="bg-blue-500/70">Enterprise Infrastructure</SectionLabel>
+        <NioStarsDashboardCard id="project-niostars-dashboard" />
 
         {/* ── Autonomous Intelligence ── */}
         <SectionLabel accentColor="bg-violet-500/70">Autonomous Intelligence</SectionLabel>

@@ -43,28 +43,28 @@ export default function EngineeringTimeline() {
               />
 
               {/* Period badge */}
-              <span className="inline-block rounded-md border border-white/[0.06] bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] text-zinc-500">
+              <span className="inline-block rounded-md border border-white/[0.06] bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] text-ink-subtle">
                 {exp.period}
               </span>
 
               {/* Role & company */}
-              <h3 className="mt-1.5 text-sm font-semibold text-zinc-200">
+              <h3 className="mt-1.5 text-sm font-semibold text-ink-secondary">
                 {exp.role}
               </h3>
-              <p className="text-[13px] text-zinc-500">{exp.company}</p>
+              <p className="text-[13px] text-ink-subtle">{exp.company}</p>
 
               {/* Skill pills */}
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {exp.keySkills.slice(0, 5).map((skill) => (
                   <span
                     key={skill}
-                    className="rounded-md border border-white/[0.06] bg-white/[0.04] px-2 py-0.5 text-[10px] text-zinc-400"
+                    className="rounded-md border border-white/[0.06] bg-white/[0.04] px-2 py-0.5 text-[10px] text-ink-muted"
                   >
                     {skill}
                   </span>
                 ))}
                 {exp.keySkills.length > 5 && (
-                  <span className="rounded-md border border-white/[0.06] bg-white/[0.04] px-2 py-0.5 text-[10px] text-zinc-500">
+                  <span className="rounded-md border border-white/[0.06] bg-white/[0.04] px-2 py-0.5 text-[10px] text-ink-subtle">
                     +{exp.keySkills.length - 5}
                   </span>
                 )}
@@ -101,10 +101,10 @@ export default function EngineeringTimeline() {
                           key={proj.slug}
                           className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2"
                         >
-                          <span className="text-xs font-medium text-zinc-300">
+                          <span className="text-xs font-medium text-ink-secondary">
                             {proj.title}
                           </span>
-                          <p className="mt-0.5 text-[11px] leading-relaxed text-zinc-500">
+                          <p className="mt-0.5 text-[11px] leading-relaxed text-ink-subtle">
                             {proj.oneLiner}
                           </p>
                         </div>

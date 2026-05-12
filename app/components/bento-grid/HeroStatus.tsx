@@ -52,11 +52,11 @@ export default function HeroStatus({
 
       {/* Role + Location */}
       <div className="mt-4 flex flex-col gap-1.5">
-        <div className="flex items-center justify-center gap-2 text-xs text-zinc-400">
+        <div className="flex items-center justify-center gap-2 text-xs text-ink-muted">
           <Briefcase className="h-3.5 w-3.5 shrink-0" />
           <span>{profile.currentRole}</span>
         </div>
-        <div className="flex items-center justify-center gap-2 text-xs text-zinc-500">
+        <div className="flex items-center justify-center gap-2 text-xs text-ink-subtle">
           <MapPin className="h-3.5 w-3.5 shrink-0" />
           <span>{profile.location}</span>
         </div>
@@ -77,7 +77,7 @@ export default function HeroStatus({
               <span className="font-mono text-lg font-bold text-emerald-400">
                 {stat.value}
               </span>
-              <span className="mt-0.5 text-[10px] uppercase tracking-widest text-zinc-600">
+              <span className="mt-0.5 text-[10px] uppercase tracking-widest text-ink-disabled">
                 {stat.label}
               </span>
             </motion.div>

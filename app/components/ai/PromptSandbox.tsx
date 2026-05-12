@@ -76,7 +76,7 @@ export default function PromptSandbox({ isChatOpen = false }: { isChatOpen?: boo
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="rounded p-0.5 text-zinc-600 transition-colors md:hover:bg-white/[0.06] md:hover:text-zinc-400"
+                className="rounded p-0.5 text-ink-disabled transition-colors md:hover:bg-white/[0.06] md:hover:text-ink-muted"
               >
                 <X className="h-3 w-3" />
               </button>
@@ -85,8 +85,8 @@ export default function PromptSandbox({ isChatOpen = false }: { isChatOpen?: boo
             {/* Temperature slider */}
             <div className="mb-4">
               <div className="mb-1.5 flex items-center justify-between">
-                <span className="text-[11px] text-zinc-400">Temperature</span>
-                <span className="font-mono text-[11px] text-zinc-500">
+                <span className="text-[11px] text-ink-muted">Temperature</span>
+                <span className="font-mono text-[11px] text-ink-subtle">
                   {params.temperature.toFixed(2)}
                 </span>
               </div>
@@ -104,7 +104,7 @@ export default function PromptSandbox({ isChatOpen = false }: { isChatOpen?: boo
             {/* Depth slider */}
             <div className="mb-4">
               <div className="mb-1.5 flex items-center justify-between">
-                <span className="text-[11px] text-zinc-400">
+                <span className="text-[11px] text-ink-muted">
                   Technical Depth
                 </span>
                 <span className="font-mono text-[11px] text-violet-400">
@@ -125,7 +125,7 @@ export default function PromptSandbox({ isChatOpen = false }: { isChatOpen?: boo
             {/* Verbosity slider */}
             <div>
               <div className="mb-1.5 flex items-center justify-between">
-                <span className="text-[11px] text-zinc-400">Verbosity</span>
+                <span className="text-[11px] text-ink-muted">Verbosity</span>
                 <span className="font-mono text-[11px] text-violet-400">
                   {getLabel(params.verbosity, VERBOSITY_LABELS)}
                 </span>
@@ -154,7 +154,7 @@ export default function PromptSandbox({ isChatOpen = false }: { isChatOpen?: boo
         className="flex h-9 items-center gap-2 rounded-full border border-white/[0.08] bg-black/80 px-3 backdrop-blur-xl transition-colors md:hover:border-violet-500/20"
       >
         <SlidersHorizontal className="h-3.5 w-3.5 text-violet-400" />
-        <span className="font-mono text-[10px] text-zinc-400">Prompt</span>
+        <span className="font-mono text-[10px] text-ink-muted">Prompt</span>
       </motion.button>
     </div>
   );

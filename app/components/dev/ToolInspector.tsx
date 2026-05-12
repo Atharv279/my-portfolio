@@ -36,14 +36,14 @@ function EventRow({ event }: { event: ToolEvent }) {
         className="flex w-full items-center gap-2 px-3 py-2 text-left transition-colors hover:bg-white/[0.04]"
       >
         {expanded ? (
-          <ChevronDown className="h-3 w-3 shrink-0 text-zinc-500" />
+          <ChevronDown className="h-3 w-3 shrink-0 text-ink-subtle" />
         ) : (
-          <ChevronRight className="h-3 w-3 shrink-0 text-zinc-500" />
+          <ChevronRight className="h-3 w-3 shrink-0 text-ink-subtle" />
         )}
         <span className="flex-1 truncate font-mono text-[11px] text-emerald-400">
           {event.name}
         </span>
-        <span className="shrink-0 font-mono text-[10px] text-zinc-600">
+        <span className="shrink-0 font-mono text-[10px] text-ink-disabled">
           {event.latencyMs}ms
         </span>
       </button>
@@ -59,7 +59,7 @@ function EventRow({ event }: { event: ToolEvent }) {
           >
             <div className="space-y-2 px-3 pb-3">
               <div>
-                <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-600">
+                <span className="font-mono text-[9px] uppercase tracking-wider text-ink-disabled">
                   Args
                 </span>
                 <pre className="mt-0.5 rounded-md bg-black/40 p-2 font-mono text-[10px] leading-relaxed text-violet-300">
@@ -68,7 +68,7 @@ function EventRow({ event }: { event: ToolEvent }) {
               </div>
               <div className="flex items-center gap-4">
                 <div>
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-600">
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-ink-disabled">
                     Latency
                   </span>
                   <p className="font-mono text-[11px] text-amber-400">
@@ -76,10 +76,10 @@ function EventRow({ event }: { event: ToolEvent }) {
                   </p>
                 </div>
                 <div>
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-600">
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-ink-disabled">
                     Timestamp
                   </span>
-                  <p className="font-mono text-[11px] text-zinc-400">
+                  <p className="font-mono text-[11px] text-ink-muted">
                     {formatTime(event.timestamp)}
                   </p>
                 </div>
@@ -121,7 +121,7 @@ export default function ToolInspector({ events }: ToolInspectorProps) {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="rounded p-0.5 text-zinc-600 transition-colors hover:bg-white/[0.06] hover:text-zinc-400"
+                className="rounded p-0.5 text-ink-disabled transition-colors hover:bg-white/[0.06] hover:text-ink-muted"
               >
                 <X className="h-3 w-3" />
               </button>
@@ -145,7 +145,7 @@ export default function ToolInspector({ events }: ToolInspectorProps) {
         className="flex h-9 items-center gap-2 rounded-full border border-white/[0.08] bg-black/80 px-3 backdrop-blur-xl transition-colors hover:border-emerald-500/20"
       >
         <Terminal className="h-3.5 w-3.5 text-emerald-500" />
-        <span className="font-mono text-[10px] text-zinc-400">
+        <span className="font-mono text-[10px] text-ink-muted">
           {events.length} calls
         </span>
       </motion.button>

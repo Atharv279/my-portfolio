@@ -102,8 +102,8 @@ export default function GitHubPanel() {
   return (
     <div>
       <div className="mb-5 flex items-center gap-2">
-        <Github className="h-4 w-4 text-zinc-400" />
-        <span className="font-mono text-[11px] uppercase tracking-widest text-zinc-400">
+        <Github className="h-4 w-4 text-ink-muted" />
+        <span className="font-mono text-[11px] uppercase tracking-widest text-ink-muted">
           Open Source
         </span>
       </div>
@@ -111,7 +111,7 @@ export default function GitHubPanel() {
       <div className="grid gap-4 md:grid-cols-2">
         {/* Left: Repos */}
         <div>
-          <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+          <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-ink-subtle">
             Top Repositories
           </span>
           <div className="flex flex-col gap-2">
@@ -125,13 +125,13 @@ export default function GitHubPanel() {
               >
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5">
-                    <span className="truncate text-xs font-medium text-zinc-200 md:group-hover:text-violet-300">
+                    <span className="truncate text-xs font-medium text-ink-secondary md:group-hover:text-violet-300">
                       {repo.name}
                     </span>
-                    <ExternalLink className="h-2.5 w-2.5 shrink-0 text-zinc-600 opacity-0 transition-opacity md:group-hover:opacity-100" />
+                    <ExternalLink className="h-2.5 w-2.5 shrink-0 text-ink-disabled opacity-0 transition-opacity md:group-hover:opacity-100" />
                   </div>
                   {repo.description && (
-                    <p className="mt-0.5 truncate text-[11px] text-zinc-500">
+                    <p className="mt-0.5 truncate text-[11px] text-ink-subtle">
                       {repo.description}
                     </p>
                   )}
@@ -142,13 +142,13 @@ export default function GitHubPanel() {
                           className="h-2 w-2 rounded-full"
                           style={{ backgroundColor: LANG_COLORS[repo.language] ?? "#71717a" }}
                         />
-                        <span className="text-[10px] text-zinc-500">{repo.language}</span>
+                        <span className="text-[10px] text-ink-subtle">{repo.language}</span>
                       </div>
                     )}
                     {repo.stars > 0 && (
                       <div className="flex items-center gap-0.5">
-                        <Star className="h-2.5 w-2.5 text-zinc-500" />
-                        <span className="text-[10px] text-zinc-500">{repo.stars}</span>
+                        <Star className="h-2.5 w-2.5 text-ink-subtle" />
+                        <span className="text-[10px] text-ink-subtle">{repo.stars}</span>
                       </div>
                     )}
                   </div>
@@ -162,7 +162,7 @@ export default function GitHubPanel() {
         <div className="flex flex-col gap-4">
           {/* Language bar */}
           <div>
-            <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+            <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-ink-subtle">
               Languages
             </span>
             <div className="mb-2 flex h-2 overflow-hidden rounded-full">
@@ -184,7 +184,7 @@ export default function GitHubPanel() {
                     className="h-2 w-2 rounded-full"
                     style={{ backgroundColor: LANG_COLORS[lang.name] ?? "#71717a" }}
                   />
-                  <span className="text-[10px] text-zinc-400">
+                  <span className="text-[10px] text-ink-muted">
                     {lang.name} {lang.percentage}%
                   </span>
                 </div>
@@ -202,15 +202,15 @@ export default function GitHubPanel() {
 
       {/* Profile summary */}
       <div className="mt-4 flex items-center gap-3 border-t border-white/[0.06] pt-3">
-        <span className="text-[11px] text-zinc-500">
+        <span className="text-[11px] text-ink-subtle">
           {data.profile.publicRepos} public repos
         </span>
-        <span className="text-zinc-700">·</span>
+        <span className="text-ink-disabled">·</span>
         <a
           href={`https://github.com/${data.profile.login}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[11px] text-zinc-400 transition-colors md:hover:text-zinc-200"
+          className="text-[11px] text-ink-muted transition-colors md:hover:text-ink-secondary"
         >
           View on GitHub →
         </a>

@@ -68,7 +68,7 @@ export function PipelineVisualizer({ project }: { project: Project }) {
 
   return (
     <div className="my-2 rounded-xl border border-white/[0.08] bg-white/[0.03] p-4">
-      <p className="mb-3 text-xs font-medium tracking-wide text-zinc-400 uppercase">
+      <p className="mb-3 text-xs font-medium tracking-wide text-ink-muted uppercase">
         {project.title} — Pipeline
       </p>
       <svg
@@ -191,7 +191,7 @@ export function PipelineVisualizer({ project }: { project: Project }) {
                   width={NODE_W}
                   height={40}
                 >
-                  <div className="rounded-md border border-white/[0.1] bg-zinc-900/95 px-2.5 py-1.5 text-[11px] leading-relaxed text-zinc-300 shadow-lg">
+                  <div className="rounded-md border border-white/[0.1] bg-zinc-900/95 px-2.5 py-1.5 text-[11px] leading-relaxed text-ink-secondary shadow-lg">
                     {node.title}
                   </div>
                 </foreignObject>

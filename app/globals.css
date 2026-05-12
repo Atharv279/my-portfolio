@@ -3,11 +3,50 @@
 :root {
   --background: #050505;
   --foreground: #f4f4f5;
+
+  /* ── Semantic typographic tokens ──
+     Contrast verified against the composite card surface (#050505 body + 40%
+     noise overlay + 6% white card translucency ≈ #1a1a1a effective).
+     Ratios listed are minimums; lighter patches give additional headroom. */
+  --text-primary:   #fafafa; /* ≈16.3:1 — headings, KPIs */
+  --text-secondary: #e4e4e7; /* ≈13.1:1 — emphasised body */
+  --text-muted:     #b4b4bb; /*  ≈8.2:1 — body & long-form (replaces zinc-400) */
+  --text-subtle:    #909097; /*  ≈5.4:1 — captions/microcopy, AA-pass with noise */
+  --text-disabled:  #5e5e63; /*  ≈2.8:1 — INTENTIONALLY sub-AA; disabled-only */
+
+  /* Glass surface + hairline borders (slight bump over the prior 0.05/0.12 so
+     translucent cards remain legible against the noise overlay). */
+  --surface-card:        rgba(255, 255, 255, 0.06);
+  --surface-card-strong: rgba(255, 255, 255, 0.10);
+  --border-card:         rgba(255, 255, 255, 0.14);
+  --border-card-strong:  rgba(255, 255, 255, 0.22);
+
+  /* Keyboard focus ring — emerald to harmonise with the hero accent. */
+  --focus-ring: rgba(110, 231, 183, 0.6);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Typographic utilities: text-ink, text-ink-secondary, text-ink-muted,
+     text-ink-subtle, text-ink-disabled. Replace ad-hoc text-zinc-* usage. */
+  --color-ink:           var(--text-primary);
+  --color-ink-secondary: var(--text-secondary);
+  --color-ink-muted:     var(--text-muted);
+  --color-ink-subtle:    var(--text-subtle);
+  --color-ink-disabled:  var(--text-disabled);
+
+  /* Surface & hairline utilities: bg-surface, bg-surface-strong,
+     border-hairline, border-hairline-strong. */
+  --color-surface:         var(--surface-card);
+  --color-surface-strong:  var(--surface-card-strong);
+  --color-hairline:        var(--border-card);
+  --color-hairline-strong: var(--border-card-strong);
+
+  /* Focus utility: ring-focus / outline-focus. */
+  --color-focus: var(--focus-ring);
+
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
 

@@ -1,5 +1,6 @@
 export { default as BentoCard } from "./BentoCard";
 export { default as BentoGrid } from "./BentoGrid";
+export { useMagneticMotion } from "./useMagneticMotion";
 export { default as ExpandedSection } from "./ExpandedSection";
 export { DetailItem, PipelineStep } from "./ExpandedSection";
 export { default as HeroIdentity } from "./HeroIdentity";
@@ -14,3 +15,6 @@ export { default as ProjectInvoiceMasterCard } from "./ProjectInvoiceMasterCard"
 export { default as ProjectPneumoniaCard } from "./ProjectPneumoniaCard";
 export { default as ProjectMeetTranscriberCard } from "./ProjectMeetTranscriberCard";
 export { default as HardwareOpsCard } from "./HardwareOpsCard";
+export { default as AjaiCard } from "./AjaiCard";
+export { default as SovereignPipelineCard } from "./SovereignPipelineCard";
+export { default as NioStarsDashboardCard } from "./NioStarsDashboardCard";

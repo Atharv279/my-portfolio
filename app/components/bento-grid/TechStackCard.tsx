@@ -54,9 +54,9 @@ export default function TechStackCard({
               initial="hidden"
               animate="visible"
               variants={pillVariants}
-              className="flex items-center gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/[0.06] px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 md:text-xs"
+              className="flex items-center gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/[0.06] px-2.5 py-1.5 text-[11px] font-medium text-ink-secondary md:text-xs"
             >
-              <DynamicIcon name={tech.icon} className="h-3 w-3 shrink-0 text-zinc-500" />
+              <DynamicIcon name={tech.icon} className="h-3 w-3 shrink-0 text-ink-subtle" />
               <span>{tech.name}</span>
             </motion.div>
           ))}
@@ -73,11 +73,11 @@ export default function TechStackCard({
             {data.arsenal.map((category) => (
                 <div key={category.title}>
                   <div className="mb-2 flex items-center gap-2">
-                    <DynamicIcon name={category.icon} className="h-3.5 w-3.5 text-zinc-400" />
-                    <span className="text-xs font-medium text-zinc-200">
+                    <DynamicIcon name={category.icon} className="h-3.5 w-3.5 text-ink-muted" />
+                    <span className="text-xs font-medium text-ink-secondary">
                       {category.title}
                     </span>
-                    <span className="text-[11px] text-zinc-500">
+                    <span className="text-[11px] text-ink-subtle">
                       &mdash; {category.subtitle}
                     </span>
                   </div>
@@ -85,14 +85,14 @@ export default function TechStackCard({
                     {category.items.map((item) => (
                       <span
                         key={item}
-                        className={`shrink-0 rounded-md border ${category.accentBorder} bg-white/[0.03] px-2.5 py-1 text-[11px] text-zinc-400 md:text-xs`}
+                        className={`shrink-0 rounded-md border ${category.accentBorder} bg-white/[0.03] px-2.5 py-1 text-[11px] text-ink-muted md:text-xs`}
                       >
                         {item}
                       </span>
                     ))}
                   </div>
                   {category.footnote && (
-                    <p className="mt-1.5 text-[11px] text-zinc-500">
+                    <p className="mt-1.5 text-[11px] text-ink-subtle">
                       {category.footnote}
                     </p>
                   )}
