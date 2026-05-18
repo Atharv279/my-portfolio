@@ -8,8 +8,6 @@ import { fallbackProfile } from "@/lib/fallback-data";
 
 interface HeroStatusProps {
   id?: string;
-  onExpand?: (id: string) => void;
-  isExpanded?: boolean;
   profile?: Profile;
 }
 
@@ -24,8 +22,6 @@ const statVariants = {
 
 export default function HeroStatus({
   id = "hero-status",
-  onExpand,
-  isExpanded,
   profile = fallbackProfile,
 }: HeroStatusProps) {
   const stats = profile.stats ?? [];
@@ -36,8 +32,6 @@ export default function HeroStatus({
       index={1}
       glowColor="rgba(52, 211, 153, 0.15)"
       className="flex flex-col items-center justify-center text-center md:col-span-1 md:row-span-1"
-      onExpand={onExpand}
-      isExpanded={isExpanded}
     >
       {/* Pulsing status badge */}
       <div className="flex items-center gap-2.5">

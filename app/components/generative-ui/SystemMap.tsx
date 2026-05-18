@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
+import { AnimatedGridPattern } from "../magicui/animated-grid-pattern";
 
 // ---------------------------------------------------------------------------
 // Static data for the system map
@@ -112,10 +113,17 @@ export function SystemMap() {
   return (
     <div className="w-full">
       {/* Desktop: SVG radial map */}
-      <div className="hidden md:block">
+      <div className="relative hidden overflow-hidden rounded-2xl md:block">
+        {/* Subtle animated grid background — clipped to rounded container, no overflow scroll. */}
+        <AnimatedGridPattern
+          numSquares={28}
+          maxOpacity={0.18}
+          duration={3}
+          repeatDelay={1}
+        />
         <svg
           viewBox={`0 0 ${W} ${H}`}
-          className="mx-auto w-full max-w-[800px]"
+          className="relative z-10 mx-auto w-full max-w-[800px]"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>

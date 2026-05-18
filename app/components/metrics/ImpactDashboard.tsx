@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { TrendingUp, Clock, Target, DollarSign } from "lucide-react";
+import { NumberTicker } from "../magicui/number-ticker";
 
 interface Metric {
   icon: React.ReactNode;
@@ -48,60 +48,9 @@ const METRICS: Metric[] = [
   },
 ];
 
-function useCountUp(target: number, isVisible: boolean, duration = 1500): number {
-  const [count, setCount] = useState(0);
-  const rafRef = useRef<number>(0);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const start = performance.now();
-
-    function tick(now: number) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(target * eased));
-
-      if (progress < 1) {
-        rafRef.current = requestAnimationFrame(tick);
-      }
-    }
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [target, isVisible, duration]);
-
-  return count;
-}
-
 function MetricCard({ metric, index }: { metric: Metric; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const count = useCountUp(metric.value, isVisible);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -111,8 +60,8 @@ function MetricCard({ metric, index }: { metric: Metric; index: number }) {
       <div className={`mb-3 ${metric.color}`}>{metric.icon}</div>
       <div className="mb-1 flex items-baseline gap-1">
         <span className={`text-3xl font-bold tabular-nums ${metric.color}`}>
-          {isVisible ? (metric.suffix === "%" ? "+" : "") : ""}
-          {count}
+          {metric.suffix === "%" ? "+" : ""}
+          <NumberTicker value={metric.value} className={metric.color} delay={index * 0.1} />
         </span>
         <span className={`text-lg font-medium ${metric.color}`}>
           {metric.suffix}

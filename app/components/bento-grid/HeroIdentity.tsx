@@ -1,6 +1,7 @@
 "use client";
 
 import BentoCard from "./BentoCard";
+import { useBento } from "./BentoGrid";
 import ExpandedSection, { DetailItem } from "./ExpandedSection";
 import { Github, Linkedin, User, GraduationCap, Building2, ExternalLink } from "lucide-react";
 import type { Profile, Education, Experience } from "@/lib/types";
@@ -12,8 +13,6 @@ import {
 
 interface HeroIdentityProps {
   id?: string;
-  onExpand?: (id: string) => void;
-  isExpanded?: boolean;
   profile?: Profile;
   education?: Education[];
   experiences?: Experience[];
@@ -26,20 +25,19 @@ const platformIcons: Record<string, typeof Github> = {
 
 export default function HeroIdentity({
   id = "hero-identity",
-  onExpand,
-  isExpanded,
   profile = fallbackProfile,
   education = fallbackEducation,
   experiences = fallbackExperiences,
 }: HeroIdentityProps) {
+  const { expandedId } = useBento();
+  const isExpanded = expandedId === id;
+
   return (
     <BentoCard
       id={id}
       index={0}
       glowColor="rgba(52, 211, 153, 0.15)"
       className="hero-glow flex flex-col justify-between !p-6 md:!p-8 sm:col-span-2 md:col-span-2 md:row-span-1"
-      onExpand={onExpand}
-      isExpanded={isExpanded}
     >
       {/* Main content */}
       <div className="flex flex-1 flex-col justify-center">

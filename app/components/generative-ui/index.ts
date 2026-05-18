@@ -5,3 +5,4 @@ export { PipelineVisualizer } from "./PipelineVisualizer";
 export { CyberThreatRadar } from "./CyberThreatRadar";
 export { AgentDAGViewer } from "./AgentDAGViewer";
 export { SystemMap } from "./SystemMap";
+export { default as ImpactDashboard } from "./ImpactDashboard";

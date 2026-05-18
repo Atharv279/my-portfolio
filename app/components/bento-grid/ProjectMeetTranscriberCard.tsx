@@ -1,34 +1,52 @@
 "use client";
 
 import BentoCard from "./BentoCard";
+import { useBento } from "./BentoGrid";
 import ExpandedSection, { DetailItem } from "./ExpandedSection";
 import { ExternalLink } from "lucide-react";
 import { getIcon, DynamicIcon } from "@/lib/icon-map";
 import type { Project } from "@/lib/types";
 import { fallbackMeetTranscriberProject } from "@/lib/fallback-data";
+import Meteors from "../ai/meteors";
+import { WavyBackground } from "../aceternity/wavy-background";
 
 interface ProjectMeetTranscriberCardProps {
   id?: string;
-  onExpand?: (id: string) => void;
-  isExpanded?: boolean;
   data?: Project;
 }
 
 export default function ProjectMeetTranscriberCard({
   id = "project-meet-transcriber",
-  onExpand,
-  isExpanded,
   data = fallbackMeetTranscriberProject,
 }: ProjectMeetTranscriberCardProps) {
+  const { expandedId } = useBento();
+  const isExpanded = expandedId === id;
+
   return (
     <BentoCard
       id={id}
       index={1}
       glowColor={data.glowColor}
       className="flex flex-col justify-between md:col-span-2 md:row-span-1"
-      onExpand={onExpand}
-      isExpanded={isExpanded}
     >
+      {/* Background Generative Waveform */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-40">
+        <WavyBackground 
+          containerClassName="h-full w-full min-h-0" 
+          className="h-full w-full"
+          colors={["rgba(56, 189, 248, 0.15)", "rgba(16, 185, 129, 0.1)", "rgba(110, 231, 183, 0.08)"]}
+          waveWidth={30}
+          waveOpacity={0.3}
+          blur={0}
+          speed="slow"
+        />
+      </div>
+
+      {/* Background Meteors */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <Meteors number={15} />
+      </div>
+
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">

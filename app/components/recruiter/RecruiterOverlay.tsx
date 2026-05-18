@@ -3,6 +3,7 @@
 import { useCallback } from "react";
 import { motion } from "framer-motion";
 import { X, Github, Linkedin, MapPin } from "lucide-react";
+import { TypingAnimation } from "../magicui/typing-animation";
 import {
   portfolioSkills,
   portfolioDomains,
@@ -10,6 +11,7 @@ import {
   portfolioProjects,
   portfolioExperience,
 } from "@/lib/portfolio-data";
+import { fallbackProfile } from "@/lib/fallback-data";
 
 const topSkills = [...portfolioSkills]
   .sort((a, b) => b.proficiency - a.proficiency)
@@ -45,16 +47,20 @@ export default function RecruiterOverlay({ onClose }: RecruiterOverlayProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.25 }}
-      className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] bg-black/90 backdrop-blur-xl"
+      className="fixed inset-x-0 top-0 z-50 border-b border-hairline-strong bg-surface-strong/95 backdrop-blur-2xl shadow-2xl"
     >
       <div className="mx-auto max-w-5xl px-4 py-4 md:px-8">
         {/* Header */}
         <div className="mb-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-emerald-500" />
-            <span className="text-xs font-medium text-emerald-400">
-              Recruiter Quick View
-            </span>
+            <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            <TypingAnimation 
+              className="text-xs font-mono font-medium text-emerald-400"
+              typeSpeed={20}
+              startOnView={false}
+            >
+              Recruiter Quick View _
+            </TypingAnimation>
           </div>
           <button
             onClick={onClose}
@@ -62,6 +68,18 @@ export default function RecruiterOverlay({ onClose }: RecruiterOverlayProps) {
           >
             <X className="h-4 w-4" />
           </button>
+        </div>
+
+        {/* Profile Summary - Terminal Style */}
+        <div className="mb-4 rounded-lg border border-hairline bg-black/40 p-3 font-mono">
+          <div className="mb-1 text-[10px] text-emerald-500/70">{">"} INITIALIZING_SUMMARY...</div>
+          <TypingAnimation 
+            className="text-[13px] leading-relaxed text-ink-secondary"
+            typeSpeed={15}
+            startOnView={false}
+          >
+            {fallbackProfile.bio}
+          </TypingAnimation>
         </div>
 
         {/* Metrics row */}
@@ -134,7 +152,9 @@ export default function RecruiterOverlay({ onClose }: RecruiterOverlayProps) {
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-1.5 text-[11px] text-ink-muted">
                 <MapPin className="h-3 w-3" />
-                <span>Nio Stars Technologies</span>
+                <TypingAnimation typeSpeed={30} startOnView={false}>
+                  Nio Stars Technologies
+                </TypingAnimation>
               </div>
               <a
                 href="https://github.com/Atharv279"

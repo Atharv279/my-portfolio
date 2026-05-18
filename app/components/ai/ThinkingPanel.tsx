@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Ripple } from "../magicui/ripple";
 
 const STEPS = [
   "Analyzing query",
@@ -25,12 +26,18 @@ interface ThinkingPanelProps {
 
 export function ThinkingPanel({ stage }: ThinkingPanelProps) {
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-3">
-      <svg
-        viewBox="0 0 270 60"
-        className="mb-2 w-full"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+    <div className="relative overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-3">
+      {/* Sentient Background Ripple */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <Ripple mainCircleSize={50} mainCircleOpacity={0.08} numCircles={5} rippleColor="var(--focus-ring)" />
+      </div>
+
+      <div className="relative z-10">
+        <svg
+          viewBox="0 0 270 60"
+          className="mb-2 w-full"
+          xmlns="http://www.w3.org/2000/svg"
+        >
         {/* Connection paths */}
         {NODES.slice(0, -1).map((node, i) => {
           const next = NODES[i + 1];
@@ -108,16 +115,17 @@ export function ThinkingPanel({ stage }: ThinkingPanelProps) {
         })}
       </svg>
 
-      {/* Step labels */}
-      <div className="flex items-center gap-1.5">
-        <motion.span
-          className="h-1.5 w-1.5 rounded-full bg-emerald-500"
-          animate={{ opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 1, repeat: Infinity }}
-        />
-        <span className="text-[11px] text-emerald-400/80">
-          {STEPS[Math.min(stage, STEPS.length - 1)]}...
-        </span>
+        {/* Step labels */}
+        <div className="flex items-center gap-1.5 mt-2">
+          <motion.span
+            className="h-1.5 w-1.5 rounded-full bg-emerald-500"
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 1, repeat: Infinity }}
+          />
+          <span className="text-[11px] text-emerald-400/80">
+            {STEPS[Math.min(stage, STEPS.length - 1)]}...
+          </span>
+        </div>
       </div>
     </div>
   );

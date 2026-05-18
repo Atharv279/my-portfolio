@@ -5,6 +5,7 @@ import { SecurityProvider } from "./components/security";
 import { ChatWidget } from "./components/ai";
 import RecruiterToggle from "./components/recruiter/RecruiterToggle";
 import CommandPalette from "./components/navigation/CommandPalette";
+import GlobalDock from "./components/navigation/GlobalDock";
 import "./globals.css";
 
 const inter = Inter({
@@ -42,6 +43,7 @@ export default function RootLayout({
           <RecruiterToggle />
           <ChatWidget />
           <CommandPalette />
+          <GlobalDock />
         </SecurityProvider>
       </body>
     </html>

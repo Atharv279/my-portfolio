@@ -1,33 +1,32 @@
 "use client";
 
 import BentoCard from "./BentoCard";
+import { useBento } from "./BentoGrid";
 import ExpandedSection, { DetailItem } from "./ExpandedSection";
 import { ExternalLink } from "lucide-react";
 import { getIcon, DynamicIcon } from "@/lib/icon-map";
 import type { Project } from "@/lib/types";
 import { fallbackRAGifyProject } from "@/lib/fallback-data";
+import { TextRevealCard } from "../aceternity/text-reveal-card";
 
 interface ProjectRAGifyCardProps {
   id?: string;
-  onExpand?: (id: string) => void;
-  isExpanded?: boolean;
   data?: Project;
 }
 
 export default function ProjectRAGifyCard({
   id = "project-ragify",
-  onExpand,
-  isExpanded,
   data = fallbackRAGifyProject,
 }: ProjectRAGifyCardProps) {
+  const { expandedId } = useBento();
+  const isExpanded = expandedId === id;
+
   return (
     <BentoCard
       id={id}
       index={0}
       glowColor={data.glowColor}
       className="flex flex-col justify-between md:col-span-2 md:row-span-1"
-      onExpand={onExpand}
-      isExpanded={isExpanded}
     >
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
@@ -46,10 +45,14 @@ export default function ProjectRAGifyCard({
         )}
       </div>
 
-      {/* Description */}
-      <p className="mt-3 text-[13px] leading-relaxed text-ink-muted md:mt-4 md:max-w-lg md:text-sm">
-        {data.description}
-      </p>
+      {/* RAG Metaphor Visual */}
+      <div className="mt-4 md:mt-5 overflow-hidden rounded-xl border border-hairline bg-black/20">
+        <TextRevealCard
+          text="Standard LLM Response"
+          revealText="Retrieving Vector Context..."
+          className="w-full !bg-transparent !border-none !p-4 md:!p-6"
+        />
+      </div>
 
       {/* Tags + CTA row */}
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between md:mt-5">

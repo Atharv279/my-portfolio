@@ -1,34 +1,38 @@
 "use client";
 
 import BentoCard from "./BentoCard";
+import { useBento } from "./BentoGrid";
 import ExpandedSection, { DetailItem } from "./ExpandedSection";
 import { ExternalLink } from "lucide-react";
 import { getIcon, DynamicIcon } from "@/lib/icon-map";
 import type { Project } from "@/lib/types";
 import { fallbackPneumoniaProject } from "@/lib/fallback-data";
+import Meteors from "../ai/meteors";
 
 interface ProjectPneumoniaCardProps {
   id?: string;
-  onExpand?: (id: string) => void;
-  isExpanded?: boolean;
   data?: Project;
 }
 
 export default function ProjectPneumoniaCard({
   id = "project-pneumonia",
-  onExpand,
-  isExpanded,
   data = fallbackPneumoniaProject,
 }: ProjectPneumoniaCardProps) {
+  const { expandedId } = useBento();
+  const isExpanded = expandedId === id;
+
   return (
     <BentoCard
       id={id}
       index={2}
       glowColor={data.glowColor}
       className="flex flex-col justify-between md:col-span-2 md:row-span-1"
-      onExpand={onExpand}
-      isExpanded={isExpanded}
     >
+      {/* Background Meteors */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <Meteors number={20} />
+      </div>
+
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">

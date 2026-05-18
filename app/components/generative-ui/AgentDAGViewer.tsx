@@ -1,6 +1,7 @@
 "use client";
 
 import { SVG_COLORS } from "@/lib/svg-utils";
+import { AnimatedGridPattern } from "../magicui/animated-grid-pattern";
 
 interface DagNode {
   id: string;
@@ -91,13 +92,22 @@ export function AgentDAGViewer({
   }
 
   return (
-    <div className="my-2 rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
-      <p className="mb-2 text-[11px] font-medium tracking-wide text-ink-muted uppercase">
+    <div className="relative my-2 overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
+      {/* Subtle animated grid background — small cells suit this compact DAG container. */}
+      <AnimatedGridPattern
+        width={24}
+        height={24}
+        numSquares={14}
+        maxOpacity={0.18}
+        duration={3}
+        repeatDelay={1}
+      />
+      <p className="relative z-10 mb-2 text-[11px] font-medium tracking-wide text-ink-muted uppercase">
         {dag.title}
       </p>
       <svg
         viewBox={`0 0 ${viewW} ${viewH}`}
-        className="w-full"
+        className="relative z-10 w-full"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>

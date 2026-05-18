@@ -193,10 +193,17 @@ export default function GitHubPanel() {
           </div>
 
           {/* Contribution heatmap */}
-          <ContributionHeatmap
-            weeks={data.contributions?.weeks}
-            totalContributions={data.contributions?.totalContributions}
-          />
+          <div className="relative w-full overflow-x-auto scrollbar-hide rounded-xl border border-hairline bg-surface p-3">
+            <span className="block text-[10px] font-semibold uppercase tracking-widest text-ink-subtle">
+              Contribution Velocity
+            </span>
+            <div className="mt-2">
+              <ContributionHeatmap
+                weeks={data.contributions?.weeks}
+                totalContributions={data.contributions?.totalContributions}
+              />
+            </div>
+          </div>
         </div>
       </div>
 

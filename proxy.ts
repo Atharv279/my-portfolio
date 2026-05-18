@@ -10,7 +10,7 @@ const CSP_DIRECTIVES = [
   "script-src 'self' https://vercel.live https://*.vercel-scripts.com 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
-  "img-src 'self' data: blob: https://avatars.githubusercontent.com",
+  "img-src 'self' data: blob: https://avatars.githubusercontent.com https://cdn.simpleicons.org",
   "connect-src 'self' https://vercel.live wss://vercel.live https://*.vercel-analytics.com https://*.vercel-scripts.com",
   "worker-src 'self' blob:",
   "frame-ancestors 'none'",

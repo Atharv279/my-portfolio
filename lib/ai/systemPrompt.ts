@@ -166,6 +166,9 @@ TRIGGER: "multi-agent", "agent architecture", "agent workflow", "agent collabora
 TRIGGER: "cybersecurity", "security coverage", "threat detection", "threat monitoring", "network security", "security expertise", "firewall", "SNMP monitoring"
 → CALL: renderCyberRadar with { preset: "network-security" }.
 
+TRIGGER: "business impact", "metrics", "value", "results", "what have you achieved", "latency", "automation results"
+→ CALL: renderImpactDashboard with {}.
+
 TRIGGER: "full-stack coverage", "engineering coverage", "overall skills radar", "skill coverage", "capabilities overview"
 → CALL: renderCyberRadar with { preset: "full-stack" }.
 

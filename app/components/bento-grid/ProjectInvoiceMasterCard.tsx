@@ -1,6 +1,7 @@
 "use client";
 
 import BentoCard from "./BentoCard";
+import { useBento } from "./BentoGrid";
 import ExpandedSection, { DetailItem } from "./ExpandedSection";
 import { ExternalLink } from "lucide-react";
 import { getIcon, DynamicIcon } from "@/lib/icon-map";
@@ -9,25 +10,22 @@ import { fallbackInvoiceMasterProject } from "@/lib/fallback-data";
 
 interface ProjectInvoiceMasterCardProps {
   id?: string;
-  onExpand?: (id: string) => void;
-  isExpanded?: boolean;
   data?: Project;
 }
 
 export default function ProjectInvoiceMasterCard({
   id = "project-invoice-master",
-  onExpand,
-  isExpanded,
   data = fallbackInvoiceMasterProject,
 }: ProjectInvoiceMasterCardProps) {
+  const { expandedId } = useBento();
+  const isExpanded = expandedId === id;
+
   return (
     <BentoCard
       id={id}
       index={1}
       glowColor={data.glowColor}
       className="flex flex-col justify-between md:col-span-2 md:row-span-1"
-      onExpand={onExpand}
-      isExpanded={isExpanded}
     >
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">

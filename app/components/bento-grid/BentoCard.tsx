@@ -16,14 +16,14 @@ import {
 } from "react";
 import { useMagneticMotion } from "./useMagneticMotion";
 
+import { useBento } from "./BentoGrid";
+
 interface BentoCardProps {
   children: ReactNode;
   className?: string;
   index?: number;
   id: string;
   glowColor?: string;
-  isExpanded?: boolean;
-  onExpand?: (id: string) => void;
   /** Screen-reader label for the card-as-button. Falls back to "Open <id>". */
   ariaLabel?: string;
   /**
@@ -63,14 +63,17 @@ export default function BentoCard({
   index = 0,
   id,
   glowColor = "rgba(255,255,255,0.06)",
-  isExpanded = false,
-  onExpand,
   ariaLabel,
   pulse = false,
 }: BentoCardProps) {
+  const { expandedId, handleExpand } = useBento();
+  const isExpanded = expandedId === id;
+  const onExpand = handleExpand;
+
   const prefersReduced = useReducedMotion();
   const isTouch = useSyncExternalStore(emptySubscribe, getIsTouch, getIsTouchServer);
   const cardRef = useRef<HTMLDivElement>(null);
+
 
   const disablePhysics = isTouch || !!prefersReduced;
   // A card is "interactive" only when it can expand. Once expanded it becomes

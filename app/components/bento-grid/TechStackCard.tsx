@@ -1,43 +1,48 @@
 "use client";
 
-import { motion } from "framer-motion";
 import BentoCard from "./BentoCard";
+import { useBento } from "./BentoGrid";
 import ExpandedSection from "./ExpandedSection";
 import { TrendingUp, Layers } from "lucide-react";
 import { DynamicIcon } from "@/lib/icon-map";
 import type { TechStackData } from "@/lib/types";
 import { fallbackTechStack } from "@/lib/fallback-data";
+import { IconCloud } from "../magicui/icon-cloud";
+
+const slugs = [
+  "python",
+  "pytorch",
+  "docker",
+  "ubuntu",
+  "nvidia",
+  "nextdotjs",
+  "typescript",
+  "fastapi",
+  "langchain",
+];
 
 interface TechStackCardProps {
   id?: string;
-  onExpand?: (id: string) => void;
-  isExpanded?: boolean;
   data?: TechStackData;
 }
 
-const pillVariants = {
-  hidden: { opacity: 0, y: 8 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.6 + i * 0.06, duration: 0.3 },
-  }),
-};
-
 export default function TechStackCard({
   id = "tech-stack",
-  onExpand,
-  isExpanded,
   data = fallbackTechStack,
 }: TechStackCardProps) {
+  const { expandedId } = useBento();
+  const isExpanded = expandedId === id;
+
+  const images = slugs.map(
+    (slug) => `https://cdn.simpleicons.org/${slug}/${slug === "nextdotjs" ? "white" : "white"}`
+  );
+
   return (
     <BentoCard
       id={id}
       index={1}
       glowColor={data.glowColor}
       className="flex flex-col md:col-span-1 md:row-span-1"
-      onExpand={onExpand}
-      isExpanded={isExpanded}
     >
       <div className="flex items-center gap-2">
         <TrendingUp className="h-3.5 w-3.5 text-amber-400" />
@@ -46,20 +51,8 @@ export default function TechStackCard({
         </span>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2 md:mt-5">
-        {data.trending.map((tech, i) => (
-            <motion.div
-              key={tech.name}
-              custom={i}
-              initial="hidden"
-              animate="visible"
-              variants={pillVariants}
-              className="flex items-center gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/[0.06] px-2.5 py-1.5 text-[11px] font-medium text-ink-secondary md:text-xs"
-            >
-              <DynamicIcon name={tech.icon} className="h-3 w-3 shrink-0 text-ink-subtle" />
-              <span>{tech.name}</span>
-            </motion.div>
-          ))}
+      <div className="relative mt-4 flex h-full w-full items-center justify-center overflow-hidden bg-transparent md:mt-0">
+        <IconCloud images={images} />
       </div>
 
       {/* === EXPANDED CONTENT === */}

@@ -10,6 +10,7 @@ import {
   PipelineVisualizer,
   CyberThreatRadar,
   AgentDAGViewer,
+  ImpactDashboard,
 } from "../generative-ui";
 import {
   fallbackMarketingProject,
@@ -38,6 +39,7 @@ const TOOL_NAMES = new Set([
   "renderPipelineVisualizer",
   "renderCyberRadar",
   "renderAgentDAG",
+  "renderImpactDashboard",
 ]);
 
 /** A segment of assistant message content — either plain text or a parsed tool call. */
@@ -235,6 +237,9 @@ function ToolRendererInner({ toolCall }: { toolCall: ParsedToolCall }) {
         | "marketing-engine"
         | "ragify-pipeline";
       return <AgentDAGViewer variant={variant} />;
+    }
+    case "renderImpactDashboard": {
+      return <ImpactDashboard />;
     }
     default:
       return null;

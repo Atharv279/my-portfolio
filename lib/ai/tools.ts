@@ -9,7 +9,8 @@ export interface ParsedToolCall {
     | "renderArchitectureDiagram"
     | "renderPipelineVisualizer"
     | "renderCyberRadar"
-    | "renderAgentDAG";
+    | "renderAgentDAG"
+    | "renderImpactDashboard";
   arguments: Record<string, string>;
 }
 
@@ -151,6 +152,18 @@ export const TOOL_DEFINITIONS = [
           },
         },
         required: ["variant"],
+      },
+    },
+  },
+  {
+    type: "function" as const,
+    function: {
+      name: "renderImpactDashboard",
+      description:
+        "Display a dashboard of business impact metrics (latency reduced, manual work automated, etc.). Use this when asked about the value, impact, or results of Atharv's work.",
+      parameters: {
+        type: "object",
+        properties: {},
       },
     },
   },

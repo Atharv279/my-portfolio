@@ -1,6 +1,7 @@
 "use client";
 
 import BentoCard from "./BentoCard";
+import { useBento } from "./BentoGrid";
 import ExpandedSection from "./ExpandedSection";
 import { Compass } from "lucide-react";
 import { DynamicIcon } from "@/lib/icon-map";
@@ -9,25 +10,22 @@ import { fallbackMethodology } from "@/lib/fallback-data";
 
 interface MethodologyCardProps {
   id?: string;
-  onExpand?: (id: string) => void;
-  isExpanded?: boolean;
   data?: MethodologyData;
 }
 
 export default function MethodologyCard({
   id = "methodology",
-  onExpand,
-  isExpanded,
   data = fallbackMethodology,
 }: MethodologyCardProps) {
+  const { expandedId } = useBento();
+  const isExpanded = expandedId === id;
+
   return (
     <BentoCard
       id={id}
       index={0}
       glowColor={data.glowColor}
       className="flex flex-col md:col-span-2 md:row-span-1"
-      onExpand={onExpand}
-      isExpanded={isExpanded}
     >
       <span className="font-mono text-[11px] uppercase tracking-widest text-orange-400">
         Methodology

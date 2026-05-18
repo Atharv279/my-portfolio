@@ -17,6 +17,7 @@ import {
   NioStarsDashboardCard,
 } from "./components/bento-grid";
 import { InfiniteTicker, SectionLabel, SectionReveal } from "./components/ui";
+import { ContainerScroll } from "./components/aceternity/container-scroll-animation";
 import { SystemMapLazy } from "./components/generative-ui/SystemMapLazy";
 import EngineeringTimeline from "./components/timeline/EngineeringTimeline";
 import SkillRadar from "./components/skills/SkillRadar";
@@ -102,9 +103,17 @@ export default async function Home() {
         </SectionReveal>
 
         {/* ── Sovereign Stack (live local-inference projects) ── */}
-        <SectionLabel accentColor="bg-emerald-500/70">Sovereign Stack</SectionLabel>
-        <AjaiCard id="project-ajai" />
-        <SovereignPipelineCard id="project-sovereign-pipeline" />
+        <ContainerScroll
+          className="col-span-full"
+          titleComponent={
+            <SectionLabel accentColor="bg-emerald-500/70">Sovereign Stack</SectionLabel>
+          }
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full p-2 md:p-4">
+            <AjaiCard id="project-ajai" />
+            <SovereignPipelineCard id="project-sovereign-pipeline" />
+          </div>
+        </ContainerScroll>
 
         {/* ── Enterprise Infrastructure ── */}
         <SectionLabel accentColor="bg-blue-500/70">Enterprise Infrastructure</SectionLabel>

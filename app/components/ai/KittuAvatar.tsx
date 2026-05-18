@@ -2,17 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Ripple } from "../magicui/ripple";
 
 interface KittuAvatarProps {
   isChatOpen: boolean;
   onOpenChat: () => void;
   onQuickAction: (action: string) => void;
+  isThinking?: boolean;
 }
 
 export function KittuAvatar({
   isChatOpen,
   onOpenChat,
   onQuickAction,
+  isThinking = false,
 }: KittuAvatarProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [showGreeting, setShowGreeting] = useState(false);
@@ -125,6 +128,13 @@ export function KittuAvatar({
         className="group relative flex h-12 w-12 items-center justify-center"
         aria-label="Kittu AI assistant"
       >
+        {/* Sentient Ripple Effect */}
+        {isThinking && (
+          <div className="pointer-events-none absolute -inset-[100px] -z-10 overflow-hidden rounded-full">
+            <Ripple mainCircleSize={20} mainCircleOpacity={0.15} numCircles={4} rippleColor="var(--focus-ring)" />
+          </div>
+        )}
+
         {/* Ground shadow */}
         <motion.div
           animate={{ scaleX: [0.7, 0.5, 0.7], opacity: [0.3, 0.15, 0.3] }}

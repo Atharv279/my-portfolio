@@ -243,6 +243,7 @@ export interface PortfolioExperienceEntry {
   company: string;
   role: string;
   period: string;
+  description?: string;
   keySkills: string[];
   keyProjects: string[]; // slugs built during this role
 }

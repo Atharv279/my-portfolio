@@ -1,8 +1,10 @@
 "use client";
 
+import { useRef } from "react";
 import BentoCard from "./BentoCard";
+import { useBento } from "./BentoGrid";
+import { AnimatedBeam } from "../magicui/animated-beam";
 import {
-  ChevronRight,
   Cpu,
   Film,
   Image as ImageIcon,
@@ -16,8 +18,6 @@ import {
 
 interface SovereignPipelineCardProps {
   id?: string;
-  onExpand?: (id: string) => void;
-  isExpanded?: boolean;
 }
 
 // Pipeline stages, each maps to a local-only inference step.
@@ -40,9 +40,21 @@ const tags = [
 
 export default function SovereignPipelineCard({
   id = "project-sovereign-pipeline",
-  onExpand,
-  isExpanded,
 }: SovereignPipelineCardProps) {
+  const { expandedId } = useBento();
+  const isExpanded = expandedId === id;
+
+  // Refs for AnimatedBeam path computation. One container + one per stage.
+  const railRef = useRef<HTMLDivElement>(null);
+  const s1 = useRef<HTMLDivElement>(null);
+  const s2 = useRef<HTMLDivElement>(null);
+  const s3 = useRef<HTMLDivElement>(null);
+  const s4 = useRef<HTMLDivElement>(null);
+  const s5 = useRef<HTMLDivElement>(null);
+  const s6 = useRef<HTMLDivElement>(null);
+
+  const stageRefs = [s1, s2, s3, s4, s5, s6];
+
   return (
     <BentoCard
       id={id}
@@ -51,8 +63,6 @@ export default function SovereignPipelineCard({
       ariaLabel="Sovereign Pipeline — local-AI YouTube Shorts automation"
       pulse
       className="flex flex-col justify-between md:col-span-2 md:row-span-1"
-      onExpand={onExpand}
-      isExpanded={isExpanded}
     >
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
@@ -82,27 +92,87 @@ export default function SovereignPipelineCard({
         zero per-render API spend.
       </p>
 
-      {/* Pipeline-stage rail (visual motif: ordered, arrowed stages) */}
+      {/* Pipeline-stage rail — chevrons replaced by AnimatedBeam overlays.
+          `relative` is required so the absolutely-positioned beam SVG aligns to this container. */}
       <div
+        ref={railRef}
         aria-hidden="true"
-        className="-mx-1 mt-4 flex items-stretch gap-1 overflow-x-auto md:mt-5"
+        className="relative -mx-1 mt-4 flex items-stretch gap-4 overflow-x-auto md:mt-5 md:gap-6"
       >
         {stages.map(({ icon: Icon, label }, i) => (
-          <div key={label} className="flex shrink-0 items-center gap-1">
-            <div className="flex flex-col items-center justify-center gap-1 rounded-lg border border-hairline bg-surface px-2.5 py-2 min-w-[60px]">
-              <Icon className="h-3.5 w-3.5 text-amber-400" aria-hidden="true" />
-              <span className="font-mono text-[10px] uppercase tracking-wider text-ink-secondary">
-                {label}
-              </span>
-            </div>
-            {i < stages.length - 1 && (
-              <ChevronRight
-                className="h-3.5 w-3.5 shrink-0 text-ink-subtle"
-                aria-hidden="true"
-              />
-            )}
+          <div
+            key={label}
+            ref={stageRefs[i]}
+            className="z-10 flex shrink-0 flex-col items-center justify-center gap-1 rounded-lg border border-hairline bg-surface px-2.5 py-2 min-w-[60px]"
+          >
+            <Icon className="h-3.5 w-3.5 text-amber-400" aria-hidden="true" />
+            <span className="font-mono text-[10px] uppercase tracking-wider text-ink-secondary">
+              {label}
+            </span>
           </div>
         ))}
+
+        {/* Animated amber/yellow data-flow beams (5 between 6 stages). */}
+        <AnimatedBeam
+          key="beam-0"
+          containerRef={railRef}
+          fromRef={s1}
+          toRef={s2}
+          duration={3.5}
+          delay={0 * 0.4}
+          pathColor="#fbbf24"
+          pathOpacity={0.18}
+          gradientStartColor="#fbbf24"
+          gradientStopColor="#fde047"
+        />
+        <AnimatedBeam
+          key="beam-1"
+          containerRef={railRef}
+          fromRef={s2}
+          toRef={s3}
+          duration={3.5}
+          delay={1 * 0.4}
+          pathColor="#fbbf24"
+          pathOpacity={0.18}
+          gradientStartColor="#fbbf24"
+          gradientStopColor="#fde047"
+        />
+        <AnimatedBeam
+          key="beam-2"
+          containerRef={railRef}
+          fromRef={s3}
+          toRef={s4}
+          duration={3.5}
+          delay={2 * 0.4}
+          pathColor="#fbbf24"
+          pathOpacity={0.18}
+          gradientStartColor="#fbbf24"
+          gradientStopColor="#fde047"
+        />
+        <AnimatedBeam
+          key="beam-3"
+          containerRef={railRef}
+          fromRef={s4}
+          toRef={s5}
+          duration={3.5}
+          delay={3 * 0.4}
+          pathColor="#fbbf24"
+          pathOpacity={0.18}
+          gradientStartColor="#fbbf24"
+          gradientStopColor="#fde047"
+        />
+        <AnimatedBeam
+          key="beam-4"
+          containerRef={railRef}
+          fromRef={s5}
+          toRef={s6}
+          duration={3.5}
+          delay={4 * 0.4}
+          pathColor="#fbbf24"
+          pathOpacity={0.18}
+          gradientStartColor="#fbbf24"
+          gradientStopColor="#fde047"
+        />
       </div>
 
       {/* Tag pills (local-stack inventory) */}

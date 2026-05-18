@@ -1,5 +1,5 @@
 // =============================================================================
-// POST /api/chat — SSE proxy to Groq API
+// POST /api/chat — SSE proxy to Groq API with local Ollama fallback
 // =============================================================================
 
 import { NextRequest } from "next/server";
@@ -9,6 +9,8 @@ import { TOOL_DEFINITIONS } from "@/lib/ai/tools";
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GROQ_MODEL = process.env.GROQ_MODEL ?? "llama-3.3-70b-versatile";
+const OLLAMA_URL = process.env.OLLAMA_URL ?? "http://localhost:11434/api/chat";
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL ?? "llama3.2";
 const TIMEOUT_MS = 60_000;
 const MAX_MESSAGES = 30;
 const MAX_MESSAGE_LENGTH = 2000;
@@ -113,13 +115,6 @@ function extractLlamaToolCalls(
 }
 
 export async function POST(req: NextRequest) {
-  if (!GROQ_API_KEY) {
-    return new Response(
-      JSON.stringify({ error: "Service temporarily unavailable" }),
-      { status: 503, headers: { "Content-Type": "application/json" } }
-    );
-  }
-
   // Reject oversized payloads (64KB limit)
   const contentLength = req.headers.get("content-length");
   if (contentLength && parseInt(contentLength, 10) > 65536) {
@@ -160,131 +155,235 @@ export async function POST(req: NextRequest) {
   }
   const temperature = sandbox?.temperature ?? 0.7;
 
-  const fullMessages: Groq.Chat.ChatCompletionMessageParam[] = [
+  const fullMessages = [
     { role: "system", content: systemContent },
     ...messages.map(
       ({ role, content }) =>
-        ({ role, content }) as Groq.Chat.ChatCompletionMessageParam
+        ({ role, content })
     ),
   ];
 
-  const groq = new Groq({ apiKey: GROQ_API_KEY });
   const encoder = new TextEncoder();
 
-  const stream = new ReadableStream({
-    async start(ctrl) {
-      const abortController = new AbortController();
-      const timeout = setTimeout(() => abortController.abort(), TIMEOUT_MS);
+  // --- Case A: Use Groq if API key is present ---
+  if (GROQ_API_KEY) {
+    const groq = new Groq({ apiKey: GROQ_API_KEY });
 
-      try {
-        const completion = await groq.chat.completions.create(
-          {
-            model: GROQ_MODEL,
-            messages: fullMessages,
-            tools: TOOL_DEFINITIONS,
-            temperature,
-            stream: true,
-          },
-          { signal: abortController.signal }
-        );
+    const stream = new ReadableStream({
+      async start(ctrl) {
+        const abortController = new AbortController();
+        const timeout = setTimeout(() => abortController.abort(), TIMEOUT_MS);
 
-        // Accumulate tool call deltas AND full text (for Llama inline fallback)
-        const toolCallAccumulator: Record<
-          number,
-          { name: string; arguments: string }
-        > = {};
-        let fullText = "";
-        let structuredToolCallsSent = false;
+        try {
+          const completion = await groq.chat.completions.create(
+            {
+              model: GROQ_MODEL,
+              messages: fullMessages as Groq.Chat.ChatCompletionMessageParam[],
+              tools: TOOL_DEFINITIONS,
+              temperature,
+              stream: true,
+            },
+            { signal: abortController.signal }
+          );
 
-        for await (const chunk of completion) {
-          const delta = chunk.choices?.[0]?.delta;
-          if (!delta) continue;
+          const toolCallAccumulator: Record<
+            number,
+            { name: string; arguments: string }
+          > = {};
+          let fullText = "";
+          let structuredToolCallsSent = false;
 
-          // Stream text content
-          if (delta.content) {
-            fullText += delta.content;
+          for await (const chunk of completion) {
+            const delta = chunk.choices?.[0]?.delta;
+            if (!delta) continue;
+
+            if (delta.content) {
+              fullText += delta.content;
+              ctrl.enqueue(
+                encoder.encode(
+                  `data: ${JSON.stringify({ content: delta.content, done: false })}\n\n`
+                )
+              );
+            }
+
+            if (delta.tool_calls) {
+              for (const tc of delta.tool_calls) {
+                const idx = tc.index;
+                if (!toolCallAccumulator[idx]) {
+                  toolCallAccumulator[idx] = { name: "", arguments: "" };
+                }
+                if (tc.function?.name) {
+                  toolCallAccumulator[idx].name += tc.function.name;
+                }
+                if (tc.function?.arguments) {
+                  toolCallAccumulator[idx].arguments += tc.function.arguments;
+                }
+              }
+            }
+
+            const finishReason = chunk.choices?.[0]?.finish_reason;
+            if (finishReason && Object.keys(toolCallAccumulator).length > 0) {
+              const toolCalls = Object.values(toolCallAccumulator).map((tc) => {
+                let args: Record<string, string> = {};
+                try {
+                  args = JSON.parse(tc.arguments);
+                } catch { /* pass raw */ }
+                return { name: tc.name, arguments: args };
+              });
+
+              ctrl.enqueue(
+                encoder.encode(
+                  `data: ${JSON.stringify({ content: "", done: false, tool_calls: toolCalls })}\n\n`
+                )
+              );
+              structuredToolCallsSent = true;
+            }
+          }
+
+          if (!structuredToolCallsSent && fullText.includes("<function")) {
+            const inlineCalls = extractLlamaToolCalls(fullText);
+            if (inlineCalls) {
+              ctrl.enqueue(
+                encoder.encode(
+                  `data: ${JSON.stringify({ content: "", done: false, tool_calls: inlineCalls })}\n\n`
+                )
+              );
+            }
+          }
+
+          ctrl.enqueue(
+            encoder.encode(
+              `data: ${JSON.stringify({ content: "", done: true })}\n\n`
+            )
+          );
+          ctrl.enqueue(encoder.encode("data: [DONE]\n\n"));
+        } catch (err) {
+          if ((err as Error).name !== "AbortError") {
             ctrl.enqueue(
               encoder.encode(
-                `data: ${JSON.stringify({ content: delta.content, done: false })}\n\n`
+                `data: ${JSON.stringify({ error: "Stream interrupted", done: true })}\n\n`
               )
             );
           }
+        } finally {
+          clearTimeout(timeout);
+          ctrl.close();
+        }
+      },
+    });
 
-          // Accumulate structured tool call deltas
-          if (delta.tool_calls) {
-            for (const tc of delta.tool_calls) {
-              const idx = tc.index;
-              if (!toolCallAccumulator[idx]) {
-                toolCallAccumulator[idx] = { name: "", arguments: "" };
-              }
-              if (tc.function?.name) {
-                toolCallAccumulator[idx].name += tc.function.name;
-              }
-              if (tc.function?.arguments) {
-                toolCallAccumulator[idx].arguments += tc.function.arguments;
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+      },
+    });
+  }
+
+  // --- Case B: Fallback to Local Ollama ---
+  try {
+    const response = await fetch(OLLAMA_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: OLLAMA_MODEL,
+        messages: fullMessages,
+        stream: true,
+        options: {
+          temperature,
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Ollama connection failed: ${response.statusText}`);
+    }
+
+    const decoder = new TextDecoder();
+    const reader = response.body?.getReader();
+
+    const stream = new ReadableStream({
+      async start(ctrl) {
+        if (!reader) {
+          ctrl.close();
+          return;
+        }
+
+        let fullText = "";
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const chunk = decoder.decode(value, { stream: true });
+            const lines = chunk.split("\n");
+
+            for (const line of lines) {
+              if (!line.trim()) continue;
+              try {
+                const parsed = JSON.parse(line);
+                if (parsed.message?.content) {
+                  const content = parsed.message.content;
+                  fullText += content;
+                  ctrl.enqueue(
+                    encoder.encode(
+                      `data: ${JSON.stringify({ content, done: false })}\n\n`
+                    )
+                  );
+                }
+                if (parsed.done) {
+                  // Final check for tool calls in the aggregated text
+                  if (fullText.includes("<function")) {
+                    const inlineCalls = extractLlamaToolCalls(fullText);
+                    if (inlineCalls) {
+                      ctrl.enqueue(
+                        encoder.encode(
+                          `data: ${JSON.stringify({ content: "", done: false, tool_calls: inlineCalls })}\n\n`
+                        )
+                      );
+                    }
+                  }
+                }
+              } catch {
+                // skip malformed lines
               }
             }
           }
 
-          // On finish, flush accumulated structured tool calls
-          const finishReason = chunk.choices?.[0]?.finish_reason;
-          if (finishReason && Object.keys(toolCallAccumulator).length > 0) {
-            const toolCalls = Object.values(toolCallAccumulator).map((tc) => {
-              let args: Record<string, string> = {};
-              try {
-                args = JSON.parse(tc.arguments);
-              } catch { /* pass raw */ }
-              return { name: tc.name, arguments: args };
-            });
-
-            ctrl.enqueue(
-              encoder.encode(
-                `data: ${JSON.stringify({ content: "", done: false, tool_calls: toolCalls })}\n\n`
-              )
-            );
-            structuredToolCallsSent = true;
-          }
-        }
-
-        // Fallback: if no structured tool_calls were sent, check for
-        // Llama-style inline function calls in the text
-        if (!structuredToolCallsSent && fullText.includes("<function")) {
-          const inlineCalls = extractLlamaToolCalls(fullText);
-          if (inlineCalls) {
-            ctrl.enqueue(
-              encoder.encode(
-                `data: ${JSON.stringify({ content: "", done: false, tool_calls: inlineCalls })}\n\n`
-              )
-            );
-          }
-        }
-
-        ctrl.enqueue(
-          encoder.encode(
-            `data: ${JSON.stringify({ content: "", done: true })}\n\n`
-          )
-        );
-        ctrl.enqueue(encoder.encode("data: [DONE]\n\n"));
-      } catch (err) {
-        if ((err as Error).name !== "AbortError") {
           ctrl.enqueue(
             encoder.encode(
-              `data: ${JSON.stringify({ error: "Stream interrupted", done: true })}\n\n`
+              `data: ${JSON.stringify({ content: "", done: true })}\n\n`
             )
           );
+          ctrl.enqueue(encoder.encode("data: [DONE]\n\n"));
+        } catch (err) {
+          ctrl.enqueue(
+            encoder.encode(
+              `data: ${JSON.stringify({ error: "Ollama stream error", done: true })}\n\n`
+            )
+          );
+        } finally {
+          reader.releaseLock();
+          ctrl.close();
         }
-      } finally {
-        clearTimeout(timeout);
-        ctrl.close();
-      }
-    },
-  });
+      },
+    });
 
-  return new Response(stream, {
-    headers: {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
-    },
-  });
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+      },
+    });
+  } catch (err) {
+    return new Response(
+      JSON.stringify({ error: "No AI service available (Groq/Ollama)" }),
+      {
+        status: 503,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
 }

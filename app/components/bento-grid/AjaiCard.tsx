@@ -1,6 +1,8 @@
 "use client";
 
 import BentoCard from "./BentoCard";
+import { useBento } from "./BentoGrid";
+import { PinContainer } from "../aceternity/3d-pin";
 import {
   Code2,
   Cpu,
@@ -13,8 +15,6 @@ import {
 
 interface AjaiCardProps {
   id?: string;
-  onExpand?: (id: string) => void;
-  isExpanded?: boolean;
 }
 
 const tags = [
@@ -26,9 +26,10 @@ const tags = [
 
 export default function AjaiCard({
   id = "project-ajai",
-  onExpand,
-  isExpanded,
 }: AjaiCardProps) {
+  const { expandedId } = useBento();
+  const isExpanded = expandedId === id;
+
   return (
     <BentoCard
       id={id}
@@ -37,8 +38,6 @@ export default function AjaiCard({
       ariaLabel="AJAI — AtharvJoey AI, a local Copilot alternative for VSCodium"
       pulse
       className="flex flex-col justify-between md:col-span-2 md:row-span-1"
-      onExpand={onExpand}
-      isExpanded={isExpanded}
     >
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
@@ -67,34 +66,39 @@ export default function AjaiCard({
         GitHub Copilot. No API keys, no round-trips, no upload of source code.
       </p>
 
-      {/* Code-editor motif — stylised completion preview */}
-      <div
-        aria-hidden="true"
-        className="mt-4 overflow-hidden rounded-lg border border-hairline bg-surface font-mono text-[11px] leading-relaxed md:mt-5"
-      >
-        <div className="flex items-center gap-1.5 border-b border-hairline px-3 py-1.5">
-          <span className="h-2 w-2 rounded-full bg-sky-500/60" />
-          <span className="h-2 w-2 rounded-full bg-ink-disabled" />
-          <span className="h-2 w-2 rounded-full bg-ink-disabled" />
-          <span className="ml-2 text-[10px] uppercase tracking-widest text-ink-subtle">
-            ajai · suggest
-          </span>
-        </div>
-        <pre className="overflow-x-auto px-3 py-2.5 text-ink-secondary">
-          <span className="text-ink-subtle">{"// hover for "}</span>
-          <span className="text-sky-300">ajai</span>
-          <span className="text-ink-subtle">{" completion"}</span>
-          {"\n"}
-          <span className="text-sky-300">const</span>
-          <span className="text-ink"> embedding </span>
-          <span className="text-ink-subtle">=</span>
-          <span className="text-ink"> await ajai.</span>
-          <span className="text-sky-300">embed</span>
-          <span className="text-ink-subtle">(</span>
-          <span className="text-ink-muted">doc</span>
-          <span className="text-ink-subtle">)</span>
-          <span className="ml-0.5 inline-block h-3 w-1.5 -translate-y-px animate-pulse bg-sky-400 align-middle" />
-        </pre>
+      {/* Code-editor motif — wrapped in 3D PinContainer for tactile hover tilt.
+          The outer sized div gives PinContainer (absolute-positioned children) a stable footprint. */}
+      <div className="relative mt-4 flex h-56 w-full items-center justify-center md:mt-5 md:h-64">
+        <PinContainer title="AJAI · Local Copilot">
+          <div
+            aria-hidden="true"
+            className="w-72 overflow-hidden rounded-lg border border-hairline bg-surface font-mono text-[11px] leading-relaxed md:w-80"
+          >
+            <div className="flex items-center gap-1.5 border-b border-hairline px-3 py-1.5">
+              <span className="h-2 w-2 rounded-full bg-sky-500/60" />
+              <span className="h-2 w-2 rounded-full bg-ink-disabled" />
+              <span className="h-2 w-2 rounded-full bg-ink-disabled" />
+              <span className="ml-2 text-[10px] uppercase tracking-widest text-ink-subtle">
+                ajai · suggest
+              </span>
+            </div>
+            <pre className="overflow-x-auto px-3 py-2.5 text-ink-secondary">
+              <span className="text-ink-subtle">{"// hover for "}</span>
+              <span className="text-sky-300">ajai</span>
+              <span className="text-ink-subtle">{" completion"}</span>
+              {"\n"}
+              <span className="text-sky-300">const</span>
+              <span className="text-ink"> embedding </span>
+              <span className="text-ink-subtle">=</span>
+              <span className="text-ink"> await ajai.</span>
+              <span className="text-sky-300">embed</span>
+              <span className="text-ink-subtle">(</span>
+              <span className="text-ink-muted">doc</span>
+              <span className="text-ink-subtle">)</span>
+              <span className="ml-0.5 inline-block h-3 w-1.5 -translate-y-px animate-pulse bg-sky-400 align-middle" />
+            </pre>
+          </div>
+        </PinContainer>
       </div>
 
       {/* Tag pills */}

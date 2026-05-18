@@ -1,33 +1,81 @@
 "use client";
 
 import BentoCard from "./BentoCard";
+import { useBento } from "./BentoGrid";
 import ExpandedSection, { DetailItem } from "./ExpandedSection";
-import { Award } from "lucide-react";
+import { Award, Cloud, Cpu } from "lucide-react";
 import { getIcon, DynamicIcon } from "@/lib/icon-map";
 import type { HardwareOpsData } from "@/lib/types";
 import { fallbackHardwareOps } from "@/lib/fallback-data";
+import { Compare } from "../aceternity/compare";
+import { motion } from "framer-motion";
 
 interface HardwareOpsCardProps {
   id?: string;
-  onExpand?: (id: string) => void;
-  isExpanded?: boolean;
   data?: HardwareOpsData;
 }
 
+const CloudVisual = () => (
+  <div className="relative flex h-full w-full flex-col items-center justify-center bg-zinc-900/40 p-4 text-center">
+    <div className="absolute inset-0 bg-amber-500/5" />
+    <div className="mb-2 rounded-full bg-amber-500/10 p-2">
+      <Cloud className="h-6 w-6 text-amber-500" />
+    </div>
+    <div className="space-y-0.5">
+      <p className="text-[13px] font-semibold text-ink">Cloud API</p>
+      <p className="text-[10px] text-ink-subtle">Shared Compute • $0.04/req</p>
+    </div>
+    <div className="mt-4 w-full max-w-[140px] space-y-1.5">
+      <div className="flex justify-between text-[9px] font-mono text-amber-500/70">
+        <span>LATENCY</span>
+        <span>2400ms</span>
+      </div>
+      <div className="h-1 w-full overflow-hidden rounded-full bg-amber-500/20">
+        <motion.div 
+          className="h-full w-1/3 bg-amber-500"
+          animate={{ x: ["-100%", "300%"] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        />
+      </div>
+    </div>
+  </div>
+);
+
+const LocalVisual = () => (
+  <div className="relative flex h-full w-full flex-col items-center justify-center bg-zinc-900/40 p-4 text-center">
+    <div className="absolute inset-0 bg-emerald-500/10 animate-pulse" />
+    <div className="mb-2 rounded-full bg-emerald-500/10 p-2">
+      <Cpu className="h-6 w-6 text-emerald-500" />
+    </div>
+    <div className="space-y-0.5">
+      <p className="text-[13px] font-semibold text-ink">Local RTX 4060</p>
+      <p className="text-[10px] text-ink-subtle">Dedicated GPU • $0.00 Cost</p>
+    </div>
+    <div className="mt-4 w-full max-w-[140px] space-y-1.5">
+      <div className="flex justify-between text-[9px] font-mono text-emerald-500/70">
+        <span>LATENCY</span>
+        <span>14ms</span>
+      </div>
+      <div className="h-1 w-full overflow-hidden rounded-full bg-emerald-500/40">
+        <div className="h-full w-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+      </div>
+    </div>
+  </div>
+);
+
 export default function HardwareOpsCard({
   id = "hardware-ops",
-  onExpand,
-  isExpanded,
   data = fallbackHardwareOps,
 }: HardwareOpsCardProps) {
+  const { expandedId } = useBento();
+  const isExpanded = expandedId === id;
+
   return (
     <BentoCard
       id={id}
       index={1}
       glowColor={data.glowColor}
       className="flex flex-col justify-between md:col-span-2 md:row-span-1"
-      onExpand={onExpand}
-      isExpanded={isExpanded}
     >
       {/* Header */}
       <div className="flex items-center gap-2">
@@ -37,8 +85,20 @@ export default function HardwareOpsCard({
         </span>
       </div>
 
+      {/* Interactive Compare Slider */}
+      <div className="mt-4 h-44 w-full overflow-hidden rounded-xl border border-white/[0.06] bg-black/20">
+        <Compare 
+          firstContent={<CloudVisual />}
+          secondContent={<LocalVisual />}
+          className="h-full w-full"
+          slideMode="hover"
+          autoplay={true}
+          autoplayDuration={3000}
+        />
+      </div>
+
       {/* Capability list */}
-      <div className="mt-4 flex flex-col gap-2 md:mt-5">
+      <div className="mt-4 flex flex-wrap gap-1.5 md:mt-5">
         {data.capabilities.map((item) => (
             <div
               key={item.label}

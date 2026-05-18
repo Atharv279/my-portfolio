@@ -1,33 +1,32 @@
 "use client";
 
 import BentoCard from "./BentoCard";
+import { useBento } from "./BentoGrid";
 import ExpandedSection, { DetailItem, PipelineStep } from "./ExpandedSection";
 import { ExternalLink } from "lucide-react";
 import { getIcon, DynamicIcon } from "@/lib/icon-map";
 import type { Project } from "@/lib/types";
 import { fallbackResearchAgentProject } from "@/lib/fallback-data";
+import { EvervaultCard } from "../aceternity/evervault-card";
 
 interface ProjectResearchAgentCardProps {
   id?: string;
-  onExpand?: (id: string) => void;
-  isExpanded?: boolean;
   data?: Project;
 }
 
 export default function ProjectResearchAgentCard({
   id = "project-research-agent",
-  onExpand,
-  isExpanded,
   data = fallbackResearchAgentProject,
 }: ProjectResearchAgentCardProps) {
+  const { expandedId } = useBento();
+  const isExpanded = expandedId === id;
+
   return (
     <BentoCard
       id={id}
       index={1}
       glowColor={data.glowColor}
       className="flex flex-col justify-between md:col-span-2 md:row-span-1"
-      onExpand={onExpand}
-      isExpanded={isExpanded}
     >
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
@@ -46,8 +45,16 @@ export default function ProjectResearchAgentCard({
         )}
       </div>
 
+      {/* Cryptographic Research Motif */}
+      <div className="relative mt-4 h-48 w-full md:mt-5 md:h-56">
+        <EvervaultCard 
+          text="SCANNING_REPOS" 
+          className="rounded-xl border border-hairline bg-black/20" 
+        />
+      </div>
+
       {/* Description */}
-      <p className="mt-3 text-[13px] leading-relaxed text-ink-muted md:mt-4 md:max-w-lg md:text-sm">
+      <p className="mt-4 text-[13px] leading-relaxed text-ink-muted md:mt-5 md:max-w-lg md:text-sm">
         {data.description}
       </p>
 
