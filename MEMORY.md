@@ -19,8 +19,9 @@ app/components/bento-grid/  — HeroIdentity, HeroStatus, TechStackCard, Methodo
                               ProjectTalentCard, HardwareOpsCard + BentoCard/BentoGrid/ExpandedSection
 app/components/security/    — SecurityProvider.tsx (DO NOT MODIFY)
 app/components/ui/          — GradientMesh.tsx, InfiniteTicker.tsx
-app/components/canvas/      — Phase 3 placeholder (React Three Fiber)
-app/components/generative-ui/ — Phase 4 placeholder (Vercel AI SDK)
+app/components/canvas/      — WebGL NeuralBackground (R3F)
+app/components/generative-ui/ — AI tools (SkillChart, Radar, DAG, Pipeline)
+app/components/ai/          — ChatWidget, MessageBubble, PromptSandbox
 sanity/schemas/             — 8 schema types
 lib/types.ts                — All TypeScript interfaces (Profile has stats field)
 lib/fallback-data.ts        — Static data for all 10 components
@@ -38,10 +39,10 @@ lib/sanity.ts               — Typed fetch wrappers with ensureClient()
 
 ## Roadmap Status
 - **Phase 1: CMS Integration** — COMPLETE (folder restructure, Sanity schemas, data-driven components, ISR)
-- **Phase 2: Advanced Bento Grid** — COMPLETE (split hero, InfiniteTicker, RAGify + TalentScout cards, asymmetric layout)
-- **Phase 3: WebGL / R3F** — PENDING (React Three Fiber canvas layer)
-- **Phase 4: AI Digital Clone** — PENDING (Vercel AI SDK + local Ollama, Generative UI)
-- **Phase 5: Case Studies** — PENDING (DAG visualizer, Firewall radar)
+- **Phase 2: Advanced Bento Grid** — COMPLETE (split hero, InfiniteTicker, 7-project asymmetric layout)
+- **Phase 3: WebGL / R3F** — COMPLETE (V1) (NeuralBackground R3F canvas layer)
+- **Phase 4: AI Digital Clone** — COMPLETE (V1) (SSE proxy to Groq/Ollama, Generative UI tools)
+- **Phase 5: Case Studies** — COMPLETE (V1) (DAG visualizer, CyberRadar, PipelineVisualizer)
 
 ## Key Decisions
 - Sanity Studio NOT embedded in app (CSP in middleware.ts can't be modified). Use hosted studio.
